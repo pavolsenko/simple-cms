@@ -12,3 +12,7 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'homeController@index']);
+
+
+Route::get('auth/login', ['as' => 'getLogin', 'uses' => 'loginController@getLogin']);
+Route::post('auth/login', ['as' => 'postLogin', 'uses' => 'loginController@postLogin']);
