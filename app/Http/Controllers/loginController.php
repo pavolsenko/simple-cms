@@ -35,12 +35,17 @@ class loginController extends Controller
         $remember = $this->request->get('remember');
 
         if ($this->auth->attempt($credentials, $remember)) {
-            return $this->redirector->route('home');
+            return $this->redirector->home();
         } else {
             $message = trans('auth.login_error');
             return $this->redirector->back()->withErrors([$message])->withInput();
         }
 
+    }
+
+    public function logout() {
+        $this->auth->logout();
+        return $this->redirector->home();
     }
 
 }
