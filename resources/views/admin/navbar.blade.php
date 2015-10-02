@@ -27,7 +27,7 @@
             </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
-            <li><a href="/auth/logout/"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+            <li><a href="/auth/logout/"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
         </ul>
     </div><!--/.nav-collapse -->
 </nav>

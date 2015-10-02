@@ -8,7 +8,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Auth\Guard as Auth;
 use Illuminate\Contracts\View\Factory as View;
 
-class loginController extends Controller
+class LoginController extends Controller
 {
 
     protected $redirector;
