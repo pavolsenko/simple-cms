@@ -18,8 +18,9 @@ Route::get('auth/login', ['as' => 'getLogin', 'uses' => 'loginController@getLogi
 Route::post('auth/login', ['as' => 'postLogin', 'uses' => 'loginController@postLogin']);
 Route::get('auth/logout', ['as' => 'getLogin', 'uses' => 'loginController@logout']);
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::group(['middleware' => 'auth'], function () {
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'admin'], function () {
         Route::get('dashboard', ['as' => 'adminDashboard', 'uses' => 'adminController@index']);
     });
 });
