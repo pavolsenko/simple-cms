@@ -2,11 +2,13 @@
 
 namespace App;
 
-class BlogPostRepository implements BlogPostRepositoryInterface {
 
+class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
 
-    public function __construct() {
+    private $blogPost;
 
+    public function __construct(BlogPost $blogPost) {
+        $this->blogPost = $blogPost;
     }
 
     public function createBlogPost($input) {
