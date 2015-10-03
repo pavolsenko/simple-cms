@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\BlogPost;
 
 interface BlogPostRepositoryInterface {
     public function createBlogPost($input);
@@ -8,4 +8,5 @@ interface BlogPostRepositoryInterface {
     public function getBlogPostById($id);
     public function getBlogPostByCategory($category);
     public function getBlogPostByAuthor($author);
+    public function getAllBlogPosts();
 }

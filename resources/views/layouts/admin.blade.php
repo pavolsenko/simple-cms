@@ -8,7 +8,7 @@
 <body>
 
 @include('admin/navbar')
-
+<br><br><br>
 @yield('content')
 
 </body>

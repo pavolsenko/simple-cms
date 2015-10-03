@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\BlogPost;
 
 
 class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
@@ -20,7 +20,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function getBlogPostById($id) {
-
+        return $this->blogPost->all()->where('id', $id)->toArray();
     }
 
     public function getBlogPostByCategory($category) {
@@ -28,6 +28,11 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
 
     public function getBlogPostByAuthor($author) {
 
+    }
+
+    public function getAllBlogPosts() {
+        $result = $this->blogPost->all();
+        return $result;
     }
 
 }
