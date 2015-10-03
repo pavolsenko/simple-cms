@@ -18,7 +18,7 @@ class CreateBlogpostblogcategoryTable extends Migration
             $table->integer('blog_category_id')->unsigned();
             $table->timestamps();
         });
-        Schema::table('blog_category', function (Blueprint $table) {
+        Schema::table('blog_post_blog_category', function (Blueprint $table) {
             $table->foreign('blog_post_id')->references('id')->on('blog_post');
             $table->foreign('blog_category_id')->references('id')->on('blog_category');
         });
