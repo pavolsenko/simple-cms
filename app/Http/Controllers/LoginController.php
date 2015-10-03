@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     }
 
-    public function logout() {
+    public function getLogout() {
         $this->auth->logout();
         return $this->redirector->home();
     }

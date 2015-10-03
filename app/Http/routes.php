@@ -16,7 +16,7 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::get('auth/login', ['as' => 'getLogin', 'uses' => 'LoginController@getLogin']);
 Route::post('auth/login', ['as' => 'postLogin', 'uses' => 'LoginController@postLogin']);
-Route::get('auth/logout', ['as' => 'getLogin', 'uses' => 'LoginController@logout']);
+Route::get('auth/logout', ['as' => 'getLogin', 'uses' => 'LoginController@getLogout']);
 
 
 Route::group(['middleware' => 'auth'], function () {
