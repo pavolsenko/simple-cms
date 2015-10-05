@@ -2,6 +2,12 @@
 
 @section('content')
 
-    <i class="glyphicon glyphicon-alert"></i> Lorem ipsum dolor sit amet.
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                lorem ipsum
+            </div>
+        </div>
+    </div>
 
 @stop

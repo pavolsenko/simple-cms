@@ -22,12 +22,12 @@
 
         <div>
             {!! Form::label('intro_text', trans('blogPost.intro_text')) !!}
-            {!! Form::text('intro_text', null, ['class' => 'form-control']) !!}
+            {!! Form::textarea('intro_text', null, ['class' => 'form-control']) !!}
         </div>
 
         <div>
-            {!! Form::label('text', trans('blogPost.text')) !!}
-            {!! Form::textarea('text', null, ['class' => 'form-control']) !!}
+            {!! Form::label('body_text', trans('blogPost.body_text')) !!}
+            {!! Form::textarea('body_text', null, ['class' => 'form-control']) !!}
         </div>
 
         <div>

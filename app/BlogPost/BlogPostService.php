@@ -24,4 +24,13 @@ class BlogPostService {
         return $this->blogPostRepository->getBlogPostById($id);
     }
 
+    public function saveBlogPost($input) {
+
+
+        if (isset($input['id'])) {
+
+        } else {
+            $this->blogPostRepository->createBlogPost($input);
+        }
+    }
 }

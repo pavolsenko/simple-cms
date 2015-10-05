@@ -38,7 +38,12 @@
             <li><a href="#">@lang('navigation.authors')</a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
-            <li><a href="/auth/logout/"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+            <li>
+                <a href="/auth/logout/">
+                    <i class="glyphicon glyphicon-log-out"></i>
+                    @lang('navigation.logout')
+                </a>
+            </li>
         </ul>
     </div><!--/.nav-collapse -->
 </nav>
