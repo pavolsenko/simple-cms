@@ -22,29 +22,37 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', ['as' => 'getLogin', 'uses' => 'LoginController@getLogout']);
 });
 
+
 /* Admin routes */
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::group(['prefix' => 'admin'], function () {
-        Route::get('dashboard', ['as' => 'adminDashboard', 'uses' => 'AdminController@index']);
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('dashboard', ['as' => 'adminDashboard', 'uses' => 'AdminController@index']);
 
 
-        /* Blog post administration */
+    /* Blog post administration */
 
-        Route::group(['prefix' => 'posts'], function () {
+    Route::group(['prefix' => 'posts'], function () {
 
-            Route::get('dashboard', ['as' => 'postsDashboard', 'uses' => 'BlogPostController@index']);
+        Route::get('dashboard', ['as' => 'postsDashboard', 'uses' => 'BlogController@indexAdmin']);
 
-            Route::get('create_new', ['as' => 'postsCreateNew', 'uses' => 'BlogPostController@getCreate']);
-            Route::post('create_new', ['as' => 'postsCreateNewSave', 'uses' => 'BlogPostController@postCreate']);
-        });
-
-
-        /* Blog category administration */
-
-        Route::group(['prefix' => 'categories'], function () {
-            Route::get('dashboard', ['as' => 'categoriesDashboard', 'uses' => 'BlogCategoryController@index']);
-        });
-
+        Route::get('create_new', ['as' => 'postsCreateNew', 'uses' => 'BlogController@getCreate']);
+        Route::post('create_new', ['as' => 'postsCreateNewSave', 'uses' => 'BlogController@postCreate']);
     });
+
+
+    /* Blog category administration */
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('dashboard', ['as' => 'categoriesDashboard', 'uses' => 'BlogController@indexAdmin']);
+    });
+
 });
+
+
+/* Blog routes */
+
+Route::group(['prefix' => 'blog'], function () {
+    Route::get('/', ['as' => 'blog', 'uses' => 'BlogController@indexBlog']);
+});
+

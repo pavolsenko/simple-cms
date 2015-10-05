@@ -8,7 +8,7 @@ use App\Http\Requests;
 use Illuminate\View\Factory as View;
 use Illuminate\Routing\Redirector;
 
-class BlogPostController extends Controller
+class BlogController extends Controller
 {
 
     private $blogPostService;
@@ -23,15 +23,18 @@ class BlogPostController extends Controller
         $this->redirector = $redirector;
     }
 
-    public function index()
-    {
+    public function indexBlog() {
+        $posts = $this->blogPostService->getBlogPostsForHomepage();
+        return $this->view->make('blog/homepage')->with('posts', $posts);
+    }
+
+    public function indexAdmin() {
         $posts = $this->blogPostService->getBlogPostsForAdmin();
         return $this->view->make('admin/blogPosts/dashboard')->with('posts', $posts);
     }
 
 
-    public function getCreate()
-    {
+    public function getCreate() {
         return $this->view->make('admin/blogPosts/createNew');
     }
 
@@ -40,4 +43,11 @@ class BlogPostController extends Controller
         $this->blogPostService->saveBlogPost($input);
         return $this->redirector->route('postsDashboard');
     }
+
+    public function getBlogPost($id) {
+        $blog_post = $this->blogPostService->getBlogPostById($id);
+        return $this->view->make('blog/singlePost')->with('blog_post', $blog_post);
+    }
+
+
 }

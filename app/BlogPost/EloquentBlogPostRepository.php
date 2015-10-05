@@ -24,7 +24,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
         $this->blogPost->last_updated_by = $this->auth->user()->getAuthIdentifier();
         $this->blogPost->enabled = self::ENABLED;
-        $this->blogPost->save();
+        return $this->blogPost->save();
     }
 
     public function deleteBlogPost($id) {
