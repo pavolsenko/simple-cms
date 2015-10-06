@@ -14,7 +14,20 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(UserTableSeeder::class);
+        DB::table('blog_post')->delete();
+
+        $faker = Faker\Factory::create();
+
+        for($ii = 0; $ii < 20; $ii++){
+            App\BlogPost\BlogPost::create(array(
+                'title' => $faker->sentence(),
+                'intro_text' => $faker->paragraph(10),
+                'body_text' => $faker->paragraph(round(rand(10,20))).$faker->paragraph(round(rand(10,30))).$faker->paragraph(round(rand(10,15))),
+                'created_by' => 2,
+                'last_updated_by' => 2,
+                'enabled' => 1
+            ));
+        }
 
         Model::reguard();
     }

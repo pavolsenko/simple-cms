@@ -32,7 +32,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function getBlogPostById($id) {
-        return $this->blogPost->all()->where('id', $id)->toArray();
+        return $this->blogPost->where('id', $id)->first()->toArray();
     }
 
     public function getBlogPostByCategory($category) {

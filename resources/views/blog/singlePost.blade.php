@@ -2,22 +2,24 @@
 
 @section('content')
 
+    <br><br>
     <div class="container">
-    <div class="blog-item-sec">
-        <div class="blog-item-head">
-            <h3>
+        <div class="blog-item-sec">
 
-                {{ $blog_post[0]['title'] }}
+            <div class="blog-item-head">
+                <h3>{{ $blog_post['title'] }}</h3>
+            </div>
 
-            </h3>
-        </div><!--blog post item heading end-->
-        <div class="blog-item-post-info">
-            <span><a href="blog-post.html">By Author</a> | on 1 june 2014 | <a href="blog-post.html">Sports</a> | <a href="blog-post.html"> 3 comments</a> |  </span>
-        </div><!--blog post item info end-->
+            <div class="blog-item-post-info">
+                <span>By Blog Author</a> | on 1 june 2014 | Sports | 3 comments |  </span>
+            </div>
+
         <div class="blog-item-post-desc">
-
-            {{ $blog_post[0]['body_text'] }}
-
+                {{ $blog_post['intro_text'] }}
+        </div><!--blog-item-post-desc end-->
+        <br>
+        <div class="blog-item-post-desc">
+            {{ $blog_post['body_text'] }}
         </div><!--blog-item-post-desc end-->
         <div class="blog-more-desc">
             <div class="row">
