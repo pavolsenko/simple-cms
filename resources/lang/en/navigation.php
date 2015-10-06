@@ -15,6 +15,7 @@ return [
     'logout' => 'Logout',
 
     'toggle_navigation' => 'Toggle navigation',
+    'all_rights_reserved' => 'All rights reserved.',
 
     'pavol_senko' => 'Pavol Senko',
     'developer' => 'Creative Developer',

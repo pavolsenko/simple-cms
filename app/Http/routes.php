@@ -17,9 +17,11 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 /* Login routes */
 
 Route::group(['prefix' => 'auth'], function () {
+
     Route::get('login', ['as' => 'getLogin', 'uses' => 'LoginController@getLogin']);
     Route::post('login', ['as' => 'postLogin', 'uses' => 'LoginController@postLogin']);
     Route::get('logout', ['as' => 'getLogin', 'uses' => 'LoginController@getLogout']);
+
 });
 
 
@@ -27,6 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+
     Route::get('dashboard', ['as' => 'adminDashboard', 'uses' => 'AdminController@index']);
 
 
@@ -53,6 +56,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 /* Blog routes */
 
 Route::group(['prefix' => 'blog'], function () {
+
     Route::get('/', ['as' => 'blog', 'uses' => 'BlogController@indexBlog']);
+
+    Route::get('/{id}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])->where('id', '[0-9]+');;
 });
 

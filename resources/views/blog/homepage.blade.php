@@ -24,13 +24,13 @@
                     <div class="blog-item-sec">
                         <div class="blog-item-head">
                             <h3>
-                                <a href="blog-post.html">
+                                <a href="blog/{{ $post['id'] }}">
                                     {{ $post['title'] }}
                                 </a>
                             </h3>
                         </div><!--blog post item heading end-->
                         <div class="blog-item-post-info">
-                            <span><a href="blog-post.html">By Blog Author</a> | posted on {{ $post['created_at'] }} | Tags: <a class="label label-info" href="blog-post.html">Sports</a> | <a href="blog-post.html"> 3 comments</a> |  </span>
+                            <span><a href="blog/{{ $post['id'] }}">By Blog Author</a> | posted on {{ $post['created_at'] }} | Tags: <a class="label label-info" href="blog-post.html">Sports</a> | <a href="blog-post.html"> 3 comments</a> |  </span>
                         </div><!--blog post item info end-->
                         <div class="blog-item-post-desc">
                             {{ $post['intro_text'] }}
@@ -48,7 +48,7 @@
                                     </ul> <!--colored social-->
                                 </div>
                                 <div class="col-sm-5 text-right col-xs-12">
-                                    <a href="blog-post.html" class="btn btn-theme-color">Read more <i class="fa fa-angle-right"></i></a>
+                                    <a href="blog/{{ $post['id'] }}" class="btn btn-theme-color">Read more <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div><!--blog more desc end-->
