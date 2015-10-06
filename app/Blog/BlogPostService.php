@@ -1,15 +1,22 @@
-<?php namespace App\BlogPost;
+<?php namespace App\Blog;
+
 
 class BlogPostService {
 
     private $blogPostRepository;
+    private $urlService;
 
-    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface) {
+    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, UrlService $urlService) {
         $this->blogPostRepository = $blogPostRepositoryInterface;
+        $this->urlService = $urlService;
     }
 
     public function getBlogPostsForHomepage() {
-        return $this->blogPostRepository->getAllBlogPosts();
+        $posts = $this->blogPostRepository->getAllBlogPosts();
+        foreach ($posts as &$post) {
+            $post['url'] = $this->urlService->createUrlFromIdAndTitle($post['id'], $post['title']);
+        }
+        return $posts;
     }
 
     public function getBlogPostsForAdmin() {

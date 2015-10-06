@@ -57,6 +57,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/', ['as' => 'blog', 'uses' => 'BlogController@indexBlog']);
-    Route::get('/{id}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])->where('id', '[0-9]+');;
+    Route::get('/{id}-{title}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])
+        ->where('id', '[0-9]+')
+        ->where('title', '[0-9, a-z, A-Z, \-]+');
 });
 

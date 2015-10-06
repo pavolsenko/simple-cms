@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BlogPost;
+namespace App\Blog;
 
 interface BlogPostRepositoryInterface {
     public function createBlogPost($input);

@@ -8,7 +8,7 @@ class BlogPostServiceProvider extends ServiceProvider
 {
 
     public function register() {
-        \App::bind('App\BlogPost\BlogPostRepositoryInterface', 'App\BlogPost\EloquentBlogPostRepository');
+        \App::bind('App\Blog\BlogPostRepositoryInterface', 'App\Blog\EloquentBlogPostRepository');
     }
 
 }

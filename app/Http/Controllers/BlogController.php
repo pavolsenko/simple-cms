@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BlogPost\BlogPostService;
+use App\Blog\BlogPostService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\View\Factory as View;
@@ -12,6 +12,7 @@ class BlogController extends Controller
 {
 
     private $blogPostService;
+    private $urlService;
     protected $view;
     protected $request;
     private $redirector;
