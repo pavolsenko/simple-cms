@@ -23,26 +23,36 @@ class UrlService {
     }
 
     private function cleanString($text) {
-        
+
         // 1) convert á ô => a o
-        $text = preg_replace("/[áàâãªä]/u","a",$text);
-        $text = preg_replace("/[ÁÀÂÃÄ]/u","A",$text);
+        $text = preg_replace("/[áàâãªäå]/u","a",$text);
+        $text = preg_replace("/[ÁÀÂÃÄÅ]/u","A",$text);
+        $text = str_replace("/[çč]/u","c",$text);
+        $text = str_replace("/[ÇČ]","C",$text);
+// d
+        $text = preg_replace("/[éèêëě]/u","e",$text);
+        $text = preg_replace("/[ÉÈÊËĚ]/u","E",$text);
         $text = preg_replace("/[ÍÌÎÏ]/u","I",$text);
         $text = preg_replace("/[íìîï]/u","i",$text);
-        $text = preg_replace("/[éèêë]/u","e",$text);
-        $text = preg_replace("/[ÉÈÊË]/u","E",$text);
+        $text = preg_replace("/[ĺľ]/u","l",$text);
+        //L
+        //n
+        $text = str_replace("ñ","n",$text);
+        $text = str_replace("Ñ","N",$text);
+
         $text = preg_replace("/[óòôõºö]/u","o",$text);
         $text = preg_replace("/[ÓÒÔÕÖ]/u","O",$text);
-        $text = preg_replace("/[úùûü]/u","u",$text);
-        $text = preg_replace("/[ÚÙÛÜ]/u","U",$text);
+
+        $text = preg_replace("/[ŕř]/u","r",$text);
+        $text = preg_replace("/[ŔŘ]/u","R",$text);
+
+        $text = preg_replace("/[úùûüů]/u","u",$text);
+        $text = preg_replace("/[ÚÙÛÜŮ]/u","U",$text);
+
         $text = preg_replace("/[’‘‹›‚]/u","'",$text);
         $text = preg_replace("/[“”«»„]/u",'"',$text);
         $text = str_replace("–","-",$text);
         $text = str_replace(" "," ",$text);
-        $text = str_replace("ç","c",$text);
-        $text = str_replace("Ç","C",$text);
-        $text = str_replace("ñ","n",$text);
-        $text = str_replace("Ñ","N",$text);
 
         //2) Translation CP1252. &ndash; => -
         $trans = get_html_translation_table(HTML_ENTITIES);
