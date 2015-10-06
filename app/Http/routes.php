@@ -29,20 +29,15 @@ Route::group(['prefix' => 'auth'], function () {
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-
     Route::get('dashboard', ['as' => 'adminDashboard', 'uses' => 'AdminController@index']);
-
 
     /* Blog post administration */
 
     Route::group(['prefix' => 'posts'], function () {
-
         Route::get('dashboard', ['as' => 'postsDashboard', 'uses' => 'BlogController@indexAdmin']);
-
         Route::get('create_new', ['as' => 'postsCreateNew', 'uses' => 'BlogController@getCreate']);
         Route::post('create_new', ['as' => 'postsCreateNewSave', 'uses' => 'BlogController@postCreate']);
     });
-
 
     /* Blog category administration */
 
@@ -50,15 +45,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('dashboard', ['as' => 'categoriesDashboard', 'uses' => 'BlogController@indexAdmin']);
     });
 
+    /* Blog authors administration */
+
+    Route::group(['prefix' => 'authors'], function () {
+        Route::get('dashboard', ['as' => 'authorsDashboard', 'uses' => 'AuthorController@index']);
+    });
 });
 
 
 /* Blog routes */
 
 Route::group(['prefix' => 'blog'], function () {
-
     Route::get('/', ['as' => 'blog', 'uses' => 'BlogController@indexBlog']);
-
     Route::get('/{id}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])->where('id', '[0-9]+');;
 });
 

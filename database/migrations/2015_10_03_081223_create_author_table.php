@@ -12,7 +12,7 @@ class CreateAuthorTable extends Migration
      */
     public function up()
     {
-        Schema::create('author', function (Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('users_id')->unsigned();
             $table->string('first_name');
@@ -23,7 +23,7 @@ class CreateAuthorTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        Schema::table('author', function (Blueprint $table) {
+        Schema::table('authors', function (Blueprint $table) {
             $table->foreign('users_id')->references('id')->on('users');
         });
     }
@@ -35,6 +35,6 @@ class CreateAuthorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('author');
+        Schema::dropIfExists('authors');
     }
 }
