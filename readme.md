@@ -1,3 +1,7 @@
+## Simple CMS
+
+Just building a simple CMS system for me. Early alpha stage - not suitable for use yet :)
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
