@@ -19,6 +19,7 @@ class BlogPostService {
         $posts = $this->blogPostRepository->getAllBlogPosts(self::ENABLED_ONLY);
         foreach ($posts['posts'] as &$post) {
             $post['url'] = $post['id'].$post['url'];
+            $post['author'] = $this->getPostAuthor($post['created_by']);
         }
         return $posts;
     }
@@ -32,7 +33,9 @@ class BlogPostService {
     }
 
     public function getBlogPostById($id) {
-        return $this->blogPostRepository->getBlogPostById($id);
+        $post = $this->blogPostRepository->getBlogPostById($id);
+        $post['author'] = $this->getPostAuthor($post['created_by']);
+        return $post;
     }
 
     public function saveBlogPost($input) {
@@ -46,7 +49,7 @@ class BlogPostService {
         }
     }
 
-    public function getPostAuthor($id) {
+    private function getPostAuthor($id) {
         return $this->authorRepository->getAuthorById($id);
     }
 }

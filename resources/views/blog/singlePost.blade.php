@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="blog-item-post-info">
-                        <span>By Blog Author | on 1 june 2014 | 3 comments |  </span>
+                        <span>By {{ $blog_post['author']['first_name'] }} {{ $blog_post['author']['last_name'] }}| Posted on {{ $blog_post['created_at'] }} | 3 comments </span>
                     </div>
 
                     <div class="blog-item-post-desc">

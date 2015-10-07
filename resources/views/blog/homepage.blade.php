@@ -30,7 +30,7 @@
                             </h3>
                         </div><!--blog post item heading end-->
                         <div class="blog-item-post-info">
-                            <span><a href="blog/{{ $post['id'] }}">By Blog Author</a> | posted on {{ $post['created_at'] }} | Tags: <a class="label label-info" href="blog-post.html">Sports</a> | <a href="blog-post.html"> 3 comments</a> |  </span>
+                            <span><a href="blog/{{ $post['id'] }}">By {{ $post['author']['first_name'] }} {{ $post['author']['last_name'] }}</a> | posted on {{ $post['created_at'] }} | <a href="blog-post.html"> 3 comments</a></span>
                         </div><!--blog post item info end-->
                         <div class="blog-item-post-desc">
                             {!! $post['intro_text'] !!}
