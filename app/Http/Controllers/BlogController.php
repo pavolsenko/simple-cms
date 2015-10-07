@@ -12,7 +12,6 @@ class BlogController extends Controller
 {
 
     private $blogPostService;
-    private $urlService;
     protected $view;
     protected $request;
     private $redirector;

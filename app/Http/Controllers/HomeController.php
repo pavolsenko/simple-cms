@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BlogPost\BlogPostService;
+use App\Blog\BlogPostService;
 use Illuminate\Contracts\View\Factory as View;
 
 class homeController extends Controller

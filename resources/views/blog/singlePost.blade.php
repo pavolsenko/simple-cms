@@ -17,12 +17,12 @@
                     </div>
 
                     <div class="blog-item-post-desc">
-                            {{ $blog_post['intro_text'] }}
+                        {!! $blog_post['intro_text'] !!}
                     </div>
 
                     <br>
                     <div class="blog-item-post-desc">
-                        {{ $blog_post['body_text'] }}
+                        {!! $blog_post['body_text'] !!}
                     </div>
 
                     <div class="blog-more-desc">

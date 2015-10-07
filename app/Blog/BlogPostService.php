@@ -14,7 +14,7 @@ class BlogPostService {
     public function getBlogPostsForHomepage() {
         $posts = $this->blogPostRepository->getAllBlogPosts();
         foreach ($posts as &$post) {
-            $post['url'] = $this->urlService->createUrlFromIdAndTitle($post['id'], $post['title']);
+            $post['url'] = $post['id'].$post['url'];
         }
         return $posts;
     }
@@ -37,6 +37,7 @@ class BlogPostService {
         if (isset($input['id'])) {
 
         } else {
+            $input['url'] = $this->urlService->createUrlFromTitle($input['title']);
             $this->blogPostRepository->createBlogPost($input);
         }
     }

@@ -14,11 +14,11 @@ class UrlService {
 
     }
 
-    public function createUrlFromIdAndTitle($id, $title) {
+    public function createUrlFromTitle($title) {
         $url = str_replace(' ', '-', $title);
         $url = $this->cleanString($url);
         $url = preg_replace('/[^A-Za-z0-9\-]/', '', $url);
-        $url = $id.'-'.strtolower($url);
+        $url = '-'.strtolower($url);
         return $url;
     }
 

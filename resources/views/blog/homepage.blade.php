@@ -33,7 +33,7 @@
                             <span><a href="blog/{{ $post['id'] }}">By Blog Author</a> | posted on {{ $post['created_at'] }} | Tags: <a class="label label-info" href="blog-post.html">Sports</a> | <a href="blog-post.html"> 3 comments</a> |  </span>
                         </div><!--blog post item info end-->
                         <div class="blog-item-post-desc">
-                            {{ $post['intro_text'] }}
+                            {!! $post['intro_text'] !!}
                         </div><!--blog-item-post-desc end-->
                         <div class="blog-more-desc">
                             <div class="row">
