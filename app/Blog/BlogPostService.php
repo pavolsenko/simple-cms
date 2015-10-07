@@ -3,6 +3,8 @@
 
 class BlogPostService {
 
+    const ENABLED_ONLY = TRUE;
+
     private $blogPostRepository;
     private $urlService;
 
@@ -12,8 +14,8 @@ class BlogPostService {
     }
 
     public function getBlogPostsForHomepage() {
-        $posts = $this->blogPostRepository->getAllBlogPosts();
-        foreach ($posts as &$post) {
+        $posts = $this->blogPostRepository->getAllBlogPosts(self::ENABLED_ONLY);
+        foreach ($posts['posts'] as &$post) {
             $post['url'] = $post['id'].$post['url'];
         }
         return $posts;

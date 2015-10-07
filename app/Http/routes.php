@@ -62,3 +62,8 @@ Route::group(['prefix' => 'blog'], function () {
         ->where('title', '[0-9, a-z, A-Z, \-]+');
 });
 
+
+/* Static pages routes */
+
+Route::get('contact', ['as' => 'contact', 'uses' => 'BlogController@indexBlog']);
+

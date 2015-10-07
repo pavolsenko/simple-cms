@@ -8,6 +8,8 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
 
     const ENABLED = 1;
     const DISABLED = 0;
+    const POSTS_PER_PAGE_BLOG = 10;
+    const POSTS_PER_PAGE_ADMIN = 20;
 
     private $blogPost;
     private $auth;
@@ -32,7 +34,10 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function getBlogPostById($id) {
-        return $this->blogPost->where('id', $id)->first()->toArray();
+        return $this->blogPost
+            ->where('id', $id)
+            ->first()
+            ->toArray();
     }
 
     public function getBlogPostByCategory($category) {
@@ -42,8 +47,21 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
 
     }
 
-    public function getAllBlogPosts() {
-        return $this->blogPost->all()->toArray();
+    public function getAllBlogPosts($enabled_only=false) {
+        if ($enabled_only) {
+            $posts = $this->blogPost
+                ->where('enabled', self::ENABLED)
+                ->paginate(self::POSTS_PER_PAGE_BLOG)
+                ->toArray();
+        } else {
+            $posts = $this->blogPost
+                ->all()
+                ->paginate(self::POSTS_PER_PAGE_ADMIN)
+                ->toArray();
+        }
+        $posts['posts'] = $posts['data'];
+        unset($posts['data']);
+        return $posts;
     }
 
 }

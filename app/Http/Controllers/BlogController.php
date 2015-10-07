@@ -25,12 +25,20 @@ class BlogController extends Controller
 
     public function indexBlog() {
         $posts = $this->blogPostService->getBlogPostsForHomepage();
-        return $this->view->make('blog/homepage')->with('posts', $posts);
+
+        return $this->view
+            ->make('blog/homepage')
+            ->with('posts', $posts['posts'])
+            ->with('total_pages', $posts['last_page'])
+            ->with('current_page', $posts['current_page']);
     }
 
     public function indexAdmin() {
         $posts = $this->blogPostService->getBlogPostsForAdmin();
-        return $this->view->make('admin/blogPosts/dashboard')->with('posts', $posts);
+
+        return $this->view
+            ->make('admin/blogPosts/dashboard')
+            ->with('posts', $posts);
     }
 
 
@@ -41,12 +49,16 @@ class BlogController extends Controller
     public function postCreate() {
         $input = $this->request->only(['title', 'intro_text', 'body_text']);
         $this->blogPostService->saveBlogPost($input);
+
         return $this->redirector->route('postsDashboard');
     }
 
     public function getBlogPost($id) {
         $blog_post = $this->blogPostService->getBlogPostById($id);
-        return $this->view->make('blog/singlePost')->with('blog_post', $blog_post);
+
+        return $this->view
+            ->make('blog/singlePost')
+            ->with('blog_post', $blog_post);
     }
 
 

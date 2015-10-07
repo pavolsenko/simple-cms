@@ -56,6 +56,7 @@
 
                     @endforeach
 
+                    @include('partials/pagination')
                 @else
 
                     <div class="alert alert-warning">

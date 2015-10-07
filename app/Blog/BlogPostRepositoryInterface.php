@@ -8,5 +8,5 @@ interface BlogPostRepositoryInterface {
     public function getBlogPostById($id);
     public function getBlogPostByCategory($category);
     public function getBlogPostByAuthor($author);
-    public function getAllBlogPosts();
+    public function getAllBlogPosts($enabled_only=false);
 }
