@@ -6,10 +6,12 @@ class BlogPostService {
     const ENABLED_ONLY = TRUE;
 
     private $blogPostRepository;
+    private $authorRepository;
     private $urlService;
 
-    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, UrlService $urlService) {
+    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, AuthorRepositoryInterface $authorRepositoryInterface, UrlService $urlService) {
         $this->blogPostRepository = $blogPostRepositoryInterface;
+        $this->authorRepository = $authorRepositoryInterface;
         $this->urlService = $urlService;
     }
 
@@ -44,7 +46,7 @@ class BlogPostService {
         }
     }
 
-    public function getPostAuthor($post_id) {
-
+    public function getPostAuthor($id) {
+        return $this->authorRepository->getAuthorById($id);
     }
 }
