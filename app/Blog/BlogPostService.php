@@ -43,4 +43,8 @@ class BlogPostService {
             $this->blogPostRepository->createBlogPost($input);
         }
     }
+
+    public function getPostAuthor($post_id) {
+
+    }
 }

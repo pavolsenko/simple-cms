@@ -24,8 +24,12 @@ class BlogController extends Controller
     }
 
     public function indexBlog() {
-        $posts = $this->blogPostService->getBlogPostsForHomepage();
+        $page = $this->request->get('page');
+        if ($page == 1) {
+            return $this->redirector->route('blog');
+        }
 
+        $posts = $this->blogPostService->getBlogPostsForHomepage();
         return $this->view
             ->make('blog/homepage')
             ->with('posts', $posts['posts'])

@@ -147,6 +147,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\BlogPostServiceProvider::class,
+        App\Providers\AuthorServiceProvider::class,
     ],
 
     /*

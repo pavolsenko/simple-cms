@@ -1,30 +1,26 @@
 <div class="text-center">
     <nav>
         <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
 
+        @if($current_page == 1)
+            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        @else
+            <li><a href="?page={{ $current_page - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+        @endif
 
-            @for($ii = 1; $ii <= $total_pages; $ii++)
-                @if($ii == $current_page)
-
+        @for($ii = 1; $ii <= $total_pages; $ii++)
+            @if($ii == $current_page)
             <li class="active"><a href="?page={{ $ii }}">{{ $ii }}</a></li>
-
-                @else
-
+            @else
             <li><a href="?page={{ $ii }}">{{ $ii }}</a></li>
+            @endif
+        @endfor
 
-                @endif
-            @endfor
-
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
+            @if($current_page == $total_pages)
+                <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            @else
+                <li><a href="?page={{ $current_page + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            @endif
         </ul>
     </nav>
 </div>
