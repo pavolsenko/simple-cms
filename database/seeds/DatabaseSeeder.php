@@ -5,6 +5,7 @@ use App\Blog\UrlService;
 use Faker\Factory as Faker;
 use App\Blog\BlogPost;
 use App\Blog\Author;
+use App\Blog\Comment;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,12 +14,14 @@ class DatabaseSeeder extends Seeder
     private $blogPost;
     private $author;
     private $urlService;
+    private $comment;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService) {
+    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
         $this->urlService = $urlService;
+        $this->comment = $comment;
     }
 
     public function run()
@@ -30,8 +33,10 @@ class DatabaseSeeder extends Seeder
 
         $this->blogPost->unguard();
         $this->author->unguard();
+        $this->comment->unguard();
         $this->blogPost->truncate();
         $this->author->truncate();
+        $this->comment->truncate();
 
         $this->faker = $this->faker->create();
         echo "\nSeeding";
