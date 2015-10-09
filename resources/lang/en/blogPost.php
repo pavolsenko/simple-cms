@@ -13,9 +13,12 @@ return [
     'created_at' => 'Created at',
     'last_updated_at' => 'Last updated at',
     'action' => 'Options',
+    'posted_by' => 'By',
+    'posted_on' => 'Posted on',
 
     'save' => 'Save',
     'save_and_close' => 'Save & Close',
-    'cancel' => 'Cancel'
+    'cancel' => 'Cancel',
+    'read_more' => 'Read more',
 
 ];

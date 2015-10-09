@@ -12,9 +12,7 @@
                         <h3>{{ $blog_post['title'] }}</h3>
                     </div>
 
-                    <div class="blog-item-post-info">
-                        <span>By {{ $blog_post['author']['first_name'] }} {{ $blog_post['author']['last_name'] }}| Posted on {{ $blog_post['created_at'] }} | 3 comments </span>
-                    </div>
+                    @include('partials/blogPostInfo')
 
                     <div class="blog-item-post-desc">
                         {!! $blog_post['intro_text'] !!}
@@ -37,13 +35,8 @@
 
                                 </ul> <!--colored social-->
                             </div>
-                            <div class="col-sm-6 col-xs-12 more-link">
-                                <a href="#">Next Post&gt;&gt;</a>
-                            </div>
-
                         </div>
                     </div>
-
 
                     @include('partials/comments')
 

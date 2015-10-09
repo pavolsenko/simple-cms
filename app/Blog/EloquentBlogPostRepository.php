@@ -52,6 +52,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         if ($enabled_only) {
             $posts = $this->blogPost
                 ->where('enabled', self::ENABLED)
+                ->with(['comments'])
                 ->paginate(self::POSTS_PER_PAGE_BLOG)
                 ->toArray();
         } else {

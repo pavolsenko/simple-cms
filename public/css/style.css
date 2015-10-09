@@ -4,3 +4,6 @@
     padding: 3px 0;
 }
 
+.comment-list {
+    min-height: 75px;
+}

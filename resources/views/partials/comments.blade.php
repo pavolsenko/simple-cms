@@ -2,16 +2,16 @@
 
                     @if(!empty($blog_post['comments']))
 
-                        <h4>{{ count($blog_post['comments']) }} @lang('blogPost.comments')</h4>
+                        <h4>{{ count($blog_post['comments']) }} @lang('comment.comments')</h4>
                         <div class="comment-box">
 
                             @foreach($blog_post['comments'] as $comment)
 
                             <div class="comment-list">
-                                <img src="/img/masonry-1.jpg" class="img-responsive" alt="">
+                                <img src="" class="img-responsive" alt="">
                                 <h5>
                                     @if(!empty($comment['author']['website']))
-                                    <a href="{{ $comment['author']['website'] }}">{{ $comment['author']['name'] }}</a>
+                                    <a href="{{ $comment['author']['website'] }}" target="_blank">{{ $comment['author']['name'] }}</a>
                                     @else
                                     {{ $comment['author']['name'] }}
                                     @endif

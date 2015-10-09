@@ -2,6 +2,7 @@
 
 namespace App\Blog;
 
+use Illuminate\Http\Request;
 
 class EloquentCommentRepository implements CommentRepositoryInterface {
 
@@ -11,11 +12,13 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
     private $comment;
     private $commentAuthor;
     private $commentAuthorClass;
+    private $request;
 
-    public function __construct(Comment $comment, CommentAuthor $commentAuthor) {
+    public function __construct(Comment $comment, CommentAuthor $commentAuthor, Request $request) {
         $this->comment = $comment;
         $this->commentAuthor = $commentAuthor;
         $this->commentAuthorClass = $commentAuthor;
+        $this->request = $request;
     }
 
     public function createComment($input) {
@@ -24,18 +27,22 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
         } else {
             $status = self::APPROVED;
         }
-        $this->commentAuthor = $this->commentAuthor->where('email', $input['email'])->first();
-        if (is_null($this->commentAuthor)) {
-            $this->commentAuthor = $this->commentAuthorClass;
+        $check_comment_author = $this->commentAuthor->where('email', $input['email'])->first();
+        if (is_null($check_comment_author)) {
             $this->commentAuthor->name = $input['name'];
             $this->commentAuthor->email = $input['email'];
             $this->commentAuthor->website = $input['website'];
+            $this->commentAuthor->ip_address = $this->request->getClientIp();
             $this->commentAuthor->save();
+        } else {
+            $this->commentAuthor = $check_comment_author;
+            /* TODO: check if changing data*/
         }
         $this->comment->comment_author_id = $this->commentAuthor->id;
         $this->comment->blog_post_id = $input['blog_post_id'];
         $this->comment->text = $input['text'];
         $this->comment->status = $status;
+        $this->comment->ip_address = $this->request->getClientIp();
         $this->comment->save();
         return $status;
     }

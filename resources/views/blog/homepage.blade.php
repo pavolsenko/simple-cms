@@ -19,22 +19,23 @@
 
                 @if(!empty($posts))
 
-                    @foreach($posts as $post)
+                    @foreach($posts as $blog_post)
 
                     <div class="blog-item-sec">
                         <div class="blog-item-head">
                             <h3>
-                                <a href="blog/{{ $post['url'] }}">
-                                    {{ $post['title'] }}
+                                <a href="blog/{{ $blog_post['url'] }}">
+                                    {{ $blog_post['title'] }}
                                 </a>
                             </h3>
-                        </div><!--blog post item heading end-->
-                        <div class="blog-item-post-info">
-                            <span><a href="blog/{{ $post['id'] }}">By {{ $post['author']['first_name'] }} {{ $post['author']['last_name'] }}</a> | posted on {{ $post['created_at'] }} | <a href="blog-post.html"> 3 comments</a></span>
-                        </div><!--blog post item info end-->
+                        </div>
+
+                        @include('partials/blogPostInfo')
+
                         <div class="blog-item-post-desc">
-                            {!! $post['intro_text'] !!}
-                        </div><!--blog-item-post-desc end-->
+                            {!! $blog_post['intro_text'] !!}
+                        </div>
+
                         <div class="blog-more-desc">
                             <div class="row">
                                 <div class="col-sm-7 col-xs-12">
@@ -48,33 +49,26 @@
                                     </ul> <!--colored social-->
                                 </div>
                                 <div class="col-sm-5 text-right col-xs-12">
-                                    <a href="blog/{{ $post['url'] }}" class="btn btn-theme-color">Read more <i class="fa fa-angle-right"></i></a>
+                                    <a href="blog/{{ $blog_post['url'] }}" class="btn btn-theme-color">@lang('blogPost.read_more') <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
-                        </div><!--blog more desc end-->
+                        </div>
                     </div>
 
                     @endforeach
 
                     @include('partials/pagination')
                 @else
-
                     <div class="alert alert-warning">
                         <i class="glyphicon glyphicon-info-sign"></i>&nbsp;
                         @lang('blogPost.no_blog_posts_to_display')
                     </div>
-
                 @endif
 
                 </div>
-
                 <div class="col-sm-3">
-
                     @include('blog/rightColumn')
-
                 </div>
-
-
 
             </div>
         </div>
