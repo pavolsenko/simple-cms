@@ -148,6 +148,7 @@ return [
 
         App\Providers\BlogPostServiceProvider::class,
         App\Providers\AuthorServiceProvider::class,
+        App\Providers\CommentServiceProvider::class,
     ],
 
     /*

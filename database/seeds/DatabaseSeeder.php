@@ -6,6 +6,7 @@ use Faker\Factory as Faker;
 use App\Blog\BlogPost;
 use App\Blog\Author;
 use App\Blog\Comment;
+use App\Blog\CommentAuthor;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,13 +16,15 @@ class DatabaseSeeder extends Seeder
     private $author;
     private $urlService;
     private $comment;
+    private $commentAuthor;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment) {
+    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
         $this->urlService = $urlService;
         $this->comment = $comment;
+        $this->commentAuthor = $commentAuthor;
     }
 
     public function run()
@@ -68,10 +71,32 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
+        for ($ii = 0; $ii < 30; $ii++) {
+            $this->commentAuthor = new CommentAuthor();
+            $this->commentAuthor->name = $this->faker->name;
+            $this->commentAuthor->email = $this->faker->email;
+            $this->commentAuthor->website = $this->faker->url;
+            $this->commentAuthor->ip_address = $this->faker->ipv4;
+            $this->commentAuthor->save();
+            echo '.';
+        }
+
+        for ($ii = 0; $ii < 100; $ii++) {
+            $this->comment = new Comment();
+            $this->comment->blog_post_id = round(rand(1,30));
+            $this->comment->comment_author_id = round(rand(1,30));
+            $this->comment->text = $this->faker->paragraph(round(rand(1,10)));
+            $this->comment->status = 1;
+            $this->comment->save();
+            echo '.';
+        }
+
         echo "\n";
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->blogPost->reguard();
         $this->author->reguard();
+        $this->comment->reguard();
+        $this->commentAuthor->reguard();
     }
 }

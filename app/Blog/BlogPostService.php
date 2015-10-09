@@ -7,11 +7,13 @@ class BlogPostService {
 
     private $blogPostRepository;
     private $authorRepository;
+    private $commentRepository;
     private $urlService;
 
-    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, AuthorRepositoryInterface $authorRepositoryInterface, UrlService $urlService) {
+    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, AuthorRepositoryInterface $authorRepositoryInterface, CommentRepositoryInterface $commentRepositoryInterface, UrlService $urlService) {
         $this->blogPostRepository = $blogPostRepositoryInterface;
         $this->authorRepository = $authorRepositoryInterface;
+        $this->commentRepository = $commentRepositoryInterface;
         $this->urlService = $urlService;
     }
 
@@ -51,5 +53,17 @@ class BlogPostService {
 
     private function getPostAuthor($id) {
         return $this->authorRepository->getAuthorById($id);
+    }
+
+    public function postComment($input) {
+
+        $result = $this->commentRepository->createComment($input);
+
+        if ($result) {
+            $message = trans('comment.comment_sent');
+        } else {
+            $message = trans('comment.awaiting_approval');
+        }
+        return $message;
     }
 }

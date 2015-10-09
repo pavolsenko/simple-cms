@@ -65,5 +65,10 @@ class BlogController extends Controller
             ->with('blog_post', $blog_post);
     }
 
-
+    public function postComment() {
+        $input = $this->request->only(['blog_post_id', 'name', 'email', 'website', 'text']);
+        $result = $this->blogPostService->postComment($input);
+        $message = trans('comment.error');
+        return $this->redirector->back()->with('message', $message);
+    }
 }

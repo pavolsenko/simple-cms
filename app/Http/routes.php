@@ -60,6 +60,8 @@ Route::group(['prefix' => 'blog'], function () {
     Route::get('/{id}-{title}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])
         ->where('id', '[0-9]+')
         ->where('title', '[0-9, a-z, A-Z, \-]+');
+
+    Route::post('comment', ['as' => 'postComment', 'uses' => 'BlogController@postComment']);
 });
 
 

@@ -13,6 +13,10 @@ class Comment extends Model
     protected $table = 'comment';
 
     public function author() {
-        return $this->hasOne('comment_author', 'id', 'comment_author_id');
+        return $this->hasOne('App\Blog\CommentAuthor', 'id', 'comment_author_id');
+    }
+
+    public function blogPost() {
+        return $this->belongsTo('BlogPost', 'blog_post_id');
     }
 }
