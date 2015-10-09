@@ -10,10 +10,12 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
 
     private $comment;
     private $commentAuthor;
+    private $commentAuthorClass;
 
     public function __construct(Comment $comment, CommentAuthor $commentAuthor) {
         $this->comment = $comment;
         $this->commentAuthor = $commentAuthor;
+        $this->commentAuthorClass = $commentAuthor;
     }
 
     public function createComment($input) {
@@ -24,7 +26,7 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
         }
         $this->commentAuthor = $this->commentAuthor->where('email', $input['email'])->first();
         if (is_null($this->commentAuthor)) {
-            $this->commentAuthor = new CommentAuthor();
+            $this->commentAuthor = $this->commentAuthorClass;
             $this->commentAuthor->name = $input['name'];
             $this->commentAuthor->email = $input['email'];
             $this->commentAuthor->website = $input['website'];

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\View\Factory as View;
 use Illuminate\Routing\Redirector;
+use Illuminate\Validation\Factory as Validator;
 
 class BlogController extends Controller
 {
@@ -15,12 +16,14 @@ class BlogController extends Controller
     protected $view;
     protected $request;
     private $redirector;
+    private $validator;
 
-    public function __construct(BlogPostService $blogPostService, View $view, Request $request, Redirector $redirector) {
+    public function __construct(BlogPostService $blogPostService, View $view, Request $request, Redirector $redirector, Validator $validator) {
         $this->blogPostService = $blogPostService;
         $this->view = $view;
         $this->request = $request;
         $this->redirector = $redirector;
+        $this->validator = $validator;
     }
 
     public function indexBlog() {
@@ -60,15 +63,28 @@ class BlogController extends Controller
     public function getBlogPost($id) {
         $blog_post = $this->blogPostService->getBlogPostById($id);
 
-        return $this->view
-            ->make('blog/singlePost')
-            ->with('blog_post', $blog_post);
+        return $this->view->make('blog/singlePost')->with('blog_post', $blog_post);
     }
 
     public function postComment() {
         $input = $this->request->only(['blog_post_id', 'name', 'email', 'website', 'text']);
-        $result = $this->blogPostService->postComment($input);
-        $message = trans('comment.error');
-        return $this->redirector->back()->with('message', $message);
+        $rules = array(
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'website' => 'url',
+            'text' => 'required|min:3|max:500'
+        );
+        $this->validator = $this->validator->make($input, $rules);
+        if ($this->validator->fails()) {
+            return $this->redirector->back()->withErrors($this->validator)->withInput();
+        } else {
+            $result = $this->blogPostService->postComment($input);
+            if ($result) {
+                $message = trans('comment.comment_submitted');
+            } else {
+                $message = trans('comment.comment_awaiting_approval');
+            }
+            return $this->redirector->back()->with('message', $message);
+        }
     }
 }

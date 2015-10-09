@@ -16,7 +16,7 @@
                                     {{ $comment['author']['name'] }}
                                     @endif
                                     on {{ $comment['created_at'] }}
-                                    </h5>
+                                </h5>
 
                                 <p>
                                     {{ $comment['text'] }}
@@ -39,10 +39,21 @@
 
                         {!! Form::open(['route' => 'postComment', 'method' => 'post', 'class' => 'form']) !!}
 
+                        @if(session('message'))
+                            <div class="alert alert-warning">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+
                         @if($errors->any())
                             <div class="alert alert-danger">
-                                {{$errors->first()}}
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
+
                         @endif
 
                         <h4>@lang('comment.submit_comment')</h4>

@@ -56,9 +56,7 @@ class BlogPostService {
     }
 
     public function postComment($input) {
-
         $result = $this->commentRepository->createComment($input);
-
         if ($result) {
             $message = trans('comment.comment_sent');
         } else {
