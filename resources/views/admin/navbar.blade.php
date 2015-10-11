@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/admin/dashboard">
+        <a class="navbar-brand" href="{{ URL::route('adminDashboard') }}">
             @lang('navigation.application_name')
         </a>
     </div>
@@ -21,7 +21,7 @@
                         <a href="{{ URL::route('postsDashboard') }}">@lang('navigation.blog_posts_dashboard')</a>
                     </li>
                     <li>
-                        <a href="{{ URL::route('postsCreateNew') }}">@lang('navigation.create_new_blog_post')</a>
+                        <a href="{{ URL::route('getCreateBlogPost') }}">@lang('navigation.create_new_blog_post')</a>
                     </li>
                 </ul>
             </li>
@@ -42,7 +42,7 @@
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li>
-                <a href="/auth/logout/">
+                <a href="{{ URL::route('logout') }}">
                     <i class="glyphicon glyphicon-log-out"></i>
                     @lang('navigation.logout')
                 </a>

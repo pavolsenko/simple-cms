@@ -50,16 +50,27 @@ class BlogController extends Controller
             ->with('current_page', $posts['current_page']);
     }
 
+    public function getUpdate($id) {
+        $blog_post = $this->blogPostService->getBlogPostById($id);
+        return $this->view->make('admin/blogPosts/createOrUpdate')->with('blog_post', $blog_post);
+    }
+
+    public function postUpdate() {
+        $input = $this->request->all();
+        $blog_post = $this->blogPostService->saveBlogPost($input);
+        $message = trans('blogPost.saved');
+        return $this->view->make('admin/blogPosts/createOrUpdate')->with('blog_post', $blog_post)->with('message', $message);
+    }
 
     public function getCreate() {
-        return $this->view->make('admin/blogPosts/createNew');
+        return $this->view->make('admin/blogPosts/createOrUpdate');
     }
 
     public function postCreate() {
         $input = $this->request->only(['title', 'intro_text', 'body_text']);
-        $this->blogPostService->saveBlogPost($input);
-
-        return $this->redirector->route('postsDashboard');
+        $blog_post = $this->blogPostService->saveBlogPost($input);
+        $message = trans('blogPost.saved');
+        return $this->redirector->route('getUpdateBlogPost', $blog_post['id'])->with('blog_post', $blog_post)->with('message', $message);
     }
 
     public function getBlogPost($id) {

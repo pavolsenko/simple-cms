@@ -25,8 +25,22 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         $this->blogPost->body_text = $input['body_text'];
         $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
         $this->blogPost->last_updated_by = $this->auth->user()->getAuthIdentifier();
-        $this->blogPost->enabled = self::ENABLED;
-        return $this->blogPost->save();
+        //$this->blogPost->enabled = $input['enabled'];
+        $this->blogPost->save();
+        return $this->blogPost->toArray();
+    }
+
+    public function updateBlogPost($input) {
+        $this->blogPost = $this->blogPost->where('id', $input['id'])->first();
+        $this->blogPost->title = $input['title'];
+        $this->blogPost->intro_text = $input['intro_text'];
+        $this->blogPost->body_text = $input['body_text'];
+        $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
+        $this->blogPost->last_updated_by = $this->auth->user()->getAuthIdentifier();
+        //$this->blogPost->enabled = $input['enabled'];
+        //$this->blogPost->url = $input['url'];
+        $this->blogPost->save();
+        return $this->blogPost->toArray();
     }
 
     public function deleteBlogPost($id) {

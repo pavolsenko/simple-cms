@@ -20,7 +20,7 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('login', ['as' => 'getLogin', 'uses' => 'LoginController@getLogin']);
     Route::post('login', ['as' => 'postLogin', 'uses' => 'LoginController@postLogin']);
-    Route::get('logout', ['as' => 'getLogin', 'uses' => 'LoginController@getLogout']);
+    Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@getLogout']);
 
 });
 
@@ -35,8 +35,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'posts'], function () {
         Route::get('dashboard', ['as' => 'postsDashboard', 'uses' => 'BlogController@indexAdmin']);
-        Route::get('create_new', ['as' => 'postsCreateNew', 'uses' => 'BlogController@getCreate']);
-        Route::post('create_new', ['as' => 'postsCreateNewSave', 'uses' => 'BlogController@postCreate']);
+        Route::get('create_new', ['as' => 'getCreateBlogPost', 'uses' => 'BlogController@getCreate']);
+        Route::post('create_new', ['as' => 'postCreateBlogPost', 'uses' => 'BlogController@postCreate']);
+        Route::get('update/{id}', ['as' => 'getUpdateBlogPost', 'uses' => 'BlogController@getUpdate'])
+            ->where('id', '[0-9]+');
+        Route::post('update/{id}', ['as' => 'postUpdateBlogPost', 'uses' => 'BlogController@postUpdate'])
+            ->where('id', '[0-9]+');
     });
 
     /* Blog category administration */

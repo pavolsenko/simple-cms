@@ -41,14 +41,13 @@ class BlogPostService {
     }
 
     public function saveBlogPost($input) {
-
-
         if (isset($input['id'])) {
-
+            $blog_post = $this->blogPostRepository->updateBlogPost($input);
         } else {
             $input['url'] = $this->urlService->createUrlFromTitle($input['title']);
-            $this->blogPostRepository->createBlogPost($input);
+            $blog_post = $this->blogPostRepository->createBlogPost($input);
         }
+        return $blog_post;
     }
 
     private function getPostAuthor($id) {

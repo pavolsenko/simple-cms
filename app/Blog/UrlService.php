@@ -18,7 +18,7 @@ class UrlService {
         $url = str_replace(' ', '-', $title);
         $url = $this->cleanString($url);
         $url = preg_replace('/[^A-Za-z0-9\-]/', '', $url);
-        $url = '-'.strtolower($url);
+        $url = strtolower($url);
         return $url;
     }
 
