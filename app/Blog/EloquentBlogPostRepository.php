@@ -42,6 +42,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function getBlogPostByCategory($category) {
+
     }
 
     public function getBlogPostByAuthor($author) {

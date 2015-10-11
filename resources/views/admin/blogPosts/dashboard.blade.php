@@ -19,7 +19,6 @@
                 </tr>
                 </thead>
 
-
             @foreach($posts as $post)
 
                 <tr>
