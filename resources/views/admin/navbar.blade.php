@@ -35,7 +35,7 @@
                         <a href="{{ URL::route('authorsDashboard') }}">@lang('navigation.authors_dashboard')</a>
                     </li>
                     <li>
-                        <a href="{{ URL::route('authorsCreateNew') }}">@lang('navigation.create_new_author')</a>
+                        //
                     </li>
                 </ul>
             </li>

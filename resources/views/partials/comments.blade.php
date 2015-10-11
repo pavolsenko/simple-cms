@@ -1,8 +1,16 @@
                     <div class="comment-wrapper">
 
+
+
                     @if(!empty($blog_post['comments']))
 
-                        <h4>{{ count($blog_post['comments']) }} @lang('comment.comments')</h4>
+                        @if(count($blog_post['comments']) > 1)
+                        <h4>{{ count($blog_post['comments']) }} @lang('comment.comments') <a href="#comments" class="btn btn-default btn-xs">@lang('comment.submit_comment')</a></h4>
+                        @else
+                        <h4>1 @lang('comment.comment') <a href="#comments" class="btn btn-default btn-xs">@lang('comment.submit_comment')</a></h4>
+                        @endif
+
+
                         <div class="comment-box">
 
                             @foreach($blog_post['comments'] as $comment)
@@ -15,7 +23,7 @@
                                     @else
                                     {{ $comment['author']['name'] }}
                                     @endif
-                                    on {{ $comment['created_at'] }}
+                                    @lang('comment.posted_on') {{ date('j M Y H:m', strtotime($comment['created_at'])) }}
                                 </h5>
 
                                 <p>
@@ -29,13 +37,16 @@
 
                     @else
 
-                        <h4>@lang('blogPost.no_comments')</h4>
+                        <h4>@lang('comment.no_comment') <a href="#comments" class="btn btn-default btn-xs">@lang('comment.submit_comment')</a></h4>
 
                         <div class="alert alert-warning">
-                            There are no comments yet. Be first to post one!
+                            @lang('comment.no_comments_yet')
                         </div>
 
                     @endif
+
+                        <a name="comments"></a>
+                        <h4>@lang('comment.submit_comment')</h4>
 
                         {!! Form::open(['route' => 'postComment', 'method' => 'post', 'class' => 'form']) !!}
 
@@ -56,17 +67,16 @@
 
                         @endif
 
-                        <h4>@lang('comment.submit_comment')</h4>
                         <div>
-                            {!! Form::label('name', trans('comment.name')) !!} *
+                            {!! Form::label('name', trans('comment.name')) !!}
                             {!! Form::text('name', null, ['class' => 'form-control']) !!}
                         </div>
                         <div>
-                            {!! Form::label('email', trans('comment.email')) !!} * @lang('comment.will_not_be_public')
+                            {!! Form::label('email', trans('comment.email')) !!} (@lang('comment.will_not_be_public'))
                             {!! Form::text('email', null, ['class' => 'form-control']) !!}
                         </div>
                         <div>
-                            {!! Form::label('website', trans('comment.website')) !!}
+                            {!! Form::label('website', trans('comment.website')) !!} (@lang('comment.optional'))
                             {!! Form::text('website', null, ['class' => 'form-control']) !!}
                         </div>
                         <div>

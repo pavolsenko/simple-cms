@@ -19,7 +19,7 @@ class BlogPostService {
 
     public function getBlogPostsForHomepage() {
         $posts = $this->blogPostRepository->getAllBlogPosts(self::ENABLED_ONLY);
-        foreach ($posts['posts'] as &$post) {
+        foreach ($posts['data'] as &$post) {
             $post['url'] = $post['id'].$post['url'];
             $post['author'] = $this->getPostAuthor($post['created_by']);
         }

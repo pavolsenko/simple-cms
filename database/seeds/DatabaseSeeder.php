@@ -81,7 +81,7 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
-        for ($ii = 0; $ii < 100; $ii++) {
+        for ($ii = 0; $ii < 500; $ii++) {
             $this->comment = new Comment();
             $this->comment->blog_post_id = round(rand(1,30));
             $this->comment->comment_author_id = round(rand(1,30));

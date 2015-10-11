@@ -35,7 +35,7 @@ class BlogController extends Controller
         $posts = $this->blogPostService->getBlogPostsForHomepage();
         return $this->view
             ->make('blog/homepage')
-            ->with('posts', $posts['posts'])
+            ->with('posts', $posts['data'])
             ->with('total_pages', $posts['last_page'])
             ->with('current_page', $posts['current_page']);
     }
@@ -45,7 +45,9 @@ class BlogController extends Controller
 
         return $this->view
             ->make('admin/blogPosts/dashboard')
-            ->with('posts', $posts);
+            ->with('posts', $posts['data'])
+            ->with('total_pages', $posts['last_page'])
+            ->with('current_page', $posts['current_page']);
     }
 
 

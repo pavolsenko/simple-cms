@@ -7,3 +7,7 @@
 .comment-list {
     min-height: 75px;
 }
+
+.alert ul {
+    list-style-type: square;
+}

@@ -11,13 +11,11 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
 
     private $comment;
     private $commentAuthor;
-    private $commentAuthorClass;
     private $request;
 
     public function __construct(Comment $comment, CommentAuthor $commentAuthor, Request $request) {
         $this->comment = $comment;
         $this->commentAuthor = $commentAuthor;
-        $this->commentAuthorClass = $commentAuthor;
         $this->request = $request;
     }
 
@@ -36,7 +34,10 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
             $this->commentAuthor->save();
         } else {
             $this->commentAuthor = $check_comment_author;
-            /* TODO: check if changing data*/
+            $this->commentAuthor->name = $input['name'];
+            $this->commentAuthor->website = $input['website'];
+            $this->commentAuthor->ip_address = $this->request->getClientIp();
+            $this->commentAuthor->save();
         }
         $this->comment->comment_author_id = $this->commentAuthor->id;
         $this->comment->blog_post_id = $input['blog_post_id'];

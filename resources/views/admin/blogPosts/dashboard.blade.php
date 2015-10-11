@@ -13,8 +13,8 @@
                     <th>@lang('blogPost.id')</th>
                     <th>&nbsp;</th>
                     <th>Enabled</th>
-                    <th>@lang('blogPost.created_at')</th>
-                    <th>@lang('blogPost.last_updated_at')</th>
+                    <th style="min-width:200px">@lang('blogPost.created_at')</th>
+                    <th style="min-width:200px">@lang('blogPost.last_updated_at')</th>
                     <th>@lang('blogPost.action')</th>
                 </tr>
                 </thead>

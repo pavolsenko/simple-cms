@@ -53,16 +53,16 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
             $posts = $this->blogPost
                 ->where('enabled', self::ENABLED)
                 ->with(['comments'])
+                ->orderBy('created_at', 'desc')
                 ->paginate(self::POSTS_PER_PAGE_BLOG)
                 ->toArray();
         } else {
             $posts = $this->blogPost
-                ->all()
+                ->orderBy('created_at', 'desc')
                 ->paginate(self::POSTS_PER_PAGE_ADMIN)
                 ->toArray();
+
         }
-        $posts['posts'] = $posts['data'];
-        unset($posts['data']);
         return $posts;
     }
 
