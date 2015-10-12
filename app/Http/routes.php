@@ -35,11 +35,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'posts'], function () {
         Route::get('dashboard', ['as' => 'postsDashboard', 'uses' => 'BlogController@indexAdmin']);
+
         Route::get('create_new', ['as' => 'getCreateBlogPost', 'uses' => 'BlogController@getCreate']);
         Route::post('create_new', ['as' => 'postCreateBlogPost', 'uses' => 'BlogController@postCreate']);
+
         Route::get('update/{id}', ['as' => 'getUpdateBlogPost', 'uses' => 'BlogController@getUpdate'])
             ->where('id', '[0-9]+');
         Route::post('update/{id}', ['as' => 'postUpdateBlogPost', 'uses' => 'BlogController@postUpdate'])
+            ->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', ['as' => 'getDeleteBlogPost', 'uses' => 'BlogController@getDelete'])
             ->where('id', '[0-9]+');
     });
 

@@ -7,6 +7,12 @@
 
         <h1>@lang('blogPost.blog_post_dashboard_heading')</h1>
 
+        @if(session('message'))
+            <div class="alert alert-warning">
+                {{ session('message') }}
+            </div>
+        @endif
+
         <a href="{{ URL::route('getCreateBlogPost') }}" class="btn btn-primary">@lang('blogPost.create_new')</a>
 
         @include('partials.pagination')
@@ -17,7 +23,10 @@
                 <thead>
                 <tr>
                     <th>@lang('blogPost.id')</th>
-                    <th>&nbsp;</th>
+                    <th>
+                        @lang('blogPost.title')<br>
+                        @lang('blogPost.intro_text')
+                    </th>
                     <th>@lang('blogPost.published')</th>
                     <th style="min-width:200px">
                         <i class="glyphicon glyphicon-triangle-top"></i> @lang('blogPost.created_at')<br>
@@ -27,24 +36,24 @@
                 </tr>
                 </thead>
 
-            @foreach($posts as $post)
+            @foreach($posts as $blog_post)
 
                 <tr>
-                    <td>{{ $post['id'] }}</td>
+                    <td>{{ $blog_post['id'] }}</td>
                     <td>
-                        <a href="{{ URL::route('getUpdateBlogPost', $post['id']) }}"><b>{{ $post['title'] }}</b></a><br>
-                        {{ $post['intro_text'] }}
+                        <a href="{{ URL::route('getUpdateBlogPost', $blog_post['id']) }}"><b>{{ $blog_post['title'] }}</b></a><br>
+                        {{ $blog_post['intro_text'] }}
                     </td>
                     <td class="text-center">
-                        @if($post['enabled'])
+                        @if($blog_post['enabled'])
                         <i class="glyphicon glyphicon-ok"></i>
                         @else
                         <i class="glyphicon glyphicon-remove"></i>
                         @endif
                     </td>
                     <td>
-                        <i class="glyphicon glyphicon-triangle-top"></i> {{ $post['created_at'] }}<br>
-                        <i class="glyphicon glyphicon-triangle-top"></i> {{ $post['updated_at'] }}</td>
+                        <i class="glyphicon glyphicon-triangle-top"></i> {{ $blog_post['created_at'] }}<br>
+                        <i class="glyphicon glyphicon-triangle-top"></i> {{ $blog_post['updated_at'] }}</td>
                     <td>@include('admin/blogPosts/action')</td>
                 </tr>
 

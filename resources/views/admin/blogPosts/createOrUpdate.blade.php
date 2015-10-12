@@ -22,9 +22,9 @@
             </div>
         @endif
 
-        @if(isset($message))
+        @if(session('message'))
             <div class="alert alert-warning">
-                {{ $message }}
+                {{ session('message') }}
             </div>
         @endif
 
@@ -61,6 +61,8 @@
 
         {!! Form::close() !!}
 
+        <h4>@lang('comment.comments')</h4>
+
     </div>
 
     <div class="col-sm-2">
@@ -91,6 +93,7 @@
                 meta title<br>
                 meta description<br>
                 meta keywords<br>
+                
             </div>
         </div>
     </div>

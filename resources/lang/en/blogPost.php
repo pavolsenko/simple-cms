@@ -3,8 +3,11 @@
 return [
 
     'no_blog_posts_to_display' => 'No blog posts found',
-
+    'saved' => 'Blog post saved.',
     'create_new_blog_post_heading' => 'Create new blog post',
+    'blog_post_editor' => 'Blog post editor',
+    'blog_post_dashboard_heading' => 'Blog post dashboard',
+
 
     'id' => 'ID',
     'title' => 'Title',
@@ -15,10 +18,18 @@ return [
     'action' => 'Options',
     'posted_by' => 'By',
     'posted_on' => 'Posted on',
+    'published' => 'Published',
+
 
     'save' => 'Save',
     'save_and_close' => 'Save & Close',
     'cancel' => 'Cancel',
+    'edit' => 'Edit post',
+    'publish' => 'Publish',
+    'unpublish' => 'Unpublish',
+    'delete' => 'Delete',
+    'create_new' => 'Create new post',
+
     'read_more' => 'Read more',
 
 ];

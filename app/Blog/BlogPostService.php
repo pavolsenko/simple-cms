@@ -50,6 +50,10 @@ class BlogPostService {
         return $blog_post;
     }
 
+    public function deleteBlogPost($id) {
+        return $this->blogPostRepository->deleteBlogPost($id);
+    }
+
     private function getPostAuthor($id) {
         return $this->authorRepository->getAuthorById($id);
     }

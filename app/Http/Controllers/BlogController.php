@@ -59,7 +59,11 @@ class BlogController extends Controller
         $input = $this->request->all();
         $blog_post = $this->blogPostService->saveBlogPost($input);
         $message = trans('blogPost.saved');
-        return $this->view->make('admin/blogPosts/createOrUpdate')->with('blog_post', $blog_post)->with('message', $message);
+
+        return $this->view
+            ->make('admin/blogPosts/createOrUpdate')
+            ->with('blog_post', $blog_post)
+            ->with('message', $message);
     }
 
     public function getCreate() {
@@ -70,13 +74,28 @@ class BlogController extends Controller
         $input = $this->request->only(['title', 'intro_text', 'body_text']);
         $blog_post = $this->blogPostService->saveBlogPost($input);
         $message = trans('blogPost.saved');
-        return $this->redirector->route('getUpdateBlogPost', $blog_post['id'])->with('blog_post', $blog_post)->with('message', $message);
+
+        return $this->redirector
+            ->route('getUpdateBlogPost', $blog_post['id'])
+            ->with('blog_post', $blog_post)
+            ->with('message', $message);
+    }
+
+    public function getDelete($id) {
+        $this->blogPostService->deleteBlogPost($id);
+        $message = trans('blogPost.deleted');
+
+        return $this->redirector
+            ->route('postsDashboard')
+            ->with('message', $message);
     }
 
     public function getBlogPost($id) {
         $blog_post = $this->blogPostService->getBlogPostById($id);
 
-        return $this->view->make('blog/singlePost')->with('blog_post', $blog_post);
+        return $this->view
+            ->make('blog/singlePost')
+            ->with('blog_post', $blog_post);
     }
 
     public function postComment() {
@@ -89,15 +108,24 @@ class BlogController extends Controller
         );
         $this->validator = $this->validator->make($input, $rules);
         if ($this->validator->fails()) {
-            return $this->redirector->back()->withErrors($this->validator)->withInput();
+
+            return $this->redirector
+                ->back()
+                ->withErrors($this->validator)
+                ->withInput();
+
         } else {
+
             $result = $this->blogPostService->postComment($input);
             if ($result) {
                 $message = trans('comment.comment_submitted');
             } else {
                 $message = trans('comment.comment_awaiting_approval');
             }
-            return $this->redirector->back()->with('message', $message);
+
+            return $this->redirector
+                ->back()
+                ->with('message', $message);
         }
     }
 }

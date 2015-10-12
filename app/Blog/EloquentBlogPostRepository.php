@@ -44,7 +44,8 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function deleteBlogPost($id) {
-
+        $this->blogPost = $this->blogPost->where('id', $id);
+        return $this->blogPost->delete();
     }
 
     public function getBlogPostById($id) {
