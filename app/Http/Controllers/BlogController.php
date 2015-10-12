@@ -73,7 +73,7 @@ class BlogController extends Controller
     public function postCreate() {
         $input = $this->request->only(['title', 'intro_text', 'body_text']);
         $blog_post = $this->blogPostService->saveBlogPost($input);
-        $message = trans('blogPost.saved');
+        $message = trans('blogPost.blog_post_saved');
 
         return $this->redirector
             ->route('getUpdateBlogPost', $blog_post['id'])
@@ -83,7 +83,25 @@ class BlogController extends Controller
 
     public function getDelete($id) {
         $this->blogPostService->deleteBlogPost($id);
-        $message = trans('blogPost.deleted');
+        $message = trans('blogPost.blog_post_deleted');
+
+        return $this->redirector
+            ->route('postsDashboard')
+            ->with('message', $message);
+    }
+
+    public function getPublish($id) {
+        $this->blogPostService->publishBlogPost($id);
+        $message = trans('blogPost.blog_post_published');
+
+        return $this->redirector
+            ->route('postsDashboard')
+            ->with('message', $message);
+    }
+
+    public function getUnpublish($id) {
+        $this->blogPostService->unpublishBlogPost($id);
+        $message = trans('blogPost.blog_post_unpublished');
 
         return $this->redirector
             ->route('postsDashboard')

@@ -46,6 +46,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
         Route::get('delete/{id}', ['as' => 'getDeleteBlogPost', 'uses' => 'BlogController@getDelete'])
             ->where('id', '[0-9]+');
+
+        Route::get('publish/{id}', ['as' => 'getPublishBlogPost', 'uses' => 'BlogController@getPublish'])
+            ->where('id', '[0-9]+');
+        Route::get('unpublish/{id}', ['as' => 'getUnpublishBlogPost', 'uses' => 'BlogController@getUnpublish'])
+            ->where('id', '[0-9]+');
     });
 
     /* Blog category administration */

@@ -3,11 +3,14 @@
 return [
 
     'no_blog_posts_to_display' => 'No blog posts found',
-    'saved' => 'Blog post saved.',
-    'deleted' => 'Blog post deleted.',
+    'blog_post_saved' => 'Blog post saved.',
+    'blog_post_deleted' => 'Blog post deleted.',
+    'blog_post_published' => 'Blog post published.',
+    'blog_post_unpublished' => 'Blog post unpublished.',
     'create_new_blog_post_heading' => 'Create new blog post',
     'blog_post_editor' => 'Blog post editor',
     'blog_post_dashboard_heading' => 'Blog post dashboard',
+
 
 
     'id' => 'ID',

@@ -58,6 +58,14 @@ class BlogPostService {
         return $this->authorRepository->getAuthorById($id);
     }
 
+    public function publishBlogPost($id) {
+        return $this->blogPostRepository->publishBlogPost($id);
+    }
+
+    public function unpublishBlogPost($id) {
+        return $this->blogPostRepository->unpublishBlogPost($id);
+    }
+
     public function postComment($input) {
         $result = $this->commentRepository->createComment($input);
         if ($result) {
