@@ -11,3 +11,7 @@
 .alert ul {
     list-style-type: square;
 }
+
+.blog-item-sec .author img {
+    margin-bottom: 0px;
+}

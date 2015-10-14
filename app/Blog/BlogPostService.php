@@ -21,7 +21,6 @@ class BlogPostService {
         $posts = $this->blogPostRepository->getAllBlogPosts(self::ENABLED_ONLY);
         foreach ($posts['data'] as &$post) {
             $post['url'] = $post['id'].$post['url'];
-            $post['author'] = $this->getPostAuthor($post['created_by']);
         }
         return $posts;
     }
@@ -36,7 +35,6 @@ class BlogPostService {
 
     public function getBlogPostById($id) {
         $post = $this->blogPostRepository->getBlogPostById($id);
-        $post['author'] = $this->getPostAuthor($post['created_by']);
         return $post;
     }
 
@@ -52,10 +50,6 @@ class BlogPostService {
 
     public function deleteBlogPost($id) {
         return $this->blogPostRepository->deleteBlogPost($id);
-    }
-
-    private function getPostAuthor($id) {
-        return $this->authorRepository->getAuthorById($id);
     }
 
     public function publishBlogPost($id) {

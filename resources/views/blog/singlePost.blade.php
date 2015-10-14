@@ -23,18 +23,7 @@
                         {!! $blog_post['body_text'] !!}
                     </div>
 
-                    <div class="blog-more-desc">
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12">
-                                <ul class="list-inline social-colored">
-                                    <li class="empty-text">Share:</li>
-                                    <li><a href="#"><i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus icon-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
-                                </ul> <!--colored social-->
-                            </div>
-                        </div>
-                    </div>
+                    @include('partials/authorInfo')
 
                     @include('partials/comments')
 

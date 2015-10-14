@@ -63,8 +63,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     public function getBlogPostById($id) {
         return $this->blogPost
             ->where('id', $id)
-            ->with(['author'])
-            ->with(['comments', 'comments.author'])
+            ->with(['author', 'comments', 'comments.author'])
             ->first()
             ->toArray();
     }
@@ -81,7 +80,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         if ($enabled_only) {
             $posts = $this->blogPost
                 ->where('enabled', self::ENABLED)
-                ->with(['comments'])
+                ->with(['author', 'comments'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(self::POSTS_PER_PAGE_BLOG)
                 ->toArray();
