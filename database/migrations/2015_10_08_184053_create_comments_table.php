@@ -19,6 +19,7 @@ class CreateCommentsTable extends Migration
             $table->integer('comment_author_id')->unsigned();
             $table->string('text');
             $table->integer('status');
+            $table->string('ip_address')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,7 +28,7 @@ class CreateCommentsTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('website')->nullable();
-            $table->string('ip_address');
+            $table->string('ip_address')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

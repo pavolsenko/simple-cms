@@ -20,14 +20,14 @@ class CreateBlogcategoryTable extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
             $table->integer('created_by')->unsigned();
-            $table->integer('last_updated_by')->unsigned();
+            $table->integer('updated_by')->unsigned();
             $table->boolean('enabled');
             $table->softDeletes();
             $table->timestamps();
         });
         Schema::table('blog_category', function (Blueprint $table) {
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('last_updated_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('user');
+            $table->foreign('updated_by')->references('id')->on('user');
         });
     }
 

@@ -7,6 +7,7 @@ use App\Blog\BlogPost;
 use App\Blog\Author;
 use App\Blog\Comment;
 use App\Blog\CommentAuthor;
+use App\Blog\SocialProfile;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,14 +18,16 @@ class DatabaseSeeder extends Seeder
     private $urlService;
     private $comment;
     private $commentAuthor;
+    private $socialProfile;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor) {
+    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
         $this->urlService = $urlService;
         $this->comment = $comment;
         $this->commentAuthor = $commentAuthor;
+        $this->socialProfile = $socialProfile;
     }
 
     public function run()
@@ -37,22 +40,56 @@ class DatabaseSeeder extends Seeder
         $this->blogPost->unguard();
         $this->author->unguard();
         $this->comment->unguard();
+        $this->socialProfile->unguard();
+
         $this->blogPost->truncate();
         $this->author->truncate();
         $this->comment->truncate();
+        $this->socialProfile->truncate();
 
         $this->faker = $this->faker->create();
         echo "\nSeeding";
 
         for ($ii = 0; $ii < 30; $ii++) {
-            $this->author = new Author;
-            $this->author->users_id = 2;
+            $this->author = new Author();
+            $this->author->user_id = 2;
             $this->author->first_name = $this->faker->firstName;
             $this->author->last_name = $this->faker->lastName;
             $this->author->title = $this->faker->sentence(3);
             $this->author->bio = $this->faker->paragraph(5);
-            $this->website = $this->faker->url;
+            $this->author->website = $this->faker->url;
             $this->author->save();
+
+            if (rand(0, 1)) {
+                $this->socialProfile = new SocialProfile();
+                $this->socialProfile->author_id = $this->author->id;
+                $this->socialProfile->type = 'facebook';
+                $this->socialProfile->name = $this->author->first_name.' '.$this->author->last_name;
+                $this->socialProfile->handle = $this->author->first_name.'.'.$this->author->last_name;
+                $this->socialProfile->link = 'http://facebook.com/'.$this->author->first_name.'.'.$this->author->last_name;
+                $this->socialProfile->save();
+            }
+
+            if (rand(0, 1)) {
+                $this->socialProfile = new SocialProfile();
+                $this->socialProfile->author_id = $this->author->id;
+                $this->socialProfile->type = 'twitter';
+                $this->socialProfile->name = $this->author->first_name.' '.$this->author->last_name;
+                $this->socialProfile->handle = '@'.$this->author->first_name.'.'.$this->author->last_name;
+                $this->socialProfile->link = 'http://twitter.com/'.$this->author->first_name.'.'.$this->author->last_name;
+                $this->socialProfile->save();
+            }
+
+            if (rand(0, 1)) {
+                $this->socialProfile = new SocialProfile();
+                $this->socialProfile->author_id = $this->author->id;
+                $this->socialProfile->type = 'google_plus';
+                $this->socialProfile->name = $this->author->first_name.' '.$this->author->last_name;
+                $this->socialProfile->handle = $this->author->first_name.'.'.$this->author->last_name;
+                $this->socialProfile->link = 'http://plus.google.com/'.$this->author->first_name.'.'.$this->author->last_name;
+                $this->socialProfile->save();
+            }
+
             echo '.';
         }
 
@@ -63,10 +100,11 @@ class DatabaseSeeder extends Seeder
             for ($jj = 0; $jj < round(rand(3,10)); $jj++) {
                 $this->blogPost->body_text .= '<div>'.$this->faker->paragraph(round(rand(10, 30))).'</div><br>';
             }
-            $this->blogPost->created_by = round(rand(1, 30));
-            $this->blogPost->last_updated_by = $this->blogPost->created_by;
+            $this->blogPost->author_id = round(rand(1, 30));
+            $this->blogPost->created_by = 2;
+            $this->blogPost->updated_by = $this->blogPost->created_by;
             $this->blogPost->enabled = 1;
-            $this->blogPost->url = $this->urlService->createUrlFromTitle($this->blogPost->title);
+            $this->blogPost->url = $this->blogPost->id.'-'.$this->urlService->createUrlFromTitle($this->blogPost->title);
             $this->blogPost->save();
             echo '.';
         }
@@ -81,7 +119,7 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
-        for ($ii = 0; $ii < 500; $ii++) {
+        for ($ii = 0; $ii < 200; $ii++) {
             $this->comment = new Comment();
             $this->comment->blog_post_id = round(rand(1,30));
             $this->comment->comment_author_id = round(rand(1,30));

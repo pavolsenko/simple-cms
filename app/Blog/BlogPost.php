@@ -13,7 +13,7 @@ class BlogPost extends Model
     protected $table = 'blog_post';
 
     public function author() {
-        return $this->hasOne('App\Blog\Author', 'id');
+        return $this->hasOne('App\Blog\Author', 'id', 'author_id');
     }
 
     public function comments() {

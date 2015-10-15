@@ -8,11 +8,21 @@
                                 <b>{{ $blog_post['author']['title'] }}</b><br>
                                 {{ $blog_post['author']['bio'] }}
                                 <br><br>
+                                @if(!empty($blog_post['author']['social']))
                                 <ul class="list-inline social-colored">
-                                    <li><a href="#"><i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus icon-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
+
+                                    @foreach($blog_post['author']['social'] as $social)
+
+                                    <li>
+                                        <a href="{{ $social['link'] }}" target="_blank">
+                                            <i class="fa fa-{{ $social['type'] }}" data-toggle="tooltip" title="" data-original-title="{{ ucfirst($social['type']) }}" data-placement="top"></i>
+                                        </a>
+                                    </li>
+
+                                    @endforeach
+
                                 </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
