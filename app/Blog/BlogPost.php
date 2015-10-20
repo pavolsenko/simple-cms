@@ -19,4 +19,8 @@ class BlogPost extends Model
     public function comments() {
         return $this->hasMany('App\Blog\Comment', 'blog_post_id');
     }
+
+    public function categories() {
+        return $this->belongsToMany('App\Blog\BlogCategory', 'blog_post_blog_category')->withPivot('blog_post_id')->withTimestamps();
+    }
 }

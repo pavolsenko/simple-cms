@@ -8,6 +8,7 @@ use App\Blog\Author;
 use App\Blog\Comment;
 use App\Blog\CommentAuthor;
 use App\Blog\SocialProfile;
+use App\Blog\BlogCategory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,8 +20,9 @@ class DatabaseSeeder extends Seeder
     private $comment;
     private $commentAuthor;
     private $socialProfile;
+    private $blogCategory;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile) {
+    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile, BlogCategory $blogCategory) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
@@ -28,12 +30,15 @@ class DatabaseSeeder extends Seeder
         $this->comment = $comment;
         $this->commentAuthor = $commentAuthor;
         $this->socialProfile = $socialProfile;
+        $this->blogCategory = $blogCategory;
     }
 
     public function run()
     {
 
-        /* Filling blog with fake blog posts */
+        /* This will seed a complete DB of a blog with fake blog posts, authors, categories and comments */
+
+        echo "\nSetting up stuff";
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
@@ -41,14 +46,17 @@ class DatabaseSeeder extends Seeder
         $this->author->unguard();
         $this->comment->unguard();
         $this->socialProfile->unguard();
+        $this->blogCategory->unguard();
 
         $this->blogPost->truncate();
         $this->author->truncate();
         $this->comment->truncate();
         $this->socialProfile->truncate();
+        $this->blogCategory->truncate();
 
         $this->faker = $this->faker->create();
-        echo "\nSeeding";
+
+        echo "\nSeeding blog authors";
 
         for ($ii = 0; $ii < 30; $ii++) {
             $this->author = new Author();
@@ -93,6 +101,21 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
+        echo "\nSeeding blog categories";
+
+        for ($ii = 0; $ii < 10; $ii++) {
+            $this->blogCategory = new BlogCategory();
+            $this->blogCategory->title = $this->faker->sentence(round(rand(1, 2)), true);
+            $this->blogCategory->description = $this->faker->paragraph(round(rand(10, 20)));
+            $this->blogCategory->created_by = 2;
+            $this->blogCategory->updated_by = $this->blogCategory->created_by;
+            $this->blogCategory->enabled = 1;
+            $this->blogCategory->save();
+            echo '.';
+        }
+
+        echo "\nSeeding blog posts";
+
         for ($ii = 0; $ii < 30; $ii++) {
             $this->blogPost = new BlogPost();
             $this->blogPost->title = $this->faker->sentence(10, true);
@@ -106,8 +129,17 @@ class DatabaseSeeder extends Seeder
             $this->blogPost->enabled = 1;
             $this->blogPost->url = $this->blogPost->id.'-'.$this->urlService->createUrlFromTitle($this->blogPost->title);
             $this->blogPost->save();
+            $categories = [];
+            for($jj = 0; $jj < 3; $jj++) {
+                if (rand(0, 1)) {
+                    array_push($categories, round(rand(1, 30)));
+                }
+            }
+            $this->blogPost->categories()->attach($categories);
             echo '.';
         }
+
+        echo "\nSeeding blog comment authors";
 
         for ($ii = 0; $ii < 30; $ii++) {
             $this->commentAuthor = new CommentAuthor();
@@ -119,6 +151,8 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
+        echo "\nSeeding blog comments";
+
         for ($ii = 0; $ii < 200; $ii++) {
             $this->comment = new Comment();
             $this->comment->blog_post_id = round(rand(1,30));
@@ -129,12 +163,14 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
-        echo "\n";
+        echo "\nSetting up stuff";
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->blogPost->reguard();
         $this->author->reguard();
         $this->comment->reguard();
         $this->commentAuthor->reguard();
+
+        echo "\nDone\n";
     }
 }

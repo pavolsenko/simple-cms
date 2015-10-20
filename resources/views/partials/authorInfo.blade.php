@@ -15,7 +15,15 @@
 
                                     <li>
                                         <a href="{{ $social['link'] }}" target="_blank">
-                                            <i class="fa fa-{{ $social['type'] }}" data-toggle="tooltip" title="" data-original-title="{{ ucfirst($social['type']) }}" data-placement="top"></i>
+                                            @if($social['type'] == 'facebook')
+                                            <i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i>
+                                            @elseif($social['type'] == 'twitter')
+                                            <i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i>
+                                            @elseif($social['type'] == 'google_plus')
+                                            <i class="fa fa-google-plus icon-plus" data-toggle="tooltip" title="" data-original-title="Google+" data-placement="top"></i>
+                                            @elseif($social['type'] == 'linkedin')
+                                            <i class="fa fa-linkedin icon-in" data-toggle="tooltip" title="" data-original-title="Google+" data-placement="top"></i>
+                                            @endif
                                         </a>
                                     </li>
 

@@ -35,6 +35,7 @@ class BlogPostService {
 
     public function getBlogPostById($id) {
         $post = $this->blogPostRepository->getBlogPostById($id);
+        dd($post);
         return $post;
     }
 

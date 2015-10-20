@@ -3,6 +3,7 @@
 return [
 
     'no_blog_posts_to_display' => 'No blog posts found',
+    'no_more_posts' => 'There are no more posts in this category.',
     'blog_post_saved' => 'Blog post saved.',
     'blog_post_deleted' => 'Blog post deleted.',
     'blog_post_published' => 'Blog post published.',
@@ -10,7 +11,6 @@ return [
     'create_new_blog_post_heading' => 'Create new blog post',
     'blog_post_editor' => 'Blog post editor',
     'blog_post_dashboard_heading' => 'Blog post dashboard',
-
 
 
     'id' => 'ID',
@@ -35,5 +35,6 @@ return [
     'create_new' => 'Create new post',
 
     'read_more' => 'Read more',
+    'related_posts' => 'Related posts',
 
 ];

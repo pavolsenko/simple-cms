@@ -31,7 +31,7 @@
             </div>
 
             <div class="col-sm-3">
-                @include('blog/rightColumn')
+                @include('blog/rightColumnSinglePost')
             </div>
 
         </div>

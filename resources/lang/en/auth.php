@@ -20,6 +20,7 @@ return [
     'login_button' => 'Let me in',
     'email' => 'Email',
     'password' => 'Password',
-    'remember' => 'Remember me'
+    'remember' => 'Remember me',
+    'login_error' => 'Unable to login. Please check your credentials'
 
 ];
