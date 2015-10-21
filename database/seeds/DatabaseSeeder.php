@@ -110,6 +110,7 @@ class DatabaseSeeder extends Seeder
             $this->blogCategory->created_by = 2;
             $this->blogCategory->updated_by = $this->blogCategory->created_by;
             $this->blogCategory->enabled = 1;
+            $this->blogCategory->url = $this->blogCategory->id.'-'.$this->urlService->createUrlFromTitle($this->blogCategory->title);
             $this->blogCategory->save();
             echo '.';
         }

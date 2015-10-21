@@ -3,13 +3,14 @@
 namespace App\Blog;
 
 use Illuminate\Contracts\Auth\Guard as Auth;
-use App\Blog\BlogCategory;
 
 class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface {
 
     const ENABLED = 1;
     const DISABLED = 0;
     const CATEGORIES_PER_PAGE_ADMIN = 20;
+    const POSTS_PER_PAGE_BLOG = 10;
+    const POSTS_PER_PAGE_ADMIN = 20;
 
     private $blogCategory;
     private $auth;
@@ -41,13 +42,14 @@ class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface 
 
     public function getBlogPostsForCategory($id) {
         $category = $this->blogCategory
-            ->with('posts')
             ->where('id', $id)
-            ->get();
-        if (!is_null($category->posts)) {
-            $posts = $category->posts->toArray();
-        } else {
-            $posts = null;
+            ->first();
+        $posts = $category->posts()
+            ->with(['author', 'comments'])
+            ->where('enabled', self::ENABLED)
+            ->paginate(self::POSTS_PER_PAGE_BLOG);
+        if (!is_null($posts)) {
+            $posts = $posts->toArray();
         }
         return $posts;
     }

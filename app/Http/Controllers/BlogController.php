@@ -13,6 +13,9 @@ class BlogController extends Controller
 {
 
     const NUMBER_OF_LATEST_POSTS = 5;
+    const ROOT = 0;
+    const BLOG_ROUTE = 'blog';
+    const CATEGORY_ROUTE = 'blogCategory';
 
     private $blogPostService;
     protected $view;
@@ -28,13 +31,22 @@ class BlogController extends Controller
         $this->validator = $validator;
     }
 
-    public function indexBlog() {
-        $page = $this->request->get('page');
-        if ($page == 1) {
-            return $this->redirector->route('blog');
+    public function indexBlog($id=self::ROOT) {
+        if ($id === self::ROOT) {
+            $posts = $this->blogPostService->getBlogPostsForHomepage();
+        } else {
+            $posts = $this->blogPostService->getBlogPostsByCategory($id);
         }
 
-        $posts = $this->blogPostService->getBlogPostsForHomepage();
+        $page = $this->request->get('page');
+        if ($page == 1) {
+            if ($this->request->route()->getName() == self::BLOG_ROUTE) {
+                return $this->redirector->route(self::BLOG_ROUTE);
+            } else {
+                return $this->redirector->route(self::CATEGORY_ROUTE, ['id' => $id]);
+            }
+        }
+
         $categories = $this->blogPostService->getBlogCategoriesForHomepage();
         $latest_posts = $this->blogPostService->getLatestPosts(self::NUMBER_OF_LATEST_POSTS);
 
@@ -154,17 +166,4 @@ class BlogController extends Controller
         }
     }
 
-    public function getBlogCategory($id) {
-        $posts = $this->blogPostService->getBlogPostsByCategory($id);
-        $categories = $this->blogPostService->getBlogCategoriesForHomepage();
-        $latest_posts = $this->blogPostService->getLatestPosts(self::NUMBER_OF_LATEST_POSTS);
-
-        return $this->view
-            ->make('blog/homepage')
-            ->with('posts', $posts['data'])
-            ->with('total_pages', $posts['last_page'])
-            ->with('current_page', $posts['current_page'])
-            ->with('categories', $categories)
-            ->with('latest_posts', $latest_posts);
-    }
 }

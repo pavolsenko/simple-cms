@@ -76,7 +76,7 @@ Route::group(['prefix' => 'blog'], function () {
         ->where('url', '[0-9, a-z, A-Z, \-]+');
 
     Route::group(['prefix' => 'category'], function () {
-        Route::get('/{id}-{url}', ['as' => 'blogCategory', 'uses' => 'BlogController@getBlogCategory'])
+        Route::get('/{id}-{url}', ['as' => 'blogCategory', 'uses' => 'BlogController@indexBlog'])
             ->where('id', '[0-9]+')
             ->where('url', '[0-9, a-z, A-Z, \-]+');
     });

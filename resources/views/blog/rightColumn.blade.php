@@ -10,7 +10,10 @@
 
                 <ul class="list-unstyled cat-list">
                     @foreach($categories as $category)
-                    <li><a href="#">{{ $category['title'] }} <span class="label label-danger">{{ $category['posts'] }}</span></a></li>
+                    <li>
+                        <a href="{{ URL::route('blogCategory', ['id' => $category['id'], 'url' => $category['url']]) }}">{{ $category['title'] }}
+                            <span class="label label-danger pull-right">{{ $category['posts'] }}</span></a>
+                    </li>
                     @endforeach
                 </ul>
                 @endif
@@ -24,7 +27,6 @@
                     <div class="alert alert-warning">
                         @lang('blogPost.no_recent_posts_found')
                     </div>
-
                 @else
 
                     <ul class="list-unstyled cat-list">
@@ -49,3 +51,4 @@
 
                 </ul>
             </div>
+
