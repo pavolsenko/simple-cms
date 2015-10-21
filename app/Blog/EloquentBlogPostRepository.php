@@ -68,10 +68,6 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
             ->toArray();
     }
 
-    public function getBlogPostByCategory($category) {
-
-    }
-
     public function getBlogPostByAuthor($author) {
 
     }
@@ -90,6 +86,19 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
                 ->paginate(self::POSTS_PER_PAGE_ADMIN)
                 ->toArray();
 
+        }
+        return $posts;
+    }
+
+    public function getLatestPosts($number=5) {
+        $posts = $this->blogPost
+            ->with(['author'])
+            ->where('enabled', self::ENABLED)
+            ->orderBy('created_at', 'DESC')
+            ->take($number)
+            ->get();
+        if (!is_null($posts)) {
+            $posts = $posts->toArray();
         }
         return $posts;
     }

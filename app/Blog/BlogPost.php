@@ -21,6 +21,6 @@ class BlogPost extends Model
     }
 
     public function categories() {
-        return $this->belongsToMany('App\Blog\BlogCategory', 'blog_post_blog_category')->withPivot('blog_post_id')->withTimestamps();
+        return $this->belongsToMany('App\Blog\BlogCategory', 'blog_post_blog_category')->withPivot('blog_post_id', 'blog_category_id')->withTimestamps();
     }
 }

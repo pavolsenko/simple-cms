@@ -6,12 +6,14 @@ class BlogPostService {
     const ENABLED_ONLY = TRUE;
 
     private $blogPostRepository;
+    private $blogCategoryRepository;
     private $authorRepository;
     private $commentRepository;
     private $urlService;
 
-    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, AuthorRepositoryInterface $authorRepositoryInterface, CommentRepositoryInterface $commentRepositoryInterface, UrlService $urlService) {
+    public function __construct(BlogPostRepositoryInterface $blogPostRepositoryInterface, BlogCategoryRepositoryInterface $blogCategoryRepositoryInterface, AuthorRepositoryInterface $authorRepositoryInterface, CommentRepositoryInterface $commentRepositoryInterface, UrlService $urlService) {
         $this->blogPostRepository = $blogPostRepositoryInterface;
+        $this->blogCategoryRepository = $blogCategoryRepositoryInterface;
         $this->authorRepository = $authorRepositoryInterface;
         $this->commentRepository = $commentRepositoryInterface;
         $this->urlService = $urlService;
@@ -29,13 +31,20 @@ class BlogPostService {
         return $this->blogPostRepository->getAllBlogPosts();
     }
 
-    public function getBlogPostsByCategory() {
+    public function getBlogPostsByCategory($category_id) {
+        return $this->blogCategoryRepository->getBlogPostsForCategory($category_id);
+    }
 
+    public function getBlogCategoriesForHomepage() {
+        return $this->blogCategoryRepository->getAllBlogCategories(self::ENABLED_ONLY);
+    }
+
+    public function getBlogCategoriesForAdmin() {
+        return $this->blogCategoryRepository->getAllBlogCategories();
     }
 
     public function getBlogPostById($id) {
         $post = $this->blogPostRepository->getBlogPostById($id);
-        dd($post);
         return $post;
     }
 
@@ -69,5 +78,10 @@ class BlogPostService {
             $message = trans('comment.awaiting_approval');
         }
         return $message;
+    }
+
+    public function getLatestPosts($count) {
+        return $this->blogPostRepository
+            ->getLatestPosts($count);
     }
 }

@@ -1,27 +1,51 @@
             <div class="sidebar-box">
                 <h4>Categories</h4>
+                @if(empty($categories))
+
+                <div class="alert alert-warning">
+                    @lang('blogPost.no_categories_found')
+                </div>
+
+                @else
+
                 <ul class="list-unstyled cat-list">
-                    <li><a href="#">Sports <span class="label label-danger">34</span></a></li>
-                    <li><a href="#">Marketing <span class="badge bg-info">22</span></a></li>
-                    <li><a href="#">Responsive <span class="badge">14</span></a></li>
-                    <li><a href="#">Audio <span class="badge">13</span></a></li>
-                    <li><a href="#">Business <span class="badge">28</span></a></li>
+                    @foreach($categories as $category)
+                    <li><a href="#">{{ $category['title'] }} <span class="label label-danger">{{ $category['posts'] }}</span></a></li>
+                    @endforeach
                 </ul>
+                @endif
             </div>
 
             <div class="sidebar-box">
-                <h4>Latest posts</h4>
+                <h4>@lang('blogPost.latest_posts')</h4>
 
-                lorem ipsum dolor sit amet
+                @if(empty($latest_posts))
+
+                    <div class="alert alert-warning">
+                        @lang('blogPost.no_recent_posts_found')
+                    </div>
+
+                @else
+
+                    <ul class="list-unstyled cat-list">
+                        @foreach($latest_posts as $blog_post)
+                            <li>
+                                <a href="{{ URL::route('blogPost', ['id' => $blog_post['id'], 'url' => $blog_post['url']]) }}">{{ $blog_post['title'] }}</a>
+                                @lang('blogPost.posted_by') {{ $blog_post['author']['first_name'] }} {{ $blog_post['author']['last_name'] }}<br>
+                                @lang('blogPost.posted_on') {{ date('j M Y', strtotime($blog_post['created_at'])) }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
 
             <div class="sidebar-box">
-                <h4>Follow me</h4>
+                <h4>@lang('blogPost.follow_me')</h4>
                 <ul class="list-inline social-colored">
                     <li><a href="#"><i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus icon-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
                     <li><a href="#"><i class="fa fa-linkedin icon-in" data-toggle="tooltip" title="" data-original-title="Linkedin" data-placement="top"></i></a></li>
 
-                </ul> <!--colored social-->
+                </ul>
             </div>

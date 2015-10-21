@@ -132,7 +132,7 @@ class DatabaseSeeder extends Seeder
             $categories = [];
             for($jj = 0; $jj < 3; $jj++) {
                 if (rand(0, 1)) {
-                    array_push($categories, round(rand(1, 30)));
+                    array_push($categories, round(rand(1, 10)));
                 }
             }
             $this->blogPost->categories()->attach($categories);
@@ -171,6 +171,6 @@ class DatabaseSeeder extends Seeder
         $this->comment->reguard();
         $this->commentAuthor->reguard();
 
-        echo "\nDone\n";
+        echo "\nDone\n\n";
     }
 }

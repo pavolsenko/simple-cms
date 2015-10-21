@@ -71,9 +71,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/', ['as' => 'blog', 'uses' => 'BlogController@indexBlog']);
-    Route::get('/{id}-{title}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])
+    Route::get('/{id}-{url}', ['as' => 'blogPost', 'uses' => 'BlogController@getBlogPost'])
         ->where('id', '[0-9]+')
-        ->where('title', '[0-9, a-z, A-Z, \-]+');
+        ->where('url', '[0-9, a-z, A-Z, \-]+');
+
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/{id}-{url}', ['as' => 'blogCategory', 'uses' => 'BlogController@getBlogCategory'])
+            ->where('id', '[0-9]+')
+            ->where('url', '[0-9, a-z, A-Z, \-]+');
+    });
 
     Route::post('comment', ['as' => 'postComment', 'uses' => 'BlogController@postComment']);
 });

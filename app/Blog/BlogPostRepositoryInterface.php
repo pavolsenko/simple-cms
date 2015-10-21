@@ -9,7 +9,7 @@ interface BlogPostRepositoryInterface {
     public function publishBlogPost($id);
     public function unpublishBlogPost($id);
     public function getBlogPostById($id);
-    public function getBlogPostByCategory($category);
     public function getBlogPostByAuthor($author);
     public function getAllBlogPosts($enabled_only=false);
+    public function getLatestPosts($number=5);
 }

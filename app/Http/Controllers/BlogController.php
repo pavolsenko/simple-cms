@@ -12,6 +12,8 @@ use Illuminate\Validation\Factory as Validator;
 class BlogController extends Controller
 {
 
+    const NUMBER_OF_LATEST_POSTS = 5;
+
     private $blogPostService;
     protected $view;
     protected $request;
@@ -33,11 +35,16 @@ class BlogController extends Controller
         }
 
         $posts = $this->blogPostService->getBlogPostsForHomepage();
+        $categories = $this->blogPostService->getBlogCategoriesForHomepage();
+        $latest_posts = $this->blogPostService->getLatestPosts(self::NUMBER_OF_LATEST_POSTS);
+
         return $this->view
             ->make('blog/homepage')
             ->with('posts', $posts['data'])
             ->with('total_pages', $posts['last_page'])
-            ->with('current_page', $posts['current_page']);
+            ->with('current_page', $posts['current_page'])
+            ->with('categories', $categories)
+            ->with('latest_posts', $latest_posts);
     }
 
     public function indexAdmin() {
@@ -145,5 +152,19 @@ class BlogController extends Controller
                 ->back()
                 ->with('message', $message);
         }
+    }
+
+    public function getBlogCategory($id) {
+        $posts = $this->blogPostService->getBlogPostsByCategory($id);
+        $categories = $this->blogPostService->getBlogCategoriesForHomepage();
+        $latest_posts = $this->blogPostService->getLatestPosts(self::NUMBER_OF_LATEST_POSTS);
+
+        return $this->view
+            ->make('blog/homepage')
+            ->with('posts', $posts['data'])
+            ->with('total_pages', $posts['last_page'])
+            ->with('current_page', $posts['current_page'])
+            ->with('categories', $categories)
+            ->with('latest_posts', $latest_posts);
     }
 }
