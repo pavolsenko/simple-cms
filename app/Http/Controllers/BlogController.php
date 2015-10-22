@@ -32,12 +32,6 @@ class BlogController extends Controller
     }
 
     public function indexBlog($id=self::ROOT) {
-        if ($id === self::ROOT) {
-            $posts = $this->blogPostService->getBlogPostsForHomepage();
-        } else {
-            $posts = $this->blogPostService->getBlogPostsByCategory($id);
-        }
-
         $page = $this->request->get('page');
         if ($page == 1) {
             if ($this->request->route()->getName() == self::BLOG_ROUTE) {
@@ -45,6 +39,12 @@ class BlogController extends Controller
             } else {
                 return $this->redirector->route(self::CATEGORY_ROUTE, ['id' => $id]);
             }
+        }
+
+        if ($id === self::ROOT) {
+            $posts = $this->blogPostService->getBlogPostsForHomepage();
+        } else {
+            $posts = $this->blogPostService->getBlogPostsByCategory($id);
         }
 
         $categories = $this->blogPostService->getBlogCategoriesForHomepage();

@@ -44,14 +44,19 @@ class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface 
         $category = $this->blogCategory
             ->where('id', $id)
             ->first();
-        $posts = $category->posts()
-            ->with(['author', 'comments'])
-            ->where('enabled', self::ENABLED)
-            ->paginate(self::POSTS_PER_PAGE_BLOG);
-        if (!is_null($posts)) {
-            $posts = $posts->toArray();
+        if (!is_null($category)) {
+            $posts = $category
+                ->posts()
+                ->with(['author', 'comments'])
+                ->where('enabled', self::ENABLED)
+                ->paginate(self::POSTS_PER_PAGE_BLOG);
+            $category = $category->toArray();
+            if (!is_null($posts)) {
+                $category['posts'] = $posts->toArray();
+            }
         }
-        return $posts;
+        dd($category);
+        return $category;
     }
 
     public function getAllBlogCategories($enabled_only=false){

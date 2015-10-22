@@ -8,8 +8,13 @@
     <section id="blog-list" class="padding-80">
         <div class="container">
             <div class="section-heading text-center">
+                @if(is_null($category_id))
+                <h4 class="small section-title"><span>@lang('blogPost.something_to_read')</span></h4>
+                <h1 class="large section-title">@lang('blogPost.welcome_to_my_blog')</h1>
+                @else
                 <h4 class="small section-title"><span>Something to read</span></h4>
                 <h1 class="large section-title">Welcome to my Blog</h1>
+                @endif
             </div><!--section heading-->
         </div><!--section heading-->
 

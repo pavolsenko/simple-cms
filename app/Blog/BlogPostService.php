@@ -84,4 +84,8 @@ class BlogPostService {
         return $this->blogPostRepository
             ->getLatestPosts($count);
     }
+
+    public function getCategoryById() {
+
+    }
 }
