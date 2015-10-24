@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Blog\BlogPostService;
+use App\Blog\BlogService;
 use Illuminate\Contracts\View\Factory as View;
 
 class homeController extends Controller
@@ -11,7 +11,7 @@ class homeController extends Controller
     protected $view;
     protected $blogPostService;
 
-    public function __construct(View $view, BlogPostService $blogPostService) {
+    public function __construct(View $view, BlogService $blogPostService) {
         $this->view = $view;
         $this->blogPostService = $blogPostService;
     }

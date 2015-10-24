@@ -50,13 +50,13 @@ class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface 
                 ->with(['author', 'comments'])
                 ->where('enabled', self::ENABLED)
                 ->paginate(self::POSTS_PER_PAGE_BLOG);
-            $category = $category->toArray();
             if (!is_null($posts)) {
-                $category['posts'] = $posts->toArray();
+                $posts = $posts->toArray();
             }
+            return $posts;
+        } else {
+            return null;
         }
-        dd($category);
-        return $category;
     }
 
     public function getAllBlogCategories($enabled_only=false){
@@ -75,6 +75,16 @@ class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface 
             }
         }
         return $categories;
+    }
+
+    public function getBlogCategoryById($id) {
+        $category = $this->blogCategory
+            ->where('id', $id)
+            ->first();
+        if (!is_null($category)) {
+            $category = $category->toArray();
+        }
+        return $category;
     }
 
 }

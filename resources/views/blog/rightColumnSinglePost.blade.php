@@ -1,11 +1,11 @@
 
             <div class="sidebar-box">
-                <h4>@lang('blogPost.related_posts')</h4>
+                <h4>@lang('blog.related_posts')</h4>
 
                 @if(empty($blog_post['related']))
 
                 <div class="alert alert-warning">
-                    @lang('blogPost.no_more_posts')
+                    @lang('blog.no_more_posts')
                 </div>
 
                 @else

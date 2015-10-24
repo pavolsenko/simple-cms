@@ -1,7 +1,7 @@
 <?php namespace App\Blog;
 
 
-class BlogPostService {
+class BlogService {
 
     const ENABLED_ONLY = TRUE;
 
@@ -85,7 +85,7 @@ class BlogPostService {
             ->getLatestPosts($count);
     }
 
-    public function getCategoryById() {
-
+    public function getBlogCategoryById($id) {
+        return $this->blogCategoryRepository->getBlogCategoryById($id);
     }
 }

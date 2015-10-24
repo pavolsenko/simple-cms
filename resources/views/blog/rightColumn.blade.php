@@ -3,7 +3,7 @@
                 @if(empty($categories))
 
                 <div class="alert alert-warning">
-                    @lang('blogPost.no_categories_found')
+                    @lang('blog.no_categories_found')
                 </div>
 
                 @else
@@ -20,12 +20,12 @@
             </div>
 
             <div class="sidebar-box">
-                <h4>@lang('blogPost.latest_posts')</h4>
+                <h4>@lang('blog.latest_posts')</h4>
 
                 @if(empty($latest_posts))
 
                     <div class="alert alert-warning">
-                        @lang('blogPost.no_recent_posts_found')
+                        @lang('blog.no_recent_posts_found')
                     </div>
                 @else
 
@@ -33,8 +33,8 @@
                         @foreach($latest_posts as $blog_post)
                             <li>
                                 <a href="{{ URL::route('blogPost', ['id' => $blog_post['id'], 'url' => $blog_post['url']]) }}">{{ $blog_post['title'] }}</a>
-                                @lang('blogPost.posted_by') {{ $blog_post['author']['first_name'] }} {{ $blog_post['author']['last_name'] }}<br>
-                                @lang('blogPost.posted_on') {{ date('j M Y', strtotime($blog_post['created_at'])) }}
+                                @lang('blog.posted_by') {{ $blog_post['author']['first_name'] }} {{ $blog_post['author']['last_name'] }}<br>
+                                @lang('blog.posted_on') {{ date('j M Y', strtotime($blog_post['created_at'])) }}
                             </li>
                         @endforeach
                     </ul>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="sidebar-box">
-                <h4>@lang('blogPost.follow_me')</h4>
+                <h4>@lang('blog.follow_me')</h4>
                 <ul class="list-inline social-colored">
                     <li><a href="#"><i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
                     <li><a href="#"><i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>

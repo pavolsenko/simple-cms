@@ -8,12 +8,12 @@
     <section id="blog-list" class="padding-80">
         <div class="container">
             <div class="section-heading text-center">
-                @if(is_null($category_id))
-                <h4 class="small section-title"><span>@lang('blogPost.something_to_read')</span></h4>
-                <h1 class="large section-title">@lang('blogPost.welcome_to_my_blog')</h1>
+                @if(empty($category))
+                <h4 class="small section-title"><span>@lang('blog.something_to_read')</span></h4>
+                <h1 class="large section-title">@lang('blog.welcome_to_my_blog')</h1>
                 @else
-                <h4 class="small section-title"><span>Something to read</span></h4>
-                <h1 class="large section-title">Welcome to my Blog</h1>
+                <h4 class="small section-title"><span>@lang('blog.category')</span></h4>
+                <h1 class="large section-title">{{ $category['title'] }}</h1>
                 @endif
             </div><!--section heading-->
         </div><!--section heading-->
@@ -29,7 +29,7 @@
                     <div class="blog-item-sec">
                         <div class="blog-item-head">
                             <h3>
-                                <a href="blog/{{ $blog_post['url'] }}">
+                                <a href="{{ URL::route('blogPost', ['id' => $blog_post['id'], 'url' => $blog_post['url']]) }}">
                                     {{ $blog_post['title'] }}
                                 </a>
                             </h3>
@@ -54,7 +54,7 @@
                                     </ul> <!--colored social-->
                                 </div>
                                 <div class="col-sm-5 text-right col-xs-12">
-                                    <a href="blog/{{ $blog_post['url'] }}" class="btn btn-theme-color">@lang('blogPost.read_more') <i class="fa fa-angle-right"></i></a>
+                                    <a href="{{ URL::route('blogPost', ['id' => $blog_post['id'], 'url' => $blog_post['url']]) }}" class="btn btn-theme-color">@lang('blog.read_more') <i class="fa fa-angle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                 @else
                     <div class="alert alert-warning">
                         <i class="glyphicon glyphicon-info-sign"></i>&nbsp;
-                        @lang('blogPost.no_blog_posts_to_display')
+                        @lang('blog.no_blog_posts_to_display')
                     </div>
                 @endif
 

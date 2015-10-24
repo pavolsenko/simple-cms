@@ -10,4 +10,5 @@ interface BlogCategoryRepositoryInterface {
     public function unpublishBlogCategory($id);
     public function getBlogPostsForCategory($id);
     public function getAllBlogCategories($enabled_only=false);
+    public function getBlogCategoryById($id);
 }

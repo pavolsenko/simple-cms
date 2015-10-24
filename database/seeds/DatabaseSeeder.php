@@ -105,12 +105,12 @@ class DatabaseSeeder extends Seeder
 
         for ($ii = 0; $ii < 10; $ii++) {
             $this->blogCategory = new BlogCategory();
-            $this->blogCategory->title = $this->faker->sentence(round(rand(1, 2)), true);
+            $this->blogCategory->title = $this->faker->words();
             $this->blogCategory->description = $this->faker->paragraph(round(rand(10, 20)));
             $this->blogCategory->created_by = 2;
             $this->blogCategory->updated_by = $this->blogCategory->created_by;
             $this->blogCategory->enabled = 1;
-            $this->blogCategory->url = $this->blogCategory->id.'-'.$this->urlService->createUrlFromTitle($this->blogCategory->title);
+            $this->blogCategory->url = $this->urlService->createUrlFromTitle($this->blogCategory->title);
             $this->blogCategory->save();
             echo '.';
         }
@@ -128,7 +128,7 @@ class DatabaseSeeder extends Seeder
             $this->blogPost->created_by = 2;
             $this->blogPost->updated_by = $this->blogPost->created_by;
             $this->blogPost->enabled = 1;
-            $this->blogPost->url = $this->blogPost->id.'-'.$this->urlService->createUrlFromTitle($this->blogPost->title);
+            $this->blogPost->url = $this->urlService->createUrlFromTitle($this->blogPost->title);
             $this->blogPost->save();
             $categories = [];
             for($jj = 0; $jj < 3; $jj++) {
