@@ -13,6 +13,13 @@ use App\Blog\BlogCategory;
 class DatabaseSeeder extends Seeder
 {
 
+    const NUMBER_OF_AUTHORS = 20;
+    const NUMBER_OF_CATEGORIES = 20;
+    const NUMBER_OF_POSTS = 100;
+    const NUMBER_OF_COMMENTS_AUTHORS = 200;
+    const NUMBER_OF_COMMENTS = 1000;
+    const IGNORED_TABLES = ['migrations', 'user', 'password_resets'];
+
     private $faker;
     private $blogPost;
     private $author;
@@ -40,25 +47,12 @@ class DatabaseSeeder extends Seeder
 
         echo "\nSetting up stuff";
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-        $this->blogPost->unguard();
-        $this->author->unguard();
-        $this->comment->unguard();
-        $this->socialProfile->unguard();
-        $this->blogCategory->unguard();
-
-        $this->blogPost->truncate();
-        $this->author->truncate();
-        $this->comment->truncate();
-        $this->socialProfile->truncate();
-        $this->blogCategory->truncate();
-
+        $this->truncateTables();
         $this->faker = $this->faker->create();
 
-        echo "\nSeeding blog authors";
+        echo "\nSeeding blog authors (".self::NUMBER_OF_AUTHORS.") ";
 
-        for ($ii = 0; $ii < 30; $ii++) {
+        for ($ii = 0; $ii < self::NUMBER_OF_AUTHORS; $ii++) {
             $this->author = new Author();
             $this->author->user_id = 2;
             $this->author->first_name = $this->faker->firstName;
@@ -101,9 +95,9 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
-        echo "\nSeeding blog categories";
+        echo "\nSeeding blog categories (".self::NUMBER_OF_CATEGORIES.') ';
 
-        for ($ii = 0; $ii < 10; $ii++) {
+        for ($ii = 0; $ii < self::NUMBER_OF_CATEGORIES; $ii++) {
             $this->blogCategory = new BlogCategory();
             $this->blogCategory->title = ucfirst($this->faker->word()).' '.$this->faker->word().' '.$this->faker->word();
             $this->blogCategory->description = $this->faker->paragraph(round(rand(10, 20)));
@@ -111,38 +105,39 @@ class DatabaseSeeder extends Seeder
             $this->blogCategory->updated_by = $this->blogCategory->created_by;
             $this->blogCategory->enabled = 1;
             $this->blogCategory->url = $this->urlService->createUrlFromTitle($this->blogCategory->title);
+            $this->blogCategory->color = $this->faker->hexColor();
             $this->blogCategory->save();
             echo '.';
         }
 
-        echo "\nSeeding blog posts";
+        echo "\nSeeding blog posts (".self::NUMBER_OF_POSTS.') ';
 
-        for ($ii = 0; $ii < 30; $ii++) {
+        for ($ii = 0; $ii < self::NUMBER_OF_POSTS; $ii++) {
             $this->blogPost = new BlogPost();
             $this->blogPost->title = $this->faker->sentence(10, true);
             $this->blogPost->intro_text = $this->faker->paragraph(round(rand(10,20)));
             for ($jj = 0; $jj < round(rand(3,10)); $jj++) {
                 $this->blogPost->body_text .= '<div>'.$this->faker->paragraph(round(rand(10, 30))).'</div><br>';
             }
-            $this->blogPost->author_id = round(rand(1, 30));
+            $this->blogPost->author_id = round(rand(1, self::NUMBER_OF_AUTHORS));
             $this->blogPost->created_by = 2;
             $this->blogPost->updated_by = $this->blogPost->created_by;
             $this->blogPost->enabled = 1;
             $this->blogPost->url = $this->urlService->createUrlFromTitle($this->blogPost->title);
             $this->blogPost->save();
             $categories = [];
-            for($jj = 0; $jj < 3; $jj++) {
+            for($jj = 0; $jj < 5; $jj++) {
                 if (rand(0, 1)) {
-                    array_push($categories, round(rand(1, 10)));
+                    array_push($categories, round(rand(1, self::NUMBER_OF_CATEGORIES)));
                 }
             }
             $this->blogPost->categories()->attach($categories);
             echo '.';
         }
 
-        echo "\nSeeding blog comment authors";
+        echo "\nSeeding blog comment authors (".self::NUMBER_OF_COMMENTS_AUTHORS.') ';
 
-        for ($ii = 0; $ii < 30; $ii++) {
+        for ($ii = 0; $ii < self::NUMBER_OF_COMMENTS_AUTHORS; $ii++) {
             $this->commentAuthor = new CommentAuthor();
             $this->commentAuthor->name = $this->faker->name;
             $this->commentAuthor->email = $this->faker->email;
@@ -152,12 +147,12 @@ class DatabaseSeeder extends Seeder
             echo '.';
         }
 
-        echo "\nSeeding blog comments";
+        echo "\nSeeding blog comments (".self::NUMBER_OF_COMMENTS.') ';
 
-        for ($ii = 0; $ii < 200; $ii++) {
+        for ($ii = 0; $ii < self::NUMBER_OF_COMMENTS; $ii++) {
             $this->comment = new Comment();
-            $this->comment->blog_post_id = round(rand(1,30));
-            $this->comment->comment_author_id = round(rand(1,30));
+            $this->comment->blog_post_id = round(rand(1,self::NUMBER_OF_POSTS));
+            $this->comment->comment_author_id = round(rand(1,self::NUMBER_OF_COMMENTS_AUTHORS));
             $this->comment->text = $this->faker->paragraph(round(rand(1,10)));
             $this->comment->status = 1;
             $this->comment->save();
@@ -165,13 +160,21 @@ class DatabaseSeeder extends Seeder
         }
 
         echo "\nSetting up stuff";
-
+        
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        $this->blogPost->reguard();
-        $this->author->reguard();
-        $this->comment->reguard();
-        $this->commentAuthor->reguard();
 
         echo "\nDone\n\n";
     }
+
+    public function truncateTables() {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $tables = DB::select('SHOW TABLES');
+        foreach ($tables as $table) {
+            if (!in_array($table->Tables_in_laravel, self::IGNORED_TABLES)) {
+                DB::table($table->Tables_in_laravel)->truncate();
+            }
+        }
+        return true;
+    }
+
 }

@@ -47,7 +47,7 @@ class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface 
         if (!is_null($category)) {
             $posts = $category
                 ->posts()
-                ->with(['author', 'comments'])
+                ->with(['author', 'comments', 'categories'])
                 ->where('enabled', self::ENABLED)
                 ->paginate(self::POSTS_PER_PAGE_BLOG);
             if (!is_null($posts)) {

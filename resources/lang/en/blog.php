@@ -15,6 +15,7 @@ return [
     'something_to_read' => 'Something to read',
     'latest_posts' => 'Latest posts',
     'no_recent_posts_found' => 'No blog posts found',
+    'no_categories_found' => 'No categories found',
 
 
     'id' => 'ID',
@@ -27,7 +28,6 @@ return [
     'posted_by' => 'By',
     'posted_on' => 'Posted on',
     'published' => 'Published',
-    'category' => 'Blog Category',
 
 
     'save' => 'Save',
@@ -41,5 +41,7 @@ return [
 
     'read_more' => 'Read more',
     'related_posts' => 'Related posts',
+    'category' => 'Blog Category',
+    'categories' => 'Categories',
 
 ];

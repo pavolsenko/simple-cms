@@ -1,5 +1,5 @@
             <div class="sidebar-box">
-                <h4>Categories</h4>
+                <h4>@lang('blog.categories')</h4>
                 @if(empty($categories))
 
                 <div class="alert alert-warning">
@@ -10,10 +10,12 @@
 
                 <ul class="list-unstyled cat-list">
                     @foreach($categories as $category)
+                        @if($category['posts'] > 0)
                     <li>
                         <a href="{{ URL::route('blogCategory', ['id' => $category['id'], 'url' => $category['url']]) }}">{{ $category['title'] }}
-                            <span class="label label-danger pull-right">{{ $category['posts'] }}</span></a>
+                            <span class="label label-danger pull-right" style="background-color:{{ $category['color'] }}">{{ $category['posts'] }}</span></a>
                     </li>
+                        @endif
                     @endforeach
                 </ul>
                 @endif
@@ -39,16 +41,5 @@
                         @endforeach
                     </ul>
                 @endif
-            </div>
-
-            <div class="sidebar-box">
-                <h4>@lang('blog.follow_me')</h4>
-                <ul class="list-inline social-colored">
-                    <li><a href="#"><i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus icon-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin icon-in" data-toggle="tooltip" title="" data-original-title="Linkedin" data-placement="top"></i></a></li>
-
-                </ul>
             </div>
 

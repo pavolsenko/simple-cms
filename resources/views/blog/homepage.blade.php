@@ -41,21 +41,10 @@
                             {!! $blog_post['intro_text'] !!}
                         </div>
 
-                        <div class="blog-more-desc">
-                            <div class="row">
-                                <div class="col-sm-7 col-xs-12">
-                                    <ul class="list-inline social-colored">
-                                        <li class="empty-text">Share:</li>
-                                        <li><a href="#"><i class="fa fa-facebook icon-fb" data-toggle="tooltip" title="" data-original-title="Facebook" data-placement="top"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter icon-twit" data-toggle="tooltip" title="" data-original-title="Twitter" data-placement="top"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-google-plus icon-plus" data-toggle="tooltip" title="" data-original-title="Google pluse" data-placement="top"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-pinterest icon-pin" data-toggle="tooltip" title="" data-original-title="Linkedin" data-placement="top"></i></a></li>
-
-                                    </ul> <!--colored social-->
-                                </div>
-                                <div class="col-sm-5 text-right col-xs-12">
-                                    <a href="{{ URL::route('blogPost', ['id' => $blog_post['id'], 'url' => $blog_post['url']]) }}" class="btn btn-theme-color">@lang('blog.read_more') <i class="fa fa-angle-right"></i></a>
-                                </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 text-right col-xs-12">
+                                <a href="{{ URL::route('blogPost', ['id' => $blog_post['id'], 'url' => $blog_post['url']]) }}" class="btn btn-theme-color">@lang('blog.read_more') <i class="fa fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
