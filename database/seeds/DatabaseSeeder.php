@@ -105,7 +105,7 @@ class DatabaseSeeder extends Seeder
 
         for ($ii = 0; $ii < 10; $ii++) {
             $this->blogCategory = new BlogCategory();
-            $this->blogCategory->title = $this->faker->words();
+            $this->blogCategory->title = ucfirst($this->faker->word()).' '.$this->faker->word().' '.$this->faker->word();
             $this->blogCategory->description = $this->faker->paragraph(round(rand(10, 20)));
             $this->blogCategory->created_by = 2;
             $this->blogCategory->updated_by = $this->blogCategory->created_by;
