@@ -4,6 +4,7 @@
 class BlogService {
 
     const ENABLED_ONLY = TRUE;
+    const NUMBER_OF_RELATED_POSTS = 5;
 
     private $blogPostRepository;
     private $blogCategoryRepository;
@@ -21,9 +22,6 @@ class BlogService {
 
     public function getBlogPostsForHomepage() {
         $posts = $this->blogPostRepository->getAllBlogPosts(self::ENABLED_ONLY);
-        foreach ($posts['data'] as &$post) {
-            $post['url'] = $post['id'].$post['url'];
-        }
         return $posts;
     }
 
@@ -88,4 +86,19 @@ class BlogService {
     public function getBlogCategoryById($id) {
         return $this->blogCategoryRepository->getBlogCategoryById($id);
     }
+
+    public function getRelatedBlogPosts($id, $number=self::NUMBER_OF_RELATED_POSTS) {
+        $posts = $this->getBlogPostsByCategory($id);
+        $result = [];
+        for ($ii = 0; $ii < count($posts['data']); $ii++) {
+            $post_key = rand(0, count($posts['data']));
+            if (!is_null($posts['data']) && isset($posts['data'][$post_key])) {
+                if (count($result) < $number) {
+                    array_push($result, $posts['data'][$post_key]);
+                }
+            }
+        }
+        return $result;
+    }
+
 }

@@ -13,8 +13,8 @@ use App\Blog\BlogCategory;
 class DatabaseSeeder extends Seeder
 {
 
-    const NUMBER_OF_AUTHORS = 20;
-    const NUMBER_OF_CATEGORIES = 20;
+    const NUMBER_OF_AUTHORS = 10;
+    const NUMBER_OF_CATEGORIES = 10;
     const NUMBER_OF_POSTS = 100;
     const NUMBER_OF_COMMENTS_AUTHORS = 200;
     const NUMBER_OF_COMMENTS = 1000;
@@ -160,7 +160,7 @@ class DatabaseSeeder extends Seeder
         }
 
         echo "\nSetting up stuff";
-        
+
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         echo "\nDone\n\n";

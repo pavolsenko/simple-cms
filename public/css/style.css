@@ -13,5 +13,19 @@
 }
 
 .blog-item-sec .author img {
-    margin-bottom: 0px;
+    margin-bottom: 0;
+}
+
+.blog-item-post-info {
+    margin: 0;
+}
+
+.categories {
+    border-top: none;
+    margin-bottom: 10px;
+}
+
+.categories span {
+    color: #fff;
+    padding: 3px 5px;
 }

@@ -10,12 +10,12 @@
                             @else
                                 0 @lang('comment.comments')
                             @endif
-                            <br>
-                            @lang('blog.categories')
-                            @foreach($blog_post['categories'] as $category)
-
-                            <span class="label label-warning" style="background-color:{{ $category['color'] }}">{{ $category['title'] }}</span>
-
-                            @endforeach
                         </span>
+                    </div>
+                    <div class="blog-item-post-info categories">
+                    @foreach($blog_post['categories'] as $category)
+
+                        <span style="background-color:{{ $category['color'] }}">{{ $category['title'] }}</span>
+
+                    @endforeach
                     </div>

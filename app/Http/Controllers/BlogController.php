@@ -31,35 +31,40 @@ class BlogController extends Controller
         $this->validator = $validator;
     }
 
-    public function indexBlog($id=self::BLOG_ROOT_ID) {
-        $category = $this->blogService->getBlogCategoryById($id);
+    public function indexBlog($id=self::BLOG_ROOT_ID, $url=null) {
 
         $page = $this->request->get('page');
-        if ($page == 1) {
-            if ($id == self::BLOG_ROOT_ID) {
+        if ($id == self::BLOG_ROOT_ID) {
+            if ($page == 1) {
                 return $this->redirector->route(self::BLOG_ROUTE);
             } else {
+                $category = null;
+                $posts = $this->blogService->getBlogPostsForHomepage();
+            }
+        } else {
+            $category = $this->blogService->getBlogCategoryById($id);
+            if ($page == 1) {
                 return $this->redirector->route(self::CATEGORY_ROUTE, ['id' => $id, 'url' => $category['url']]);
+            } else {
+                $posts = $this->blogService->getBlogPostsByCategory($id);
             }
         }
-
-        if ($id == self::BLOG_ROOT_ID) {
-            $posts = $this->blogService->getBlogPostsForHomepage();
-        } else {
-            $posts = $this->blogService->getBlogPostsByCategory($id);
-        }
-
         $categories = $this->blogService->getBlogCategoriesForHomepage();
         $latest_posts = $this->blogService->getLatestPosts(self::NUMBER_OF_LATEST_POSTS);
 
-        return $this->view
-            ->make('blog/homepage')
-            ->with('category', $category)
-            ->with('posts', $posts['data'])
-            ->with('total_pages', $posts['last_page'])
-            ->with('current_page', $posts['current_page'])
-            ->with('categories', $categories)
-            ->with('latest_posts', $latest_posts);
+        if ($id != self::BLOG_ROOT_ID && ($category == null || $category['url'] != $url)) {
+            return $this->view
+                ->make('errors/404', [], [404]);
+        } else {
+            return $this->view
+                ->make('blog/homepage')
+                ->with('category', $category)
+                ->with('posts', $posts['data'])
+                ->with('total_pages', $posts['last_page'])
+                ->with('current_page', $posts['current_page'])
+                ->with('categories', $categories)
+                ->with('latest_posts', $latest_posts);
+        }
     }
 
     public function indexAdmin() {
@@ -74,7 +79,9 @@ class BlogController extends Controller
 
     public function getUpdate($id) {
         $blog_post = $this->blogService->getBlogPostById($id);
-        return $this->view->make('admin/blogPosts/createOrUpdate')->with('blog_post', $blog_post);
+        return $this->view
+            ->make('admin/blogPosts/createOrUpdate')
+            ->with('blog_post', $blog_post);
     }
 
     public function postUpdate() {
@@ -130,12 +137,18 @@ class BlogController extends Controller
             ->with('message', $message);
     }
 
-    public function getBlogPost($id) {
+    public function getBlogPost($id, $url) {
         $blog_post = $this->blogService->getBlogPostById($id);
-
-        return $this->view
-            ->make('blog/singlePost')
-            ->with('blog_post', $blog_post);
+        if (is_null($blog_post) || $blog_post['url'] != $url) {
+            return $this->view
+                ->make('errors/404', [], [404]);
+        } else {
+            $related_posts = $this->blogService->getRelatedBlogPosts($blog_post['categories'][rand(0, count($blog_post['categories']) - 1)]['id']);
+            return $this->view
+                ->make('blog/singlePost')
+                ->with('blog_post', $blog_post)
+                ->with('related_posts', $related_posts);
+        }
     }
 
     public function postComment() {

@@ -61,11 +61,14 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function getBlogPostById($id) {
-        return $this->blogPost
+        $post = $this->blogPost
             ->where('id', $id)
             ->with(['author', 'author.social', 'comments', 'comments.author', 'categories'])
-            ->first()
-            ->toArray();
+            ->first();
+        if (!is_null($post)) {
+            $post = $post->toArray();
+        }
+        return $post;
     }
 
     public function getBlogPostByAuthor($author) {
