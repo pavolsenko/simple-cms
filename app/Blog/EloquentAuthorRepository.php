@@ -27,7 +27,11 @@ class EloquentAuthorRepository implements AuthorRepositoryInterface {
     }
 
     public function getAllAuthors() {
-
+        $authors = $this->author->get();
+        if (!is_null($authors)) {
+            $authors = $authors->toArray();
+        }
+        return $authors;
     }
 
 }

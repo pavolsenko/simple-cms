@@ -4,7 +4,7 @@
 
     <div class="col-sm-10 col-sm-offset-1">
         <h1>
-            @lang('blogPost.blog_post_editor')
+            @lang('blog.blog_post_editor')
         </h1>
     </div>
 
@@ -29,37 +29,41 @@
         @endif
 
         <div class="form-group">
-            {!! Form::submit(trans('blogPost.save'), ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit(trans('blog.save'), ['class' => 'btn btn-primary']) !!}
             &nbsp;
             <a href="{{ URL::route('postsDashboard') }}" class="btn btn-default">
-                @lang('blogPost.cancel')
+                @lang('blog.cancel')
             </a>
         </div>
 
         <div class="form-group">
-            {!! Form::label('title', trans('blogPost.title')) !!}
+            {!! Form::label('author', trans('blog.author')) !!}
+            {!! Form::select('author', $authors, isset($blog_post) ? $blog_post['author_id'] : null, ['class' => 'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('title', trans('blog.title')) !!}
             {!! Form::text('title', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('intro_text', trans('blogPost.intro_text')) !!}
+            {!! Form::label('intro_text', trans('blog.intro_text')) !!}
             {!! Form::textarea('intro_text', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::label('body_text', trans('blogPost.body_text')) !!}
+            {!! Form::label('body_text', trans('blog.body_text')) !!}
             {!! Form::textarea('body_text', null, ['class' => 'form-control']) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::submit(trans('blogPost.save'), ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit(trans('blog.save'), ['class' => 'btn btn-primary']) !!}
             &nbsp;
             <a href="{{ URL::route('postsDashboard') }}" class="btn btn-default">
-                @lang('blogPost.cancel')
+                @lang('blog.cancel')
             </a>
         </div>
 
-        {!! Form::close() !!}
 
         <h4>@lang('comment.comments')</h4>
 
@@ -68,7 +72,19 @@
     <div class="col-sm-2">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>@lang('blogPost.settings')</b>
+                <b>@lang('blog.settings')</b>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group btn-group-sm">
+                    <a href="#" class="btn btn-default">@lang('blog.published')</a>
+                    <a href="#" class="btn btn-default">@lang('blog.draft')</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <b>@lang('blog.featured_image')</b>
             </div>
             <div class="panel-body">
                 lorem ipsum
@@ -77,25 +93,25 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>@lang('blogPost.featured_image')</b>
+                <b>@lang('blog.seo_settings')</b>
             </div>
             <div class="panel-body">
-                lorem ipsum
-            </div>
-        </div>
+                {!! Form::label('url', trans('blog.url')) !!}
+                {!! Form::text('url', null, ['class' => 'form-control']) !!}
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <b>@lang('blogPost.seo_settings')</b>
-            </div>
-            <div class="panel-body">
-                nice URL<br>
-                meta title<br>
-                meta description<br>
-                meta keywords<br>
+                {!! Form::label('meta_title', trans('blog.meta_title')) !!}
+                {!! Form::text('meta_title', null, ['class' => 'form-control']) !!}
+
+                {!! Form::label('meta_description', trans('blog.meta_description')) !!}
+                {!! Form::textarea('meta_description', null, ['class' => 'form-control']) !!}
+
+                {!! Form::label('meta_keywords', trans('blog.meta_keywords')) !!}
+                {!! Form::textarea('meta_keywords', null, ['class' => 'form-control']) !!}
 
             </div>
         </div>
     </div>
+
+    {!! Form::close() !!}
 
 @stop

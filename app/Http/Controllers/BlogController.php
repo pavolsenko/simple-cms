@@ -79,35 +79,43 @@ class BlogController extends Controller
 
     public function getUpdate($id) {
         $blog_post = $this->blogService->getBlogPostById($id);
-        return $this->view
-            ->make('admin/blogPosts/createOrUpdate')
-            ->with('blog_post', $blog_post);
-    }
-
-    public function postUpdate() {
-        $input = $this->request->all();
-        $blog_post = $this->blogService->saveBlogPost($input);
-        $message = trans('blog.saved');
-
+        $authors = $this->blogService->getAllAuthorsWithIds();
         return $this->view
             ->make('admin/blogPosts/createOrUpdate')
             ->with('blog_post', $blog_post)
-            ->with('message', $message);
+            ->with('authors', $authors);
     }
 
     public function getCreate() {
-        return $this->view->make('admin/blogPosts/createOrUpdate');
+        $authors = $this->blogService->getAllAuthorsWithIds();
+        return $this->view
+            ->make('admin/blogPosts/createOrUpdate')
+            ->with('authors', $authors);
     }
 
-    public function postCreate() {
-        $input = $this->request->only(['title', 'intro_text', 'body_text']);
-        $blog_post = $this->blogService->saveBlogPost($input);
-        $message = trans('blog.blog_post_saved');
-
-        return $this->redirector
-            ->route('getUpdateBlogPost', $blog_post['id'])
-            ->with('blog_post', $blog_post)
-            ->with('message', $message);
+    public function postCreateOrUpdate() {
+        $input = $this->request->all();
+        $rules = [
+            'title' => 'required',
+            'intro_text' => 'required',
+            'body_text' => 'required'
+        ];
+        $this->validator = $this->validator->make($input, $rules);
+        if ($this->validator->fails()) {
+            return $this->redirector
+                ->back()
+                ->withInput()
+                ->withErrors($this->validator);
+        } else {
+            $blog_post = $this->blogService->saveBlogPost($input);
+            $message = trans('blog.saved');
+            $authors = $this->blogService->getAllAuthorsWithIds();
+            return $this->view
+                ->make('admin/blogPosts/createOrUpdate')
+                ->with('blog_post', $blog_post)
+                ->with('authors', $authors)
+                ->with('message', $message);
+        }
     }
 
     public function getDelete($id) {
@@ -143,7 +151,7 @@ class BlogController extends Controller
             return $this->view
                 ->make('errors/404', [], [404]);
         } else {
-            $related_posts = $this->blogService->getRelatedBlogPosts($blog_post['categories'][rand(0, count($blog_post['categories']) - 1)]['id']);
+            $related_posts = $this->blogService->getRelatedBlogPosts($id, $blog_post['categories'][rand(0, count($blog_post['categories']) - 1)]['id']);
             return $this->view
                 ->make('blog/singlePost')
                 ->with('blog_post', $blog_post)

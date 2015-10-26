@@ -20,25 +20,30 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
     }
 
     public function createBlogPost($input) {
+        $this->blogPost->author_id = $input['author'];
         $this->blogPost->title = $input['title'];
         $this->blogPost->intro_text = $input['intro_text'];
         $this->blogPost->body_text = $input['body_text'];
         $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
-        $this->blogPost->last_updated_by = $this->auth->user()->getAuthIdentifier();
-        //$this->blogPost->enabled = $input['enabled'];
+        $this->blogPost->updated_by = $this->auth->user()->getAuthIdentifier();
+        $this->blogPost->enabled = self::ENABLED;
         $this->blogPost->save();
         return $this->blogPost->toArray();
     }
 
     public function updateBlogPost($input) {
         $this->blogPost = $this->blogPost->where('id', $input['id'])->first();
+        $this->blogPost->author_id = $input['author'];
         $this->blogPost->title = $input['title'];
         $this->blogPost->intro_text = $input['intro_text'];
         $this->blogPost->body_text = $input['body_text'];
         $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
-        $this->blogPost->last_updated_by = $this->auth->user()->getAuthIdentifier();
-        //$this->blogPost->enabled = $input['enabled'];
-        //$this->blogPost->url = $input['url'];
+        $this->blogPost->updated_by = $this->auth->user()->getAuthIdentifier();
+        $this->blogPost->enabled = self::ENABLED;
+        $this->blogPost->url = $input['url'];
+        $this->blogPost->meta_title = $input['meta_title'];
+        $this->blogPost->meta_keywords = $input['meta_keywords'];
+        $this->blogPost->meta_description = $input['meta_description'];
         $this->blogPost->save();
         return $this->blogPost->toArray();
     }
@@ -85,6 +90,7 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
                 ->toArray();
         } else {
             $posts = $this->blogPost
+                ->with(['author', 'comments', 'categories'])
                 ->orderBy('created_at', 'desc')
                 ->paginate(self::POSTS_PER_PAGE_ADMIN)
                 ->toArray();

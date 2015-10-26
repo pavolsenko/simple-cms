@@ -19,6 +19,7 @@ return [
 
 
     'id' => 'ID',
+    'author' => 'Author',
     'title' => 'Title',
     'intro_text' => 'Intro text',
     'body_text' => 'Body text',
@@ -28,7 +29,18 @@ return [
     'posted_by' => 'By',
     'posted_on' => 'Posted on',
     'published' => 'Published',
+    'all' => 'All',
+    'drafts' => 'Drafts',
+    'draft' => 'Draft',
+    'trash' => 'Trash',
 
+
+    'settings' => 'Settings',
+    'seo_settings' => 'SEO settings',
+    'url' => 'Nice URL',
+    'meta_title' => 'Title',
+    'meta_description' => 'Meta description',
+    'meta_keywords' => 'Meta keywords',
 
     'save' => 'Save',
     'save_and_close' => 'Save & Close',
