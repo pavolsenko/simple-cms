@@ -9,7 +9,7 @@
                 <!-- SLIDE  -->
                 <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-thumb="img/star-cover.jpg"  data-saveperformance="off"  data-title="Quick Results">
                     <!-- MAIN IMAGE -->
-                    <img src="img/star-cover.jpg"  alt="video_typing_cover"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
+                    <img src="img/typing-cover.jpg"  alt="video_typing_cover"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
                     <!-- LAYERS -->
 
                     <!-- LAYER NR. 1 -->
@@ -32,9 +32,9 @@
                          data-forcerewind="on"
                          style="z-index: 2;">
                         <video class="img-responsive" preload="none"
-                               poster='img/star-cover.jpg'>
-                            <source src='http://bootstraplovers.com/videos/among_the_stars.mp4' type='video/mp4' />
-                            <source src='http://bootstraplovers.com/videos/among_the_stars.webm' type='video/webm' />
+                               poster='img/typing-cover.jpg'>
+                            <source src='http://bootstraplovers.com/videos/computer_typing.mp4' type='video/mp4' />
+                            <source src='http://bootstraplovers.com/videos/computer_typing.webm' type='video/webm' />
                         </video>
                     </div>
 
@@ -82,96 +82,9 @@
                          data-endspeed="300"
                          style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
                         <div class="rev-buttons scrollto">
-
                             <a href="#work" class="btn btn-theme-color btn-lg">
-                                @lang('navigation.more_about_me')
+                                @lang('navigation.about_me')
                             </a>
-
-                        </div>
-                    </div>
-                </li>
-
-                <!-- SLIDE  -->
-                <li data-transition="slidehorizontal" data-slotamount="1" data-masterspeed="1000" data-thumb="img/typing-cover.jpg"  data-saveperformance="off"  data-title="Quick Results">
-                    <!-- MAIN IMAGE -->
-                    <img src="img/typing-cover.jpg"  alt="video_typing_cover"  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
-                    <!-- LAYERS -->
-
-                    <!-- LAYER NR. 1 -->
-                    <div class="tp-caption tp-fade fadeout fullscreenvideo"
-                         data-x="0"
-                         data-y="0"
-                         data-speed="1000"
-                         data-start="1100"
-                         data-easing="Power4.easeOut"
-                         data-elementdelay="0.01"
-                         data-endelementdelay="0.1"
-                         data-endspeed="1500"
-                         data-endeasing="Power4.easeIn"
-                         data-autoplay="true"
-                         data-autoplayonlyfirsttime="false"
-                         data-nextslideatend="true"
-                         data-volume="mute"
-                         data-forceCover="1"
-                         data-aspectratio="16:9"
-                         data-forcerewind="on"
-                         style="z-index: 2;">
-                        <video class="img-responsive" preload="none"
-                               poster='img/typing-cover.jpg'>
-                            <source src='http://bootstraplovers.com/videos/computer_typing.mp4' type='video/mp4' />
-                            <source src='http://bootstraplovers.com/videos/computer_typing.webm' type='video/webm' />
-                        </video>
-                    </div>
-
-                    <!-- Home Heading -->
-                    <div class="tp-caption sft Ken-burns-heading"
-                         data-x="center"
-                         data-y="260"
-                         data-speed="1200"
-                         data-start="1100"
-                         data-easing="Power3.easeInOut"
-                         data-splitin="none"
-                         data-splitout="none"
-                         data-elementdelay="0.1"
-                         data-endelementdelay="0.1"
-                         data-endspeed="300"
-                         style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
-                        Super coders
-                    </div>
-                    <!-- Home Subheading -->
-                    <div class="tp-caption ken-burns-cap sft fadeout"
-                         data-x="center"
-                         data-y="390"
-                         data-speed="1200"
-                         data-start="1350"
-                         data-easing="Power3.easeInOut"
-                         data-splitin="none"
-                         data-splitout="none"
-                         data-elementdelay="0.1"
-                         data-endelementdelay="0.1"
-                         data-endspeed="300"
-                         style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
-                        WORDPRESS · PHP · TEMPLATE DESIGN · PSD DESIGN
-                    </div>
-                    <!-- Home Button -->
-                    <div class="tp-caption rev-buttons sft fadeout"
-                         data-x="center"
-                         data-y="450"
-                         data-speed="1200"
-                         data-start="1550"
-                         data-easing="Power3.easeInOut"
-                         data-splitin="none"
-                         data-splitout="none"
-                         data-elementdelay="0.1"
-                         data-endelementdelay="0.1"
-                         data-endspeed="300"
-                         style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
-                        <div class="rev-buttons scrollto">
-
-                            <a href="#about" class="btn btn-theme-color btn-lg">
-                                About us
-                            </a>
-
                         </div>
                     </div>
                 </li>
