@@ -28,42 +28,38 @@
             </div>
         @endif
 
-        <div class="form-group">
-            {!! Form::submit(trans('blog.save'), ['class' => 'btn btn-primary']) !!}
-            &nbsp;
-            <a href="{{ URL::route('postsDashboard') }}" class="btn btn-default">
-                @lang('blog.cancel')
-            </a>
-        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="pull-right">
+                    @lang('blog.id'): {{ $blog_post['id'] }} |
+                    @lang('blog.created_at'): {{ $blog_post['created_at'] }} |
+                    @lang('blog.last_updated_at'): {{ $blog_post['updated_at'] }}
+                </div>
+                @include('admin/blogPosts/toolbar')
+            </div>
 
-        <div class="form-group">
-            {!! Form::label('author', trans('blog.author')) !!}
-            {!! Form::select('author', $authors, isset($blog_post) ? $blog_post['author_id'] : null, ['class' => 'form-control']) !!}
-        </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    {!! Form::label('title', trans('blog.title')) !!}
+                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                </div>
 
-        <div class="form-group">
-            {!! Form::label('title', trans('blog.title')) !!}
-            {!! Form::text('title', null, ['class' => 'form-control']) !!}
-        </div>
+                <div class="form-group">
+                    {!! Form::label('intro_text', trans('blog.intro_text')) !!}
+                    {!! Form::textarea('intro_text', null, ['class' => 'form-control editable']) !!}
+                </div>
 
-        <div class="form-group">
-            {!! Form::label('intro_text', trans('blog.intro_text')) !!}
-            {!! Form::textarea('intro_text', null, ['class' => 'form-control editable']) !!}
-        </div>
+                <div class="form-group">
+                    {!! Form::label('body_text', trans('blog.body_text')) !!}
+                    {!! Form::textarea('body_text', null, ['class' => 'form-control editable']) !!}
+                </div>
+            </div>
 
-        <div class="form-group">
-            {!! Form::label('body_text', trans('blog.body_text')) !!}
-            {!! Form::textarea('body_text', null, ['class' => 'form-control editable']) !!}
-        </div>
+            <div class="panel-footer">
+                @include('admin/blogPosts/toolbar')
+            </div>
 
-        <div class="form-group">
-            {!! Form::submit(trans('blog.save'), ['class' => 'btn btn-primary']) !!}
-            &nbsp;
-            <a href="{{ URL::route('postsDashboard') }}" class="btn btn-default">
-                @lang('blog.cancel')
-            </a>
         </div>
-
 
         <h4>@lang('comment.comments')</h4>
 
@@ -75,19 +71,31 @@
                 <b>@lang('blog.settings')</b>
             </div>
             <div class="panel-body">
-                <div class="btn-group btn-group-sm">
-                    <a href="#" class="btn btn-default">@lang('blog.published')</a>
-                    <a href="#" class="btn btn-default">@lang('blog.draft')</a>
+                <div class="form-group">
+                    <div class="btn-group btn-group-sm">
+                        <a href="#" class="btn btn-default">@lang('blog.published')</a>
+                        <a href="#" class="btn btn-default">@lang('blog.draft')</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('author', trans('blog.author')) !!}
+                    {!! Form::select('author', $authors, isset($blog_post) ? $blog_post['author_id'] : null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::submit(trans('blog.save'), ['class' => 'btn btn-primary btn-sm']) !!}
+                    <a href="#" class="btn btn-default btn-sm">@lang('blog.manage_authors')</a>
                 </div>
             </div>
         </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <b>@lang('blog.featured_image')</b>
+                <b>@lang('blog.images')</b>
             </div>
             <div class="panel-body">
-                lorem ipsum
+                @lang('blog.featured_image')
             </div>
         </div>
 
@@ -96,17 +104,25 @@
                 <b>@lang('blog.seo_settings')</b>
             </div>
             <div class="panel-body">
-                {!! Form::label('url', trans('blog.url')) !!}
-                {!! Form::text('url', null, ['class' => 'form-control']) !!}
+                <div class="form-group">
+                    {!! Form::label('url', trans('blog.url')) !!}
+                    {!! Form::text('url', null, ['class' => 'form-control']) !!}
+                </div>
 
-                {!! Form::label('meta_title', trans('blog.meta_title')) !!}
-                {!! Form::text('meta_title', null, ['class' => 'form-control']) !!}
+                <div class="form-group">
+                    {!! Form::label('meta_title', trans('blog.meta_title')) !!}
+                    {!! Form::text('meta_title', null, ['class' => 'form-control']) !!}
+                </div>
 
-                {!! Form::label('meta_description', trans('blog.meta_description')) !!}
-                {!! Form::textarea('meta_description', null, ['class' => 'form-control']) !!}
+                <div class="form-group">
+                    {!! Form::label('meta_description', trans('blog.meta_description')) !!}
+                    {!! Form::textarea('meta_description', null, ['class' => 'form-control']) !!}
+                </div>
 
-                {!! Form::label('meta_keywords', trans('blog.meta_keywords')) !!}
-                {!! Form::textarea('meta_keywords', null, ['class' => 'form-control']) !!}
+                <div class="form-group">
+                    {!! Form::label('meta_keywords', trans('blog.meta_keywords')) !!}
+                    {!! Form::textarea('meta_keywords', null, ['class' => 'form-control']) !!}
+                </div>
 
             </div>
         </div>

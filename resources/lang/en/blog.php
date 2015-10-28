@@ -33,15 +33,14 @@ return [
     'drafts' => 'Drafts',
     'draft' => 'Draft',
     'trash' => 'Trash',
-
-
+    'images' => 'Images',
+    'featured_image' => 'Featured image',
     'settings' => 'Settings',
     'seo_settings' => 'SEO settings',
     'url' => 'Nice URL',
     'meta_title' => 'Title',
     'meta_description' => 'Meta description',
     'meta_keywords' => 'Meta keywords',
-
     'save' => 'Save',
     'save_and_close' => 'Save & Close',
     'cancel' => 'Cancel',
@@ -50,10 +49,12 @@ return [
     'unpublish' => 'Unpublish',
     'delete' => 'Delete',
     'create_new' => 'Create new post',
+    'preview' => 'Preview',
 
     'read_more' => 'Read more',
     'related_posts' => 'Related posts',
     'category' => 'Blog Category',
     'categories' => 'Categories',
+    'manage_authors' => 'Manage Authors',
 
 ];

@@ -57,7 +57,7 @@
                             <span style="background-color:{{ $category['color'] }}">{{ $category['title'] }}</span>
                         @endforeach
                         </div>
-                        {{ $blog_post['intro_text'] }}
+                        {{ strip_tags($blog_post['intro_text']) }}
                         <br><br>
                     </td>
                     <td class="text-center">

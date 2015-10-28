@@ -43,3 +43,14 @@
     border-radius: 4px;
     border-color: #ccc !important;
 }
+
+code {
+    color: #eee;
+    background-color: #303030;
+    display: inline-block;
+}
+
+th {
+    font-size: 12px;
+}
+
