@@ -1,4 +1,4 @@
-$(document).init(function () {
+$(document).ready(function () {
     tinymce.init({
         selector: "textarea.editable",
         plugins: [
@@ -9,4 +9,7 @@ $(document).init(function () {
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
         forced_root_block : "div"
     });
+
+
+    $('#category-multiselect').multiSelect();
 });

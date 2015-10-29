@@ -47,10 +47,14 @@ class BlogService {
     }
 
     public function saveBlogPost($input) {
+        if (empty($input['url'])) {
+            $input['url'] = $this->urlService->createUrlFromTitle($input['title']);
+        } else {
+            $input['url'] = $this->urlService->createUrlFromTitle($input['url']);
+        }
         if (isset($input['id'])) {
             $blog_post = $this->blogPostRepository->updateBlogPost($input);
         } else {
-            $input['url'] = $this->urlService->createUrlFromTitle($input['title']);
             $blog_post = $this->blogPostRepository->createBlogPost($input);
         }
         return $blog_post;
@@ -113,4 +117,15 @@ class BlogService {
         return $result;
     }
 
+
+    public function getAllCategoriesWithIds() {
+        $categories = $this->blogCategoryRepository->getAllBlogCategories();
+        $result = [];
+        if (!empty($categories)) {
+            foreach ($categories as $category) {
+                $result[$category['id']] = $category['title'];
+            }
+        }
+        return $result;
+    }
 }

@@ -77,20 +77,25 @@ class BlogController extends Controller
             ->with('current_page', $posts['current_page']);
     }
 
-    public function getUpdate($id) {
-        $blog_post = $this->blogService->getBlogPostById($id);
+    public function getCreateOrUpdate($id=null) {
+        if (!is_null($id)) {
+            $blog_post = $this->blogService->getBlogPostById($id);
+            $selected_categories = [];
+            foreach ($blog_post['categories'] as $selected_category) {
+                array_push($selected_categories, $selected_category['id']);
+            }
+        } else {
+            $blog_post = null;
+            $selected_categories = null;
+        }
         $authors = $this->blogService->getAllAuthorsWithIds();
+        $categories = $this->blogService->getAllCategoriesWithIds();
         return $this->view
             ->make('admin/blogPosts/createOrUpdate')
             ->with('blog_post', $blog_post)
-            ->with('authors', $authors);
-    }
-
-    public function getCreate() {
-        $authors = $this->blogService->getAllAuthorsWithIds();
-        return $this->view
-            ->make('admin/blogPosts/createOrUpdate')
-            ->with('authors', $authors);
+            ->with('authors', $authors)
+            ->with('categories', $categories)
+            ->with('selected_categories', $selected_categories);
     }
 
     public function postCreateOrUpdate() {
@@ -98,7 +103,9 @@ class BlogController extends Controller
         $rules = [
             'title' => 'required',
             'intro_text' => 'required',
-            'body_text' => 'required'
+            'body_text' => 'required',
+            'author' => 'required|integer',
+            'categories' => 'required'
         ];
         $this->validator = $this->validator->make($input, $rules);
         if ($this->validator->fails()) {
@@ -110,10 +117,17 @@ class BlogController extends Controller
             $blog_post = $this->blogService->saveBlogPost($input);
             $message = trans('blog.saved');
             $authors = $this->blogService->getAllAuthorsWithIds();
+            $categories = $this->blogService->getAllCategoriesWithIds();
+            $selected_categories = [];
+            foreach ($blog_post['categories'] as $selected_category) {
+                array_push($selected_categories, $selected_category['id']);
+            }
             return $this->view
                 ->make('admin/blogPosts/createOrUpdate')
                 ->with('blog_post', $blog_post)
                 ->with('authors', $authors)
+                ->with('categories', $categories)
+                ->with('selected_categories', $selected_categories)
                 ->with('message', $message);
         }
     }

@@ -25,4 +25,4 @@
     <script src="js/revolution-custom.js" type="text/javascript"></script>
     <script src="js/isotope-custom.js" type="text/javascript"></script>
     <script src="js/pace.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+

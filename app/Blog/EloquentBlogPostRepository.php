@@ -27,7 +27,12 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
         $this->blogPost->updated_by = $this->auth->user()->getAuthIdentifier();
         $this->blogPost->enabled = self::ENABLED;
+        $this->blogPost->url = $input['url'];
+        $this->blogPost->meta_title = $input['meta_title'];
+        $this->blogPost->meta_keywords = $input['meta_keywords'];
+        $this->blogPost->meta_description = $input['meta_description'];
         $this->blogPost->save();
+        $this->blogPost->categories()->attach($input['categories']);
         return $this->blogPost->toArray();
     }
 
@@ -37,15 +42,25 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         $this->blogPost->title = $input['title'];
         $this->blogPost->intro_text = $input['intro_text'];
         $this->blogPost->body_text = $input['body_text'];
-        $this->blogPost->created_by = $this->auth->user()->getAuthIdentifier();
         $this->blogPost->updated_by = $this->auth->user()->getAuthIdentifier();
-        $this->blogPost->enabled = self::ENABLED;
         $this->blogPost->url = $input['url'];
         $this->blogPost->meta_title = $input['meta_title'];
         $this->blogPost->meta_keywords = $input['meta_keywords'];
         $this->blogPost->meta_description = $input['meta_description'];
         $this->blogPost->save();
-        return $this->blogPost->toArray();
+        $categories = [];
+        $selected_categories = [];
+        foreach ($this->blogPost->categories()->get()->toArray() as $category) {
+            array_push($categories, $category['id']);
+        }
+        for ($ii = 0; $ii < count($input['categories']); $ii++) {
+            if (!in_array($input['categories'][$ii], $categories)) {
+                array_push($selected_categories, $input['categories'][$ii]);
+            }
+        }
+        $this->blogPost->categories()->attach($selected_categories);
+        $this->blogPost = $this->blogPost->where('id', $this->blogPost->id)->with(['categories'])->first()->toArray();
+        return $this->blogPost;
     }
 
     public function deleteBlogPost($id) {

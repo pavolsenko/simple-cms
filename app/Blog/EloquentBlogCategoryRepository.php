@@ -65,13 +65,16 @@ class EloquentBlogCategoryRepository implements BlogCategoryRepositoryInterface 
                 ->with('posts')
                 ->where('enabled', self::ENABLED)
                 ->get();
+            if (!is_null($categories)) {
+                $categories = $categories->toArray();
+                foreach ($categories as &$category) {
+                    $category['posts'] = count($category['posts']);
+                }
+            }
         } else {
             $categories = $this->blogCategory->all();
-        }
-        if (!is_null($categories)) {
-            $categories = $categories->toArray();
-            foreach ($categories as &$category) {
-                $category['posts'] = count($category['posts']);
+            if (!is_null($categories)) {
+                $categories = $categories->toArray();
             }
         }
         return $categories;

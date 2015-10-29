@@ -9,17 +9,11 @@
     </div>
 
     <div class="col-sm-8 col-sm-offset-1">
-        @if(isset($blog_post['id']))
+        @if(isset($blog_post))
             {!! Form::model($blog_post, ['route' => ['postUpdateBlogPost', $blog_post['id']]]) !!}
             {!! Form::hidden('id', $blog_post['id']) !!}
         @else
             {!! Form::open(['route' => 'postCreateBlogPost']) !!}
-        @endif
-
-        @if($errors->any())
-            <div class="alert alert-danger">
-                {{$errors->first()}}
-            </div>
         @endif
 
         @if(session('message'))
@@ -28,12 +22,24 @@
             </div>
         @endif
 
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="pull-right">
-                    @lang('blog.id'): {{ $blog_post['id'] }} |
-                    @lang('blog.created_at'): {{ $blog_post['created_at'] }} |
-                    @lang('blog.last_updated_at'): {{ $blog_post['updated_at'] }}
+                    @if(isset($blog_post))
+                        @lang('blog.id'): {{ $blog_post['id'] }} |
+                        @lang('blog.created_at'): {{ $blog_post['created_at'] }} |
+                        @lang('blog.last_updated_at'): {{ $blog_post['updated_at'] }}
+                    @endif
                 </div>
                 @include('admin/blogPosts/toolbar')
             </div>
@@ -81,6 +87,11 @@
                 <div class="form-group">
                     {!! Form::label('author', trans('blog.author')) !!}
                     {!! Form::select('author', $authors, isset($blog_post) ? $blog_post['author_id'] : null, ['class' => 'form-control']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('categories', trans('blog.category')) !!}
+                    {!! Form::select('categories[]', $categories, $selected_categories, ['class' => 'form-control', 'multiple' => true, 'id' => 'category-multiselect']) !!}
                 </div>
 
                 <div class="form-group">
