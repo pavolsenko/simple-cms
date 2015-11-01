@@ -36,7 +36,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading" id="admin-toolbar">
-                        <div class="pull-right hidden-sm hidden-xs hidden-md">
+                        <div class="pull-right hidden-sm hidden-xs hidden-md blog-post-info">
                             @if(isset($blog_post))
                                 @lang('blog.id'): {{ $blog_post['id'] }} |
                                 @lang('blog.created_at'): {{ $blog_post['created_at'] }} |
@@ -68,40 +68,6 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <b>@lang('blog.category')</b>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            {!! Form::select('categories[]', $categories, $selected_categories, ['class' => 'form-control', 'multiple' => true, 'id' => 'category-multiselect']) !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <b>@lang('blog.author')</b>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            {!! Form::label('author', trans('blog.author')) !!}
-                            {!! Form::select('author', $authors, isset($blog_post) ? $blog_post['author_id'] : null, ['class' => 'form-control']) !!}
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::submit(trans('blog.save'), ['class' => 'btn btn-primary btn-sm']) !!}
-                            <a href="#" class="btn btn-default btn-sm">@lang('blog.manage_authors')</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -128,6 +94,14 @@
                         <a href="#" class="btn btn-default">@lang('blog.published')</a>
                         <a href="#" class="btn btn-default">@lang('blog.draft')</a>
                     </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('author', trans('blog.author')) !!}
+                    {!! Form::select('author', $authors, isset($blog_post) ? $blog_post['author_id'] : null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('category', trans('blog.category')) !!}
+                    {!! Form::select('categories[]', $categories, $selected_categories, ['class' => 'form-control', 'multiple' => true, 'id' => 'category-multiselect']) !!}
                 </div>
             </div>
         </div>
