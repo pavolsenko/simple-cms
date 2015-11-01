@@ -35,6 +35,8 @@
     padding: 3px 5px;
 }
 
+/* admin classes */
+
 #mceu_32, #mceu_68 {
     border-right-width: 1px !important;
 }
@@ -52,5 +54,14 @@ code {
 
 th {
     font-size: 12px;
+}
+
+#admin-toolbar.sticky {
+    position: fixed;
+    top: 51px;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    box-shadow: #ddd 0 0 10px;
 }
 

@@ -12,4 +12,13 @@ $(document).ready(function () {
 
 
     $('#category-multiselect').multiSelect();
+
+// Cache selectors outside callback for performance.
+    var $window = $(window),
+        $stickyEl = $('#admin-toolbar'),
+        elTop = $stickyEl.offset().top + 50;
+
+    $window.scroll(function() {
+        $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
+    });
 });

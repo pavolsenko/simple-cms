@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-md-10 col-md-offset-1">
         <h1>
             @lang('blog.blog_post_editor')
         </h1>
     </div>
 
-    <div class="col-sm-8 col-sm-offset-1">
+    <div class="col-md-7 col-md-offset-1">
         @if(isset($blog_post))
             {!! Form::model($blog_post, ['route' => ['postUpdateBlogPost', $blog_post['id']]]) !!}
             {!! Form::hidden('id', $blog_post['id']) !!}
@@ -33,10 +33,10 @@
         @endif
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="pull-right">
+                    <div class="panel-heading" id="admin-toolbar">
+                        <div class="pull-right hidden-sm hidden-xs hidden-md">
                             @if(isset($blog_post))
                                 @lang('blog.id'): {{ $blog_post['id'] }} |
                                 @lang('blog.created_at'): {{ $blog_post['created_at'] }} |
@@ -63,16 +63,12 @@
                         </div>
                     </div>
 
-                    <div class="panel-footer">
-                        @include('admin/blogPosts/toolbar')
-                    </div>
-
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>@lang('blog.category')</b>
@@ -82,13 +78,10 @@
                             {!! Form::select('categories[]', $categories, $selected_categories, ['class' => 'form-control', 'multiple' => true, 'id' => 'category-multiselect']) !!}
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        @include('admin/blogPosts/toolbar')
-                    </div>
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <b>@lang('blog.author')</b>
@@ -118,16 +111,13 @@
                         lorem upsum
 
                     </div>
-                    <div class="panel-footer">
-                        @include('admin/blogPosts/toolbar')
-                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <b>@lang('blog.settings')</b>
