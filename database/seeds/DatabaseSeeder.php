@@ -170,8 +170,8 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $tables = DB::select('SHOW TABLES');
         foreach ($tables as $table) {
-            if (!in_array($table->Tables_in_laravel, self::IGNORED_TABLES)) {
-                DB::table($table->Tables_in_laravel)->truncate();
+            if (!in_array($table->Tables_in_homestead, self::IGNORED_TABLES)) {
+                DB::table($table->Tables_in_homestead)->truncate();
             }
         }
         return true;
