@@ -29,7 +29,16 @@ class DatabaseSeeder extends Seeder
     private $socialProfile;
     private $blogCategory;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile, BlogCategory $blogCategory) {
+    public function __construct(
+        Faker $faker,
+        BlogPost $blogPost,
+        Author $author,
+        UrlService $urlService,
+        Comment $comment,
+        CommentAuthor $commentAuthor,
+        SocialProfile $socialProfile,
+        BlogCategory $blogCategory
+    ) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
@@ -178,3 +187,4 @@ class DatabaseSeeder extends Seeder
     }
 
 }
+
