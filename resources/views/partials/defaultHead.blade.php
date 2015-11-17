@@ -1,5 +1,13 @@
+
+    <title>{{ $meta_title }}</title>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="{{ $meta_author }}">
+    <meta name="description" content="{{ $meta_description }}">
+    <meta name="copyright" content="All rights reserved">
+    <meta name="keywords" content="{{ $meta_keywords }}">
+    <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,500,600,800' rel='stylesheet' type='text/css'>

@@ -203,4 +203,9 @@ return [
 
     ],
 
+    'meta_author' => $_ENV['DEFAULT_META_AUTHOR'],
+    'meta_description' => $_ENV['DEFAULT_META_DESCRIPTION'],
+    'meta_keywords' => $_ENV['DEFAULT_META_KEYWORDS'],
+    'meta_title' => $_ENV['DEFAULT_META_TITLE'],
+
 ];

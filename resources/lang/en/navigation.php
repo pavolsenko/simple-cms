@@ -24,5 +24,6 @@ return [
     'blog' => 'Blog',
     'github' => 'GitHub',
     'contact' => 'Contact',
+    'download' => 'Downloads'
 
 ];

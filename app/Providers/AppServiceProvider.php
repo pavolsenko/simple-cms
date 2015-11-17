@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        view()->share('meta_author', \Config::get('app.meta_author'));
+        view()->share('meta_description', \Config::get('app.meta_description'));
+        view()->share('meta_title', \Config::get('app.meta_title'));
+        view()->share('meta_keywords', \Config::get('app.meta_keywords'));
     }
 
     /**

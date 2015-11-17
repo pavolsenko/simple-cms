@@ -169,7 +169,9 @@ class BlogController extends Controller
             return $this->view
                 ->make('blog/singlePost')
                 ->with('blog_post', $blog_post)
-                ->with('related_posts', $related_posts);
+                ->with('related_posts', $related_posts)
+                ->with('meta_author', $blog_post['author']['first_name'].' '.$blog_post['author']['last_name'])
+                ->with('meta_title', $blog_post['title']);
         }
     }
 
