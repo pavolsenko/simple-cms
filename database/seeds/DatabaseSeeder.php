@@ -29,7 +29,16 @@ class DatabaseSeeder extends Seeder
     private $socialProfile;
     private $blogCategory;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile, BlogCategory $blogCategory) {
+    public function __construct(
+        Faker $faker,
+        BlogPost $blogPost,
+        Author $author,
+        UrlService $urlService,
+        Comment $comment,
+        CommentAuthor $commentAuthor,
+        SocialProfile $socialProfile,
+        BlogCategory $blogCategory
+    ) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
@@ -170,11 +179,12 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $tables = DB::select('SHOW TABLES');
         foreach ($tables as $table) {
-            if (!in_array($table->Tables_in_laravel, self::IGNORED_TABLES)) {
-                DB::table($table->Tables_in_laravel)->truncate();
+            if (!in_array($table->Tables_in_homestead, self::IGNORED_TABLES)) {
+                DB::table($table->Tables_in_homestead)->truncate();
             }
         }
         return true;
     }
 
 }
+
