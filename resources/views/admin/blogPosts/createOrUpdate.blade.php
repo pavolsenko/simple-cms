@@ -71,11 +71,43 @@
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <b>@lang('comment.comments')</b>
+                        <b>{{ count($blog_post['comments']) }} @lang('comment.comments')</b>
                     </div>
-                    <div class="panel-body">
-                        lorem upsum
 
+                    @if(empty($blog_post['comments']))
+                    <div class="panel-body">
+                        <div class="alert alert-warning">
+                            @lang('comment.no_comments')
+                        </div>
+                    </div>
+                    @else
+                    <ul class="list-group">
+                    @foreach($blog_post['comments'] as $comment)
+                        <li class="list-group-item">
+                            <b>{{ $comment['author']['name'] }}</b>
+                            @lang('comment.posted_on') {{ date('j M Y H:m', strtotime($comment['created_at'])) }}
+                            @if($comment['status'])
+                            <span class="label label-default"><i class="glyphicon glyphicon-ok"></i> @lang('comment.approved')</span>
+                            @else
+                            <span class="label label-default"><i class="glyphicon glyphicon-remove"></i> @lang('comment.awaiting_approval')</span>
+                            @endif
+                            <br>
+                        @if(!empty($comment['author']['website']))
+                            <a href="{{ $comment['author']['website'] }}" target="_blank">{{ $comment['author']['website'] }}</a>
+                        @endif
+                            <p>
+                                {{ $comment['text'] }}
+                            </p>
+                            <div class="btn-group btn-group-xs">
+                                <a href="#" class="btn btn-default btn-xs">@lang('comment.edit')</a>
+                                <a href="#" class="btn btn-default btn-xs">@lang('comment.delete')</a>
+                                <a href="#" class="btn btn-default btn-xs">@lang('comment.disapprove')</a>
+                                <a href="#" class="btn btn-default btn-xs">@lang('comment.mark_as_spam')</a>
+                            </div>
+                        </li>
+                    @endforeach
+                    </ul>
+                    @endif
                     </div>
                 </div>
             </div>

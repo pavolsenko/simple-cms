@@ -128,4 +128,26 @@ class BlogService {
         }
         return $result;
     }
+
+    public function getMetaTags($blog_post) {
+        $meta = [];
+
+        $meta['author'] = $blog_post['author']['first_name'].' '.$blog_post['author']['last_name'];
+
+        if (!empty($blog_post['meta_title'])) {
+            $meta['title'] = $blog_post['meta_title'];
+        } else {
+            $meta['title'] = $blog_post['title'];
+        }
+
+        if (!empty($blog_post['meta_description'])) {
+            $meta['description'] = $blog_post['meta_description'];
+        } else {
+            $meta['description'] = substr(strip_tags($blog_post['intro_text']), 0, 200).'...';
+        }
+
+        $meta['keywords'] = null; //TODO: default keywords or don't care about them anymore?
+
+        return $meta;
+    }
 }

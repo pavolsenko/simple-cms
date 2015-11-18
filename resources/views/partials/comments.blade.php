@@ -16,7 +16,7 @@
                             @foreach($blog_post['comments'] as $comment)
 
                             <div class="comment-list">
-                                <img src="" class="img-responsive" alt="">
+                                <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($comment['author']['email']))) }}?d=identicon" class="img-responsive" alt="">
                                 <h5>
                                     @if(!empty($comment['author']['website']))
                                     <a href="{{ $comment['author']['website'] }}" target="_blank">{{ $comment['author']['name'] }}</a>

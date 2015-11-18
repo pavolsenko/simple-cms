@@ -17,8 +17,7 @@ class LoginController extends Controller
     protected $view;
 
 
-    public function __construct(Redirector $redirector, Request $request, Auth $auth, View $view)
-    {
+    public function __construct(Redirector $redirector, Request $request, Auth $auth, View $view) {
         $this->redirector = $redirector;
         $this->request = $request;
         $this->auth = $auth;
@@ -35,7 +34,7 @@ class LoginController extends Controller
         $remember = $this->request->get('remember');
 
         if ($this->auth->attempt($credentials, $remember)) {
-            return $this->redirector->home();
+            return $this->redirector->route('adminDashboard');
         } else {
             $message = trans('auth.login_error');
             return $this->redirector->back()->withErrors([$message])->withInput();

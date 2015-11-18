@@ -166,17 +166,21 @@ class BlogController extends Controller
                 ->make('errors/404', [], [404]);
         } else {
             $related_posts = $this->blogService->getRelatedBlogPosts($id, $blog_post['categories'][rand(0, count($blog_post['categories']) - 1)]['id']);
+            $meta = $this->blogService->getMetaTags($blog_post);
+
             return $this->view
                 ->make('blog/singlePost')
                 ->with('blog_post', $blog_post)
                 ->with('related_posts', $related_posts)
-                ->with('meta_author', $blog_post['author']['first_name'].' '.$blog_post['author']['last_name'])
-                ->with('meta_title', $blog_post['title']);
+                ->with('meta_author', $meta['author'])
+                ->with('meta_description', $meta['description'])
+                ->with('meta_keywords', $meta['keywords'])
+                ->with('meta_title', $meta['title']);
         }
     }
 
     public function postComment() {
-        $input = $this->request->only(['blog_post_id', 'name', 'email', 'website', 'text']);
+        $input = $this->request->only(['blog_post_id', 'name', 'email', 'website', 'text']); //TODO: possible vulnerability
         $rules = array(
             'name' => 'required|min:3',
             'email' => 'required|email',
