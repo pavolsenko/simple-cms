@@ -167,6 +167,9 @@ class BlogController extends Controller
         } else {
             $related_posts = $this->blogService->getRelatedBlogPosts($id, $blog_post['categories'][rand(0, count($blog_post['categories']) - 1)]['id']);
             $meta = $this->blogService->getMetaTags($blog_post);
+            foreach ($blog_post['comments'] as &$comment) {
+                $comment['author']['avatar_url'] = $this->blogService->getAvatarUrl($comment['author']['email']);
+            }
 
             return $this->view
                 ->make('blog/singlePost')

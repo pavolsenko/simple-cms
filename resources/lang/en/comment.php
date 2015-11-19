@@ -15,5 +15,13 @@ return array(
     'submit' => 'Submit',
     'posted_on' => 'on',
     'optional' => 'optional',
-    'comment_submitted' => 'Comment successfully submitted.'
+    'comment_submitted' => 'Comment successfully submitted.',
+
+    'edit' => 'Edit',
+    'approve' => 'Approve',
+    'approved' => 'Approved',
+    'disapproved' => 'Disapproved',
+    'disapprove' => 'Disapprove',
+    'delete' => 'Delete',
+    'mark_as_spam' => 'Mark as Spam',
 );

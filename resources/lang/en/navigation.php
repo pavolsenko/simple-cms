@@ -7,10 +7,10 @@ return [
     'blog_posts' => 'Blog posts',
     'blog_posts_dashboard' => 'Show all blog posts',
     'create_new_blog_post' => 'Create new blog post',
-
     'blog_categories' => 'Categories',
-
     'authors' => 'Authors',
+    'comments' => 'Comments',
+    'settings' => 'Settings',
 
     'logout' => 'Logout',
 

@@ -39,6 +39,12 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="#">@lang('navigation.comments')</a>
+            </li>
+            <li>
+                <a href="#">@lang('navigation.settings')</a>
+            </li>
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li>

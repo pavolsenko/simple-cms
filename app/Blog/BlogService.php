@@ -3,7 +3,7 @@
 
 class BlogService {
 
-    const ENABLED_ONLY = TRUE;
+    const ENABLED_ONLY = true;
     const NUMBER_OF_RELATED_POSTS = 5;
 
     private $blogPostRepository;
@@ -149,5 +149,10 @@ class BlogService {
         $meta['keywords'] = null; //TODO: default keywords or don't care about them anymore?
 
         return $meta;
+    }
+
+    public function getAvatarUrl($email) {
+        $url = '//www.gravatar.com/avatar/'.md5(strtolower(trim($email))).'?d=identicon';
+        return $url;
     }
 }

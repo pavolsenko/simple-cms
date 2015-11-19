@@ -1,7 +1,5 @@
                     <div class="comment-wrapper">
 
-
-
                     @if(!empty($blog_post['comments']))
 
                         @if(count($blog_post['comments']) > 1)
@@ -16,7 +14,7 @@
                             @foreach($blog_post['comments'] as $comment)
 
                             <div class="comment-list">
-                                <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($comment['author']['email']))) }}?d=identicon" class="img-responsive" alt="">
+                                <img src="{{ $comment['author']['avatar_url'] }}" class="img-responsive" alt="">
                                 <h5>
                                     @if(!empty($comment['author']['website']))
                                     <a href="{{ $comment['author']['website'] }}" target="_blank">{{ $comment['author']['name'] }}</a>
