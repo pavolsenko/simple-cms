@@ -57,7 +57,7 @@ class BlogService {
         } else {
             $blog_post = $this->blogPostRepository->createBlogPost($input);
         }
-        return $blog_post;
+        return $this->blogPostRepository->getBlogPostById($blog_post['id']);
     }
 
     public function deleteBlogPost($id) {
@@ -74,12 +74,7 @@ class BlogService {
 
     public function postComment($input) {
         $result = $this->commentRepository->createComment($input);
-        if ($result) {
-            $message = trans('comment.comment_sent');
-        } else {
-            $message = trans('comment.awaiting_approval');
-        }
-        return $message;
+        return $result;
     }
 
     public function getLatestPosts($count) {

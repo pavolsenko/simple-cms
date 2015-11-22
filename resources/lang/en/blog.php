@@ -16,6 +16,7 @@ return [
     'latest_posts' => 'Latest posts',
     'no_recent_posts_found' => 'No blog posts found',
     'no_categories_found' => 'No categories found',
+    'blog_post_not_found' => 'Blog post not found!',
 
 
     'id' => 'ID',

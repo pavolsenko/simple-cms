@@ -25,6 +25,7 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
         } else {
             $status = self::APPROVED;
         }
+        // check if author already posted a comment
         $check_comment_author = $this->commentAuthor->where('email', $input['email'])->first();
         if (is_null($check_comment_author)) {
             $this->commentAuthor->name = $input['name'];
@@ -69,6 +70,7 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
     }
 
     private function spam_check($input) {
+        // TODO: expand for real spam check and move out of repository
         if (!empty($input['website'])) {
             return true;
         } else {

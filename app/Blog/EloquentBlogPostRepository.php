@@ -48,19 +48,8 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
         $this->blogPost->meta_keywords = $input['meta_keywords'];
         $this->blogPost->meta_description = $input['meta_description'];
         $this->blogPost->save();
-        $categories = [];
-        $selected_categories = [];
-        foreach ($this->blogPost->categories()->get()->toArray() as $category) {
-            array_push($categories, $category['id']);
-        }
-        for ($ii = 0; $ii < count($input['categories']); $ii++) {
-            if (!in_array($input['categories'][$ii], $categories)) {
-                array_push($selected_categories, $input['categories'][$ii]);
-            }
-        }
-        $this->blogPost->categories()->attach($selected_categories);
-        $this->blogPost = $this->blogPost->where('id', $this->blogPost->id)->with(['categories'])->first()->toArray();
-        return $this->blogPost;
+        $this->blogPost->categories()->sync($input['categories']);
+        return $this->blogPost->toArray();
     }
 
     public function deleteBlogPost($id) {

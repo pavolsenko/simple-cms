@@ -31,10 +31,12 @@ class BlogController extends Controller
         $this->validator = $validator;
     }
 
-    public function indexBlog($id=self::BLOG_ROOT_ID, $url=null) {
+    public function indexBlog($category_id=self::BLOG_ROOT_ID, $url=null) {
 
+        // resolve if we are in blog root or specific category
+        // resolve if we are on page 1 and redirect to avoid duplicate content (/blog/ equals /blog/?page=1)
         $page = $this->request->get('page');
-        if ($id == self::BLOG_ROOT_ID) {
+        if ($category_id == self::BLOG_ROOT_ID) {
             if ($page == 1) {
                 return $this->redirector->route(self::BLOG_ROUTE);
             } else {
@@ -42,17 +44,20 @@ class BlogController extends Controller
                 $posts = $this->blogService->getBlogPostsForHomepage();
             }
         } else {
-            $category = $this->blogService->getBlogCategoryById($id);
+            $category = $this->blogService->getBlogCategoryById($category_id);
             if ($page == 1) {
-                return $this->redirector->route(self::CATEGORY_ROUTE, ['id' => $id, 'url' => $category['url']]);
+                return $this->redirector->route(self::CATEGORY_ROUTE, ['id' => $category_id, 'url' => $category['url']]);
             } else {
-                $posts = $this->blogService->getBlogPostsByCategory($id);
+                $posts = $this->blogService->getBlogPostsByCategory($category_id);
             }
         }
+
+        // get categories and latest posts for right column
         $categories = $this->blogService->getBlogCategoriesForHomepage();
         $latest_posts = $this->blogService->getLatestPosts(self::NUMBER_OF_LATEST_POSTS);
 
-        if ($id != self::BLOG_ROOT_ID && ($category == null || $category['url'] != $url)) {
+        // if category does not exist or url is invalid return 404
+        if ($category_id != self::BLOG_ROOT_ID && ($category == null || $category['url'] != $url)) {
             return $this->view
                 ->make('errors/404', [], [404]);
         } else {
@@ -80,9 +85,13 @@ class BlogController extends Controller
     public function getCreateOrUpdate($id=null) {
         if (!is_null($id)) {
             $blog_post = $this->blogService->getBlogPostById($id);
-            $selected_categories = [];
-            foreach ($blog_post['categories'] as $selected_category) {
-                array_push($selected_categories, $selected_category['id']);
+            if (!is_null($blog_post)) {
+                $selected_categories = [];
+                foreach ($blog_post['categories'] as $selected_category) {
+                    array_push($selected_categories, $selected_category['id']);
+                }
+            } else {
+                $selected_categories = null;
             }
         } else {
             $blog_post = null;
@@ -122,13 +131,18 @@ class BlogController extends Controller
             foreach ($blog_post['categories'] as $selected_category) {
                 array_push($selected_categories, $selected_category['id']);
             }
-            return $this->view
-                ->make('admin/blogPosts/createOrUpdate')
-                ->with('blog_post', $blog_post)
-                ->with('authors', $authors)
-                ->with('categories', $categories)
-                ->with('selected_categories', $selected_categories)
-                ->with('message', $message);
+            if ($input['close']) {
+                return $this->redirector
+                    ->route('postsDashboard');
+            } else {
+                return $this->view
+                    ->make('admin/blogPosts/createOrUpdate')
+                    ->with('blog_post', $blog_post)
+                    ->with('authors', $authors)
+                    ->with('categories', $categories)
+                    ->with('selected_categories', $selected_categories)
+                    ->with('message', $message);
+            }
         }
     }
 
@@ -161,12 +175,19 @@ class BlogController extends Controller
 
     public function getBlogPost($id, $url) {
         $blog_post = $this->blogService->getBlogPostById($id);
+
+        // if not found or url does not match return 404
         if (is_null($blog_post) || $blog_post['url'] != $url) {
             return $this->view
                 ->make('errors/404', [], [404]);
         } else {
+            // randomly select related posts
             $related_posts = $this->blogService->getRelatedBlogPosts($id, $blog_post['categories'][rand(0, count($blog_post['categories']) - 1)]['id']);
+
+            // set meta tags otherwise global meta tags will be used
             $meta = $this->blogService->getMetaTags($blog_post);
+
+            // get avatar urls from gravatar api
             foreach ($blog_post['comments'] as &$comment) {
                 $comment['author']['avatar_url'] = $this->blogService->getAvatarUrl($comment['author']['email']);
             }
@@ -183,7 +204,7 @@ class BlogController extends Controller
     }
 
     public function postComment() {
-        $input = $this->request->only(['blog_post_id', 'name', 'email', 'website', 'text']); //TODO: possible vulnerability
+        $input = $this->request->all();
         $rules = array(
             'name' => 'required|min:3',
             'email' => 'required|email',
@@ -192,21 +213,17 @@ class BlogController extends Controller
         );
         $this->validator = $this->validator->make($input, $rules);
         if ($this->validator->fails()) {
-
             return $this->redirector
                 ->back()
                 ->withErrors($this->validator)
                 ->withInput();
-
         } else {
-
             $result = $this->blogService->postComment($input);
             if ($result) {
                 $message = trans('comment.comment_submitted');
             } else {
                 $message = trans('comment.comment_awaiting_approval');
             }
-
             return $this->redirector
                 ->back()
                 ->with('message', $message);
