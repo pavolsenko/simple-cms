@@ -35,3 +35,13 @@ th {
 .blog-post-info {
     margin-top: 5px;
 }
+
+.admin-categories {
+    margin: 8px 0;
+    font-size: 12px;
+}
+
+.admin-categories span {
+    color: #fff;
+    padding: 3px 5px;
+}

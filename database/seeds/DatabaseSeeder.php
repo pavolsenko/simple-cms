@@ -13,11 +13,16 @@ use App\Blog\BlogCategory;
 class DatabaseSeeder extends Seeder
 {
 
+    // set up how many items you wanna seed
+    // current data in all tables will be truncated before seeding
+
     const NUMBER_OF_AUTHORS = 10;
     const NUMBER_OF_CATEGORIES = 10;
     const NUMBER_OF_POSTS = 100;
     const NUMBER_OF_COMMENTS_AUTHORS = 200;
     const NUMBER_OF_COMMENTS = 1000;
+
+    // these table will not be touched
     const IGNORED_TABLES = ['migrations', 'user', 'password_resets'];
 
     private $faker;
@@ -29,16 +34,7 @@ class DatabaseSeeder extends Seeder
     private $socialProfile;
     private $blogCategory;
 
-    public function __construct(
-        Faker $faker,
-        BlogPost $blogPost,
-        Author $author,
-        UrlService $urlService,
-        Comment $comment,
-        CommentAuthor $commentAuthor,
-        SocialProfile $socialProfile,
-        BlogCategory $blogCategory
-    ) {
+    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile, BlogCategory $blogCategory) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
@@ -55,6 +51,8 @@ class DatabaseSeeder extends Seeder
         /* This will seed a complete DB of a blog with fake blog posts, authors, categories and comments */
 
         echo "\nSetting up stuff";
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->truncateTables();
         $this->faker = $this->faker->create();
@@ -164,6 +162,7 @@ class DatabaseSeeder extends Seeder
             $this->comment->comment_author_id = round(rand(1,self::NUMBER_OF_COMMENTS_AUTHORS));
             $this->comment->text = $this->faker->paragraph(round(rand(1,10)));
             $this->comment->status = 1;
+            $this->comment->ip_address = $this->faker->ipv4;
             $this->comment->save();
             echo '.';
         }
@@ -176,15 +175,13 @@ class DatabaseSeeder extends Seeder
     }
 
     public function truncateTables() {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $tables = DB::select('SHOW TABLES');
         foreach ($tables as $table) {
-            if (!in_array($table->Tables_in_homestead, self::IGNORED_TABLES)) {
-                DB::table($table->Tables_in_homestead)->truncate();
+            if (!in_array($table->Tables_in_.env('DB_NAME'), self::IGNORED_TABLES)) {
+                DB::table($table->Tables_in_.env('DB_NAME'))->truncate();
             }
         }
         return true;
     }
 
 }
-

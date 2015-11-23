@@ -25,12 +25,7 @@
     margin-bottom: 10px;
 }
 
-.admin-categories {
-    margin: 8px 0;
-    font-size: 12px;
-}
-
-.categories span, .admin-categories span {
+.categories span {
     color: #fff;
     padding: 3px 5px;
 }
