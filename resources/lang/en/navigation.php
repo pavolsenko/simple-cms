@@ -18,7 +18,7 @@ return [
     'all_rights_reserved' => 'All rights reserved.',
 
     'pavol_senko' => 'Pavol Senko',
-    'developer' => 'PHP · WEB DEVELOPMENT · SEO/SEM · USABILITY',
+    'developer' => 'PHP · WEB DEVELOPMENT · SEO/SEM',
     'home' => 'Home',
     'about_me' => 'About me',
     'blog' => 'Blog',
