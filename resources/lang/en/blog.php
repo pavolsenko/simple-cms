@@ -42,6 +42,9 @@ return [
     'meta_title' => 'Title',
     'meta_description' => 'Meta description',
     'meta_keywords' => 'Meta keywords',
+    'from' => 'From',
+    'to' => 'To',
+
     'save' => 'Save',
     'save_and_close' => 'Save & Close',
     'cancel' => 'Cancel',

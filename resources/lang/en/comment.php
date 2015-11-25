@@ -15,6 +15,8 @@ return array(
     'submit' => 'Submit',
     'posted_on' => 'on',
     'optional' => 'optional',
+    'from' => 'from',
+
     'comment_submitted' => 'Comment successfully submitted.',
 
     'edit' => 'Edit',

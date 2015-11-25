@@ -176,9 +176,10 @@ class DatabaseSeeder extends Seeder
 
     public function truncateTables() {
         $tables = DB::select('SHOW TABLES');
+        $table_property = 'Tables_in_'.env('DB_DATABASE');
         foreach ($tables as $table) {
-            if (!in_array($table->Tables_in_.env('DB_NAME'), self::IGNORED_TABLES)) {
-                DB::table($table->Tables_in_.env('DB_NAME'))->truncate();
+            if (!in_array($table->$table_property, self::IGNORED_TABLES)) {
+                DB::table($table->$table_property)->truncate();
             }
         }
         return true;

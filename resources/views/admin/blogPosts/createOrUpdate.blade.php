@@ -87,8 +87,9 @@
                         <li class="list-group-item">
                             <b>{{ $comment['author']['name'] }}</b>
                             @lang('comment.posted_on') {{ date('j M Y H:m', strtotime($comment['created_at'])) }}
+                            @lang('comment.from') {{ $comment['ip_address'] }}
                             @if($comment['status'])
-                            <span class="label label-default"><i class="glyphicon glyphicon-ok"></i> @lang('comment.approved')</span>
+                            <span class="label label-default pull-right"><i class="glyphicon glyphicon-ok"></i> @lang('comment.approved')</span>
                             @else
                             <span class="label label-default"><i class="glyphicon glyphicon-remove"></i> @lang('comment.awaiting_approval')</span>
                             @endif
@@ -122,9 +123,21 @@
             </div>
             <div class="panel-body">
                 <div class="form-group">
+                    {!! Form::label('status', trans('blog.status')) !!}<br>
                     <div class="btn-group btn-group-sm">
                         <a href="#" class="btn btn-default">@lang('blog.published')</a>
                         <a href="#" class="btn btn-default">@lang('blog.draft')</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('published_from_to', trans('blog.published_from_to')) !!}
+                    <div class="row">
+                        <div class="col-xs-6">
+                            {!! Form::text('published_from', null, ['class' => 'form-control datepicker']) !!}
+                        </div>
+                        <div class="col-xs-6">
+                            {!! Form::text('published_to', null, ['class' => 'form-control datepicker']) !!}
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">

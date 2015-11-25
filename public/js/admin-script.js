@@ -31,4 +31,10 @@ $(document).ready(function () {
         $('form').submit();
     });
 
+    // datepickers
+    $('.datepicker').datepicker({
+        showWeek: false,
+        firstDay: 1
+    });
+
 });
