@@ -8,7 +8,7 @@ class BlogCategoryServiceProvider extends ServiceProvider
 {
 
     public function register() {
-        \App::bind('App\Blog\BlogCategoryRepositoryInterface', 'App\Blog\EloquentBlogCategoryRepository');
+        \App::bind('App\Blog\BlogCategory\BlogCategoryRepositoryInterface', 'App\Blog\BlogCategory\EloquentBlogCategoryRepository');
     }
 
 }

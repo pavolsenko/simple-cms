@@ -8,7 +8,7 @@ class AuthorServiceProvider extends ServiceProvider
 {
 
     public function register() {
-        \App::bind('App\Blog\AuthorRepositoryInterface', 'App\Blog\EloquentAuthorRepository');
+        \App::bind('App\Blog\Author\AuthorRepositoryInterface', 'App\Blog\Author\EloquentAuthorRepository');
     }
 
 }

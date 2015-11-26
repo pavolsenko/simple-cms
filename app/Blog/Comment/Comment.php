@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\Comment;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ class Comment extends Model
     protected $table = 'comment';
 
     public function author() {
-        return $this->hasOne('App\Blog\CommentAuthor', 'id', 'comment_author_id');
+        return $this->hasOne('App\Blog\Comment\CommentAuthor', 'id', 'comment_author_id');
     }
 
     public function blogPost() {

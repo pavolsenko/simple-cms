@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\Author;
 
 
 class EloquentAuthorRepository implements AuthorRepositoryInterface {

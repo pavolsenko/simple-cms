@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\Comment;
 
 use Illuminate\Database\Eloquent\Model;
 

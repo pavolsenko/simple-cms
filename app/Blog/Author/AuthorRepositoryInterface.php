@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\Author;
 
 interface AuthorRepositoryInterface {
     public function createAuthor($input);

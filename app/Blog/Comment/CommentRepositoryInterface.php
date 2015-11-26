@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\Comment;
 
 interface CommentRepositoryInterface {
     public function createComment($input);

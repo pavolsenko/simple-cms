@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\BlogCategory;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ class BlogCategory extends Model
     protected $table = 'blog_category';
 
     public function posts() {
-        return $this->belongsToMany('App\Blog\BlogPost', 'blog_post_blog_category');
+        return $this->belongsToMany('App\Blog\BlogPost\BlogPost', 'blog_post_blog_category');
     }
 
 }

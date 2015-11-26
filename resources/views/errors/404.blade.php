@@ -17,8 +17,8 @@
                 <br><br><br>
                 <div class="text-center">
                     <a href="/" class="btn btn-success">@lang('404.go_to_homepage')</a>&nbsp;&nbsp;
-                    <a href="{{ URL::route('blog') }}" class="btn btn-info">@lang('404.go_to_blog_homepage')</a>&nbsp;&nbsp;
-                    <a href="{{ URL::route('contact') }}" class="btn btn-warning">@lang('404.contact_me')</a>
+                    <a href="/blog" class="btn btn-info">@lang('404.go_to_blog_homepage')</a>&nbsp;&nbsp;
+                    <a href="/contact" class="btn btn-warning">@lang('404.contact_me')</a>
                 </div>
                 <br><br><br><br><br>
                 <br><br><br><br><br>

@@ -17,8 +17,8 @@
                             <li><a href="/">@lang('navigation.home')</a></li>
                             <li><a href="/about">@lang('navigation.about_me')</a></li>
                             <li><a href="/blog">@lang('navigation.blog')</a></li>
-                            <li><a href="#">@lang('navigation.github')</a></li>
-                            <li><a href="#">@lang('navigation.download')</a></li>
+                            <li><a href="/github">@lang('navigation.github')</a></li>
+                            <li><a href="/download">@lang('navigation.download')</a></li>
                             <li><a href="/contact">@lang('navigation.contact')</a></li>
                         </ul>
                     </div>

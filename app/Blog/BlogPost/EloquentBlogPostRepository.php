@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\BlogPost;
 
 use Illuminate\Contracts\Auth\Guard as Auth;
 

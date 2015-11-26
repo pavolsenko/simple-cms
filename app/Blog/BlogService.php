@@ -1,5 +1,9 @@
 <?php namespace App\Blog;
 
+use App\Blog\BlogPost\BlogPostRepositoryInterface;
+use App\Blog\BlogCategory\BlogCategoryRepositoryInterface;
+use App\Blog\Author\AuthorRepositoryInterface;
+use App\Blog\Comment\CommentRepositoryInterface;
 
 class BlogService {
 

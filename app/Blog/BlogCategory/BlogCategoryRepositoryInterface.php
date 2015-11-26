@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Blog;
+namespace App\Blog\BlogCategory;
 
 interface BlogCategoryRepositoryInterface {
     public function createBlogCategory($input);
