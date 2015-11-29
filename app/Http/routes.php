@@ -64,6 +64,34 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'authors'], function () {
         Route::get('dashboard', ['as' => 'authorsDashboard', 'uses' => 'AuthorController@index']);
     });
+
+
+    /* Pages administration*/
+
+    Route::group(['prefix' => 'pages'], function () {
+        Route::get('dashboard', ['as' => 'pagesDashboard', 'uses' => 'PageController@indexAdmin']);
+
+
+        Route::get('create_new', ['as' => 'getCreatePage', 'uses' => 'PageController@getCreateOrUpdate']);
+        Route::post('create_new', ['as' => 'postCreatePage', 'uses' => 'PageController@postCreateOrUpdate']);
+
+        /*
+        Route::get('update/{id}', ['as' => 'getUpdateBlogPost', 'uses' => 'BlogController@getCreateOrUpdate'])
+            ->where('id', '[0-9]+');
+        Route::post('update/{id}', ['as' => 'postUpdateBlogPost', 'uses' => 'BlogController@postCreateOrUpdate'])
+            ->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', ['as' => 'getDeleteBlogPost', 'uses' => 'BlogController@getDelete'])
+            ->where('id', '[0-9]+');
+
+        Route::get('publish/{id}', ['as' => 'getPublishBlogPost', 'uses' => 'BlogController@getPublish'])
+            ->where('id', '[0-9]+');
+        Route::get('unpublish/{id}', ['as' => 'getUnpublishBlogPost', 'uses' => 'BlogController@getUnpublish'])
+            ->where('id', '[0-9]+');
+
+        */
+    });
+
 });
 
 

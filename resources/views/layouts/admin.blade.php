@@ -1,5 +1,8 @@
 <html>
 <head>
+
+    <title>@lang('navigation.application_name')</title>
+
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>

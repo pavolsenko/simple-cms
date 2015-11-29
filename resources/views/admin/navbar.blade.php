@@ -43,8 +43,12 @@
                 <a href="#">@lang('navigation.comments')</a>
             </li>
             <li>
+                <a href="{{ URL::route('pagesDashboard') }}">@lang('navigation.pages')</a>
+            </li>
+            <li>
                 <a href="#">@lang('navigation.settings')</a>
             </li>
+
         </ul>
         <ul class="nav navbar-nav pull-right">
             <li>
