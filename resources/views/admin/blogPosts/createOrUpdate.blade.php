@@ -55,12 +55,12 @@
 
                         <div class="form-group">
                             {!! Form::label('intro_text', trans('blog.intro_text')) !!}
-                            {!! Form::textarea('intro_text', null, ['class' => 'form-control editable']) !!}
+                            {!! Form::textarea('intro_text', null, ['class' => 'form-control editable', 'data-height' => '300']) !!}
                         </div>
 
                         <div class="form-group">
                             {!! Form::label('body_text', trans('blog.body_text')) !!}
-                            {!! Form::textarea('body_text', null, ['class' => 'form-control editable']) !!}
+                            {!! Form::textarea('body_text', null, ['class' => 'form-control editable', 'data-height' => '600']) !!}
                         </div>
                     </div>
 

@@ -9,7 +9,8 @@ $(document).ready(function () {
             "insertdatetime media table contextmenu paste"
         ],
         toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-        forced_root_block : "div"
+        forced_root_block : "div",
+        height: $(this).data('height')
     });
 
     // better multiselect for categories
@@ -37,4 +38,13 @@ $(document).ready(function () {
         firstDay: 1
     });
 
+});
+
+$(window).load(function () {
+
+    //slightly adjust size of the editor textareas when everything else is loaded
+    var body_text_ifr = $('#body_text_ifr');
+    if (body_text_ifr.length > 0) {
+        body_text_ifr.height(900);
+    }
 });
