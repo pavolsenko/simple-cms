@@ -3,12 +3,12 @@
 use Illuminate\Database\Seeder;
 use App\Blog\UrlService;
 use Faker\Factory as Faker;
-use App\Blog\BlogPost;
-use App\Blog\Author;
-use App\Blog\Comment;
-use App\Blog\CommentAuthor;
-use App\Blog\SocialProfile;
-use App\Blog\BlogCategory;
+use App\Blog\BlogPost\BlogPost;
+use App\Blog\Author\Author;
+use App\Blog\Comment\Comment;
+use App\Blog\Comment\CommentAuthor;
+use App\Blog\Author\SocialProfile;
+use App\Blog\BlogCategory\BlogCategory;
 
 class DatabaseSeeder extends Seeder
 {
