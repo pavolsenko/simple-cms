@@ -24,7 +24,7 @@ class PageController extends Controller {
         if (!empty($pages)) {
             return $this->view
                 ->make('admin/pages/dashboard')
-                ->with('pages', $pages)
+                ->with('pages', $pages['data'])
                 ->with('total_pages', $pages['last_page'])
                 ->with('current_page', $pages['current_page']);
         } else {
@@ -50,13 +50,23 @@ class PageController extends Controller {
 
     }
 
+    public function getPublish() {
+
+    }
+
+    public function getUnpublish() {
+
+    }
+
     public function getPage($url) {
         $page = $this->pageRepository->getPageByUrl($url);
         if (is_null($page)) {
             return $this->view
                 ->make('errors/404', [], [404]);
         } else {
-            return null;
+            return $this->view
+                ->make('singlePage')
+                ->with('page', $page);
         }
     }
 

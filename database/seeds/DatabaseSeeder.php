@@ -4,11 +4,12 @@ use Illuminate\Database\Seeder;
 use App\Blog\UrlService;
 use Faker\Factory as Faker;
 use App\Blog\BlogPost\BlogPost;
-use App\Blog\Author\Author;
 use App\Blog\Comment\Comment;
 use App\Blog\Comment\CommentAuthor;
+use App\Blog\Author\Author;
 use App\Blog\Author\SocialProfile;
 use App\Blog\BlogCategory\BlogCategory;
+use App\Blog\Page\Page;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
     const NUMBER_OF_POSTS = 100;
     const NUMBER_OF_COMMENTS_AUTHORS = 200;
     const NUMBER_OF_COMMENTS = 1000;
+    const NUMBER_OF_PAGES = 100;
 
     // these table will not be touched
     const IGNORED_TABLES = ['migrations', 'user', 'password_resets'];
@@ -33,8 +35,19 @@ class DatabaseSeeder extends Seeder
     private $commentAuthor;
     private $socialProfile;
     private $blogCategory;
+    private $page;
 
-    public function __construct(Faker $faker, BlogPost $blogPost, Author $author, UrlService $urlService, Comment $comment, CommentAuthor $commentAuthor, SocialProfile $socialProfile, BlogCategory $blogCategory) {
+    public function __construct(
+        Faker $faker,
+        BlogPost $blogPost,
+        Author $author,
+        UrlService $urlService,
+        Comment $comment,
+        CommentAuthor $commentAuthor,
+        SocialProfile $socialProfile,
+        BlogCategory $blogCategory,
+        Page $page
+    ) {
         $this->faker = $faker;
         $this->blogPost = $blogPost;
         $this->author = $author;
@@ -43,6 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->commentAuthor = $commentAuthor;
         $this->socialProfile = $socialProfile;
         $this->blogCategory = $blogCategory;
+        $this->page = $page;
     }
 
     public function run()
@@ -164,6 +178,22 @@ class DatabaseSeeder extends Seeder
             $this->comment->status = 1;
             $this->comment->ip_address = $this->faker->ipv4;
             $this->comment->save();
+            echo '.';
+        }
+
+        echo "\nSeeding static pages (".self::NUMBER_OF_PAGES.') ';
+
+        for ($ii = 0; $ii < self::NUMBER_OF_PAGES; $ii++) {
+            $this->page = new Page();
+            $this->page->title = $this->faker->sentence(10, true);
+            for ($jj = 0; $jj < round(rand(5,20)); $jj++) {
+                $this->page->body_text .= '<div>'.$this->faker->paragraph(round(rand(10, 30))).'</div><br>';
+            }
+            $this->page->created_by = 2;
+            $this->page->updated_by = $this->page->created_by;
+            $this->page->enabled = 1;
+            $this->page->url = $this->urlService->createUrlFromTitle($this->page->title);
+            $this->page->save();
             echo '.';
         }
 

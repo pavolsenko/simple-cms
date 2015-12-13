@@ -75,21 +75,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('create_new', ['as' => 'getCreatePage', 'uses' => 'PageController@getCreateOrUpdate']);
         Route::post('create_new', ['as' => 'postCreatePage', 'uses' => 'PageController@postCreateOrUpdate']);
 
-        /*
-        Route::get('update/{id}', ['as' => 'getUpdateBlogPost', 'uses' => 'BlogController@getCreateOrUpdate'])
+        Route::get('update/{id}', ['as' => 'getUpdatePage', 'uses' => 'PageController@getCreateOrUpdate'])
             ->where('id', '[0-9]+');
-        Route::post('update/{id}', ['as' => 'postUpdateBlogPost', 'uses' => 'BlogController@postCreateOrUpdate'])
-            ->where('id', '[0-9]+');
-
-        Route::get('delete/{id}', ['as' => 'getDeleteBlogPost', 'uses' => 'BlogController@getDelete'])
+        Route::post('update/{id}', ['as' => 'postUpdatePage', 'uses' => 'PageController@postCreateOrUpdate'])
             ->where('id', '[0-9]+');
 
-        Route::get('publish/{id}', ['as' => 'getPublishBlogPost', 'uses' => 'BlogController@getPublish'])
-            ->where('id', '[0-9]+');
-        Route::get('unpublish/{id}', ['as' => 'getUnpublishBlogPost', 'uses' => 'BlogController@getUnpublish'])
+        Route::get('delete/{id}', ['as' => 'getDeletePage', 'uses' => 'PageController@getDelete'])
             ->where('id', '[0-9]+');
 
-        */
+        Route::get('publish/{id}', ['as' => 'getPublishPage', 'uses' => 'PageController@getPublish'])
+            ->where('id', '[0-9]+');
+        Route::get('unpublish/{id}', ['as' => 'getUnpublishPage', 'uses' => 'PageController@getUnpublish'])
+            ->where('id', '[0-9]+');
     });
 
 });

@@ -4,6 +4,9 @@ namespace App\Blog\Page;
 
 class EloquentPageRepository implements PageRepositoryInterface {
 
+    const ENABLED = 1;
+    const PAGES_PER_PAGE_ADMIN = 20;
+
     protected $page;
 
     public function __construct(Page $page) {
@@ -11,20 +14,30 @@ class EloquentPageRepository implements PageRepositoryInterface {
     }
 
     public function getPageByUrl($url) {
-        $page = null;
-
+        $page = $this->page
+            ->where('url', $url)
+            ->where('enabled', self::ENABLED)
+            ->first();
+        if (!is_null($page)) {
+            $page = $page->toArray();
+        }
         return $page;
     }
 
     public function getPageById($id) {
-
-        $page = null;
-
+        $page = $this->page
+            ->where('id', $id)
+            ->first();
+        if (!is_null($page)) {
+            $page = $page->toArray();
+        }
         return $page;
     }
 
     public function getAllPages() {
-        $pages = $this->page->get();
+        $pages = $this->page
+            ->orderBy('created_at', 'desc')
+            ->paginate(self::PAGES_PER_PAGE_ADMIN);
         if (!is_null($pages)) {
             $pages = $pages->toArray();
         }

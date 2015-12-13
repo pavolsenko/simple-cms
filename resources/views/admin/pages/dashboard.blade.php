@@ -15,7 +15,7 @@
 
         <a href="{{ URL::route('getCreatePage') }}" class="btn btn-primary btn-sm">@lang('page.create_new')</a>
 
-        @if(!empty($posts))
+        @if(!empty($pages))
 
             <div class="pull-right">
                 @include('partials.pagination')
@@ -37,7 +37,6 @@
                     </th>
                     <th>@lang('page.published')</th>
                     <th style="min-width:200px">
-                        @lang('page.created_by')<br>
                         @lang('page.created_at')<br>
                         @lang('page.last_updated_at')
                     </th>
@@ -51,6 +50,7 @@
                     <td>{{ $page['id'] }}</td>
                     <td>
                         <a href="{{ URL::route('getUpdatePage', $page['id']) }}"><b>{{ $page['title'] }}</b></a><br>
+                        <a href="{{ URL::route('staticPage', $page['url']) }}" target="_blank"><span class="text-muted">/{{ $page['url'] }}</span></a>
                     </td>
                     <td class="text-center">
                         @if($page['enabled'])

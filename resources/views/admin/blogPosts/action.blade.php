@@ -1,6 +1,6 @@
 <div class="btn-group">
     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Action <span class="caret"></span>
+        @lang('blog.action') <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
         <li><a href="{{ URL::route('getUpdateBlogPost', $blog_post['id']) }}">@lang('blog.edit')</a></li>

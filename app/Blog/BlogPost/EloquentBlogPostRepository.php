@@ -90,15 +90,15 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
                 ->where('enabled', self::ENABLED)
                 ->with(['author', 'comments', 'categories'])
                 ->orderBy('created_at', 'desc')
-                ->paginate(self::POSTS_PER_PAGE_BLOG)
-                ->toArray();
+                ->paginate(self::POSTS_PER_PAGE_BLOG);
         } else {
             $posts = $this->blogPost
                 ->with(['author', 'comments', 'categories'])
                 ->orderBy('created_at', 'desc')
-                ->paginate(self::POSTS_PER_PAGE_ADMIN)
-                ->toArray();
-
+                ->paginate(self::POSTS_PER_PAGE_ADMIN);
+        }
+        if (!is_null($posts)) {
+            $posts = $posts->toArray();
         }
         return $posts;
     }
