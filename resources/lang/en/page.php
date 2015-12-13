@@ -1,5 +1,7 @@
 <?php
 
+// English language file for static pages and pages administration
+
 return [
 
     'action' => 'Action',
