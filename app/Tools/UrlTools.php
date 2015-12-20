@@ -1,22 +1,19 @@
-<?php namespace App\Blog;
+<?php namespace App\Tools;
 
-class UrlService {
+class UrlTools {
 
+    public function __construct() {
 
-  /**
-   * @param $url
-   */
-    public function verifyUrl($url) {
-        //TODO: verify if URL is valid
     }
 
-  /**
-   * Cleans the string and returns URL string
-   *
-   * @param string $input input string to be converted
-   *
-   * @return string
-   */
+    public function saveNewUrl($url) {
+
+    }
+
+    public function verifyUrl($url) {
+
+    }
+
     public function createUrlFromString($input) {
         $url = str_replace(' ', '-', $input);
         $url = $this->cleanString($url);
@@ -25,45 +22,33 @@ class UrlService {
         return $url;
     }
 
-  /**
-   * Cleans special characters from given string
-   *
-   * @param string $text input string
-   *
-   * @return mixed
-   */
     private function cleanString($text) {
 
-        // A
+        // 1) convert á ô => a o
         $text = preg_replace("/[áàâãªäå]/u","a",$text);
         $text = preg_replace("/[ÁÀÂÃÄÅ]/u","A",$text);
-        // C
         $text = str_replace("/[çč]/u","c",$text);
         $text = str_replace("/[ÇČ]","C",$text);
-        // D
-
-        // E
+// d
         $text = preg_replace("/[éèêëě]/u","e",$text);
         $text = preg_replace("/[ÉÈÊËĚ]/u","E",$text);
-        // I
         $text = preg_replace("/[ÍÌÎÏ]/u","I",$text);
         $text = preg_replace("/[íìîï]/u","i",$text);
         $text = preg_replace("/[ĺľ]/u","l",$text);
-        // L
-
-        // N
+        //L
+        //n
         $text = str_replace("ñ","n",$text);
         $text = str_replace("Ñ","N",$text);
-        // O
+
         $text = preg_replace("/[óòôõºö]/u","o",$text);
         $text = preg_replace("/[ÓÒÔÕÖ]/u","O",$text);
-        // R
+
         $text = preg_replace("/[ŕř]/u","r",$text);
         $text = preg_replace("/[ŔŘ]/u","R",$text);
-        // U
+
         $text = preg_replace("/[úùûüů]/u","u",$text);
         $text = preg_replace("/[ÚÙÛÜŮ]/u","U",$text);
-        // Special characters
+
         $text = preg_replace("/[’‘‹›‚]/u","'",$text);
         $text = preg_replace("/[“”«»„]/u",'"',$text);
         $text = str_replace("–","-",$text);

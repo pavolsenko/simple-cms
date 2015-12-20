@@ -5,6 +5,7 @@ use App\Blog\BlogCategory\BlogCategoryRepositoryInterface;
 use App\Blog\Author\AuthorRepositoryInterface;
 use App\Blog\Comment\CommentRepositoryInterface;
 use Illuminate\Contracts\Config\Repository as Config;
+use App\Tools\SeoTools;
 
 /**
  * Class BlogService
@@ -19,7 +20,7 @@ class BlogService {
     private $blogCategoryRepository;
     private $authorRepository;
     private $commentRepository;
-    private $urlService;
+    private $seoTools;
     private $config;
 
     /**
@@ -30,14 +31,14 @@ class BlogService {
         BlogCategoryRepositoryInterface $blogCategoryRepositoryInterface,
         AuthorRepositoryInterface $authorRepositoryInterface,
         CommentRepositoryInterface $commentRepositoryInterface,
-        UrlService $urlService,
+        SeoTools $seoTools,
         Config $config
     ) {
         $this->blogPostRepository = $blogPostRepositoryInterface;
         $this->blogCategoryRepository = $blogCategoryRepositoryInterface;
         $this->authorRepository = $authorRepositoryInterface;
         $this->commentRepository = $commentRepositoryInterface;
-        $this->urlService = $urlService;
+        $this->seoTools = $seoTools;
         $this->config = $config;
     }
 
@@ -86,7 +87,7 @@ class BlogService {
 
     /**
      * @param $id
-     * @return mixed
+     * @return array
      */
     public function getBlogPostById($id) {
         $post = $this->blogPostRepository->getBlogPostById($id);
@@ -94,14 +95,16 @@ class BlogService {
     }
 
     /**
+     * Saves blog post
+     *
      * @param $input array
      * @return array
      */
     public function saveBlogPost($input) {
         if (empty($input['url'])) {
-            $input['url'] = $this->urlService->createUrlFromTitle($input['title']);
+            $input['url'] = $this->seoTools->createNiceUrl($input['title']);
         } else {
-            $input['url'] = $this->urlService->createUrlFromTitle($input['url']);
+            $input['url'] = $this->seoTools->createNiceUrl($input['url']);
         }
         if (isset($input['id'])) {
             $blog_post = $this->blogPostRepository->updateBlogPost($input);

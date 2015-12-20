@@ -5,6 +5,7 @@ namespace App\Blog\Page;
 class EloquentPageRepository implements PageRepositoryInterface {
 
     const ENABLED = 1;
+    const DISABLED = 0;
     const PAGES_PER_PAGE_ADMIN = 20;
 
     protected $page;
@@ -42,6 +43,46 @@ class EloquentPageRepository implements PageRepositoryInterface {
             $pages = $pages->toArray();
         }
         return $pages;
+    }
+
+    public function createPage($input)
+    {
+        // TODO: Implement createPage() method.
+    }
+
+    public function updatePage($input)
+    {
+        // TODO: Implement updatePage() method.
+    }
+
+    public function deletePage($id) {
+        return $this->page->delete($id);
+    }
+
+    public function publishPage($id) {
+        $page = $this->page
+            ->where('id', $id)
+            ->first();
+        if (!is_null($page)) {
+            $page->enabled = self::ENABLED;
+            $page->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function unpublishPage($id) {
+        $page = $this->page
+            ->where('id', $id)
+            ->first();
+        if (!is_null($page)) {
+            $page->enabled = self::DISABLED;
+            $page->save();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
