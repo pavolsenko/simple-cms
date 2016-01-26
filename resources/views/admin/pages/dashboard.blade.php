@@ -34,6 +34,7 @@
                     <th>@lang('page.id')</th>
                     <th>
                         @lang('page.title')<br>
+                        @lang('page.url')
                     </th>
                     <th>@lang('page.published')</th>
                     <th style="min-width:200px">

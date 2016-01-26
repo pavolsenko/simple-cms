@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Blog\BlogService;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\View\Factory as View;
 use Illuminate\Routing\Redirector;
 use Illuminate\Validation\Factory as Validator;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory as View;
 use App\Blog\Page\PageRepositoryInterface;
 use App\Blog\Page\PageService;
@@ -18,34 +18,41 @@ class PageController extends Controller {
     private $pageRepository;
     private $pageService;
     private $blogService;
+    private $request;
 
     /**
      * PageController constructor injecting dependencies.
      */
-    public function __construct(View $view, PageRepositoryInterface $pageRepositoryInterface, PageService $pageService, BlogService $blogService) {
+    public function __construct(
+        View $view,
+        PageRepositoryInterface $pageRepositoryInterface,
+        PageService $pageService,
+        BlogService $blogService,
+        Request $request
+    ) {
         $this->view = $view;
         $this->pageRepository = $pageRepositoryInterface;
         $this->pageService = $pageService;
         $this->blogService = $blogService;
+        $this->request = $request;
     }
 
     /**
-     * @return $this
+     * @return View
      */
     public function indexAdmin() {
         $pages = $this->pageRepository->getAllPages();
         if (!empty($pages)) {
-            return $this->view
-                ->make('admin/pages/dashboard')
-                ->with('pages', $pages['data'])
-                ->with('total_pages', $pages['last_page'])
-                ->with('current_page', $pages['current_page']);
-        } else {
-            return $this->view
-                ->make('admin/pages/dashboard')
-                ->with('pages', null)
-                ->with('total_pages', 0);
+            $pages['data'] = null;
+            $pages['last_page'] = 0;
+            $pages['current_page'] = 0;
         }
+        return $this->view
+            ->make('admin/pages/dashboard')
+            ->with('pages', $pages['data'])
+            ->with('total_pages', $pages['last_page'])
+            ->with('current_page', $pages['current_page']);
+
     }
 
     /**
@@ -67,7 +74,39 @@ class PageController extends Controller {
      * @param $id
      */
     public function postCreateOrUpdate($id) {
-
+        $input = $this->request->all();
+        $rules = [
+            'title' => 'required',
+            'body_text' => 'required',
+        ];
+        $this->validator = $this->validator->make($input, $rules);
+        if ($this->validator->fails()) {
+            return $this->redirector
+                ->back()
+                ->withInput()
+                ->withErrors($this->validator);
+        } else {
+            $blog_post = $this->blogService->saveBlogPost($input);
+            $message = trans('blog.saved');
+            $authors = $this->blogService->getAllAuthorsWithIds();
+            $categories = $this->blogService->getAllCategoriesWithIds();
+            $selected_categories = [];
+            foreach ($blog_post['categories'] as $selected_category) {
+                array_push($selected_categories, $selected_category['id']);
+            }
+            if ($input['close']) {
+                return $this->redirector
+                    ->route('postsDashboard');
+            } else {
+                return $this->view
+                    ->make('admin/blogPosts/createOrUpdate')
+                    ->with('blog_post', $blog_post)
+                    ->with('authors', $authors)
+                    ->with('categories', $categories)
+                    ->with('selected_categories', $selected_categories)
+                    ->with('message', $message);
+            }
+        }
     }
 
     /**

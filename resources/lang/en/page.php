@@ -33,6 +33,6 @@ return [
     'title' => 'Title',
     'trash' => 'Trash',
     'unpublish' => 'Unpublish',
-    'url' => 'Nice URL',
+    'url' => 'URL',
 
 ];
