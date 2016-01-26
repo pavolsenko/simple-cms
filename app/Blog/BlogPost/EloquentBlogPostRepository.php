@@ -52,9 +52,8 @@ class EloquentBlogPostRepository implements BlogPostRepositoryInterface {
             $this->blogPost->meta_description = $input['meta_description'];
             $this->blogPost->save();
             $this->blogPost->categories()->sync($input['categories']);
-            $this->blogPost = $this->blogPost->toArray();
         }
-        return $this->blogPost;
+        return $this->blogPost->toArray();
     }
 
     public function deleteBlogPost($id) {
