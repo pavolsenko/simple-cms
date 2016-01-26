@@ -99,9 +99,9 @@ class BlogService {
      */
     public function saveBlogPost($input) {
         if (empty($input['url'])) {
-            $input['url'] = $this->urlService->createUrlFromTitle($input['title']);
+            $input['url'] = $this->urlService->createUrlFromString($input['title']);
         } else {
-            $input['url'] = $this->urlService->createUrlFromTitle($input['url']);
+            $input['url'] = $this->urlService->createUrlFromString($input['url']);
         }
         if (isset($input['id'])) {
             $blog_post = $this->blogPostRepository->updateBlogPost($input);

@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
             $this->blogCategory->created_by = 2;
             $this->blogCategory->updated_by = $this->blogCategory->created_by;
             $this->blogCategory->enabled = 1;
-            $this->blogCategory->url = $this->urlService->createUrlFromTitle($this->blogCategory->title);
+            $this->blogCategory->url = $this->urlService->createUrlFromString($this->blogCategory->title);
             $this->blogCategory->color = $this->faker->hexColor();
             $this->blogCategory->save();
             echo '.';
@@ -144,7 +144,7 @@ class DatabaseSeeder extends Seeder
             $this->blogPost->created_by = 2;
             $this->blogPost->updated_by = $this->blogPost->created_by;
             $this->blogPost->enabled = 1;
-            $this->blogPost->url = $this->urlService->createUrlFromTitle($this->blogPost->title);
+            $this->blogPost->url = $this->urlService->createUrlFromString($this->blogPost->title);
             $this->blogPost->save();
             $categories = [];
             for($jj = 0; $jj < 5; $jj++) {
@@ -192,7 +192,7 @@ class DatabaseSeeder extends Seeder
             $this->page->created_by = 2;
             $this->page->updated_by = $this->page->created_by;
             $this->page->enabled = 1;
-            $this->page->url = $this->urlService->createUrlFromTitle($this->page->title);
+            $this->page->url = $this->urlService->createUrlFromString($this->page->title);
             $this->page->save();
             echo '.';
         }
