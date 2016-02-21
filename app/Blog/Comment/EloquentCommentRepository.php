@@ -49,8 +49,15 @@ class EloquentCommentRepository implements CommentRepositoryInterface {
         return $status;
     }
 
-    public function deleteComment($id) {
-
+    public function deleteComment($id)
+    {
+        $this->comment = $this->comment
+            ->where('id', $id)
+            ->first();
+        if (!is_null($this->comment)) {
+            return $this->comment->delete();
+        }
+        return $this->comment;
     }
 
     public function getCommentsByBlogPostId($id) {

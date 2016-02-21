@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory as View;
+use Illuminate\Validation\Factory as Validator;
 use App\Blog\Page\PageRepositoryInterface;
 use App\Blog\Page\PageService;
 use App\Blog\BlogService;
@@ -19,6 +20,7 @@ class PageController extends Controller {
     private $pageService;
     private $blogService;
     private $request;
+    private $validator;
 
     /**
      * PageController constructor injecting dependencies.
@@ -28,13 +30,15 @@ class PageController extends Controller {
         PageRepositoryInterface $pageRepositoryInterface,
         PageService $pageService,
         BlogService $blogService,
-        Request $request
+        Request $request,
+        Validator $validator
     ) {
         $this->view = $view;
         $this->pageRepository = $pageRepositoryInterface;
         $this->pageService = $pageService;
         $this->blogService = $blogService;
         $this->request = $request;
+        $this->validator = $validator;
     }
 
     /**
@@ -42,7 +46,7 @@ class PageController extends Controller {
      */
     public function indexAdmin() {
         $pages = $this->pageRepository->getAllPages();
-        if (!empty($pages)) {
+        if (empty($pages)) {
             $pages['data'] = null;
             $pages['last_page'] = 0;
             $pages['current_page'] = 0;
@@ -52,14 +56,13 @@ class PageController extends Controller {
             ->with('pages', $pages['data'])
             ->with('total_pages', $pages['last_page'])
             ->with('current_page', $pages['current_page']);
-
     }
 
     /**
      * @param null $id
      * @return $this
      */
-    public function getCreateOrUpdate($id=null) {
+    public function getCreateOrUpdate($id = null) {
         if (!is_null($id)) {
             $page = $this->pageService->getPageById($id);
         } else {
@@ -70,10 +73,7 @@ class PageController extends Controller {
             ->with('page', $page);
     }
 
-    /**
-     * @param $id
-     */
-    public function postCreateOrUpdate($id) {
+    public function postCreateOrUpdate() {
         $input = $this->request->all();
         $rules = [
             'title' => 'required',
@@ -86,24 +86,15 @@ class PageController extends Controller {
                 ->withInput()
                 ->withErrors($this->validator);
         } else {
-            $blog_post = $this->blogService->saveBlogPost($input);
+            $page = $this->pageService->savePage($input);
             $message = trans('blog.saved');
-            $authors = $this->blogService->getAllAuthorsWithIds();
-            $categories = $this->blogService->getAllCategoriesWithIds();
-            $selected_categories = [];
-            foreach ($blog_post['categories'] as $selected_category) {
-                array_push($selected_categories, $selected_category['id']);
-            }
             if ($input['close']) {
                 return $this->redirector
-                    ->route('postsDashboard');
+                    ->route('pagesDashboard');
             } else {
                 return $this->view
-                    ->make('admin/blogPosts/createOrUpdate')
-                    ->with('blog_post', $blog_post)
-                    ->with('authors', $authors)
-                    ->with('categories', $categories)
-                    ->with('selected_categories', $selected_categories)
+                    ->make('admin/pages/createOrUpdate')
+                    ->with('page', $page)
                     ->with('message', $message);
             }
         }

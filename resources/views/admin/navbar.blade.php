@@ -24,7 +24,7 @@
                 <a href="{{ URL::route('authorsDashboard') }}">@lang('navigation.authors')</a>
             </li>
             <li>
-                <a href="{{ URL::route('authorsDashboard') }}">@lang('navigation.comments')</a>
+                <a href="{{ URL::route('commentsDashboard') }}">@lang('navigation.comments')</a>
             </li>
             <li>
                 <a href="{{ URL::route('pagesDashboard') }}">@lang('navigation.pages')</a>

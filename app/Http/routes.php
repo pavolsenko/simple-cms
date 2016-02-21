@@ -89,6 +89,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             ->where('id', '[0-9]+');
     });
 
+    /* Comments administration*/
+
+    Route::group(['prefix' => 'comments'], function () {
+        Route::get('dashboard', ['as' => 'commentsDashboard', 'uses' => 'CommentsController@indexAdmin']);
+
+        Route::get('update/{id}', ['as' => 'getUpdateComment', 'uses' => 'CommentsController@getCreateOrUpdate'])
+            ->where('id', '[0-9]+');
+        Route::post('update/{id}', ['as' => 'postUpdateComment', 'uses' => 'CommentsController@postCreateOrUpdate'])
+            ->where('id', '[0-9]+');
+
+        Route::get('delete/{id}', ['as' => 'getDeleteComment', 'uses' => 'CommentsController@getDelete'])
+            ->where('id', '[0-9]+');
+
+        Route::get('publish/{id}', ['as' => 'getPublishComment', 'uses' => 'CommentsController@getPublish'])
+            ->where('id', '[0-9]+');
+        Route::get('unpublish/{id}', ['as' => 'getUnpublishComment', 'uses' => 'CommentsController@getUnpublish'])
+            ->where('id', '[0-9]+');
+    });
+
     /* Settings pages */
 
     Route::group(['prefix' => 'settings'], function () {
@@ -97,7 +116,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 
 });
-
 
 /* Blog routes */
 
