@@ -15,38 +15,22 @@
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@lang('navigation.blog_posts')<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{{ URL::route('postsDashboard') }}">@lang('navigation.blog_posts_dashboard')</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::route('getCreateBlogPost') }}">@lang('navigation.create_new_blog_post')</a>
-                    </li>
-                </ul>
+                <a href="{{ URL::route('postsDashboard') }}">@lang('navigation.blog_posts')</a>
             </li>
             <li>
                 <a href="#">@lang('navigation.blog_categories')</a>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@lang('navigation.authors')<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{{ URL::route('authorsDashboard') }}">@lang('navigation.authors_dashboard')</a>
-                    </li>
-                    <li>
-                        //
-                    </li>
-                </ul>
+                <a href="{{ URL::route('authorsDashboard') }}">@lang('navigation.authors')</a>
             </li>
             <li>
-                <a href="#">@lang('navigation.comments')</a>
+                <a href="{{ URL::route('authorsDashboard') }}">@lang('navigation.comments')</a>
             </li>
             <li>
                 <a href="{{ URL::route('pagesDashboard') }}">@lang('navigation.pages')</a>
             </li>
             <li>
-                <a href="#">@lang('navigation.settings')</a>
+                <a href="{{ URL::route('adminSettings') }}">@lang('navigation.settings')</a>
             </li>
 
         </ul>

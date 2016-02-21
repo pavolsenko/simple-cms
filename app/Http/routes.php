@@ -89,6 +89,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             ->where('id', '[0-9]+');
     });
 
+    /* Settings pages */
+
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/', ['as' => 'adminSettings', 'uses' => 'SettingsController@index']);
+
+    });
+
 });
 
 

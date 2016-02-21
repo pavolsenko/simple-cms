@@ -17,7 +17,7 @@ class AuthorController extends Controller
 
     public function index()
     {
-        return $this->view->make('admin/blog/authors/dashboard');
+        return $this->view->make('admin/authors/dashboard');
     }
 
 }
