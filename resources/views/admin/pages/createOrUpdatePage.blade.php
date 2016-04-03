@@ -12,10 +12,11 @@
         @if(isset($page))
             {!! Form::model($page, ['route' => ['postUpdatePage', $page['id']]]) !!}
             {!! Form::hidden('id', $page['id']) !!}
-            {!! Form::hidden('close', 0) !!}
         @else
             {!! Form::open(['route' => 'postCreatePage']) !!}
         @endif
+
+        {!! Form::hidden('close', 0) !!}
 
         @if(session('message'))
             <div class="alert alert-warning">

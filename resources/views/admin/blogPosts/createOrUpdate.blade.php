@@ -12,10 +12,10 @@
         @if(isset($blog_post))
             {!! Form::model($blog_post, ['route' => ['postUpdateBlogPost', $blog_post['id']]]) !!}
             {!! Form::hidden('id', $blog_post['id']) !!}
-            {!! Form::hidden('close', 0) !!}
         @else
             {!! Form::open(['route' => 'postCreateBlogPost']) !!}
         @endif
+        {!! Form::hidden('close', 0) !!}
 
         @if(session('message'))
             <div class="alert alert-warning">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Validation\Factory as Validator;
+use Illuminate\Routing\Redirector;
 use App\Blog\Page\PageRepositoryInterface;
 use App\Blog\Page\PageService;
 use App\Blog\BlogService;
@@ -21,6 +22,7 @@ class PageController extends Controller {
     private $blogService;
     private $request;
     private $validator;
+    private $redirector;
 
     /**
      * PageController constructor injecting dependencies.
@@ -31,7 +33,8 @@ class PageController extends Controller {
         PageService $pageService,
         BlogService $blogService,
         Request $request,
-        Validator $validator
+        Validator $validator,
+        Redirector $redirector
     ) {
         $this->view = $view;
         $this->pageRepository = $pageRepositoryInterface;
@@ -39,6 +42,7 @@ class PageController extends Controller {
         $this->blogService = $blogService;
         $this->request = $request;
         $this->validator = $validator;
+        $this->redirector = $redirector;
     }
 
     /**
@@ -87,13 +91,13 @@ class PageController extends Controller {
                 ->withErrors($this->validator);
         } else {
             $page = $this->pageService->savePage($input);
-            $message = trans('blog.saved');
+            $message = trans('page.saved');
             if ($input['close']) {
                 return $this->redirector
                     ->route('pagesDashboard');
             } else {
                 return $this->view
-                    ->make('admin/pages/createOrUpdate')
+                    ->make('admin/pages/createOrUpdatePage')
                     ->with('page', $page)
                     ->with('message', $message);
             }
