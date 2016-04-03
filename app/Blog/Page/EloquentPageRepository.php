@@ -63,9 +63,21 @@ class EloquentPageRepository implements PageRepositoryInterface {
         return $this->page->toArray();
     }
 
-    public function updatePage($input)
-    {
-        // TODO: Implement updatePage() method.
+    public function updatePage($input) {
+        $this->page = $this->page
+            ->where('id', $input['id'])
+            ->first();
+        if (!is_null($this->page)) {
+            $this->page->title = $input['title'];
+            $this->page->body_text = $input['body_text'];
+            $this->page->updated_by = $this->auth->user()->getAuthIdentifier();
+            $this->page->url = $input['url'];
+            $this->page->meta_title = $input['meta_title'];
+            $this->page->meta_keywords = $input['meta_keywords'];
+            $this->page->meta_description = $input['meta_description'];
+            $this->page->save();
+        }
+        return $this->page->toArray();
     }
 
     public function deletePage($id) {
