@@ -151,6 +151,8 @@ return [
         App\Providers\AuthorServiceProvider::class,
         App\Providers\CommentServiceProvider::class,
         App\Providers\PageServiceProvider::class,
+
+        App\Providers\SensorServiceProvider::class,
     ],
 
     /*

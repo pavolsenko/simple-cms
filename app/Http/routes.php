@@ -134,9 +134,15 @@ Route::group(['prefix' => 'blog'], function () {
     Route::post('comment', ['as' => 'postComment', 'uses' => 'BlogController@postComment']);
 });
 
+/* Gardening stuff */
+
+Route::get('/sensor', ['as' => 'sendSensorData', 'uses' => 'SensorController@sendData']);
+
 
 /* Static pages routes */
 
 Route::get('/{url}', ['as' => 'staticPage', 'uses' => 'PageController@getPage'])
     ->where('url', '[0-9, a-z, A-Z, \-]+');
+
+
 
